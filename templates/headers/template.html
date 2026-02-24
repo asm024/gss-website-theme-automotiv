@@ -370,50 +370,44 @@
 [%/thumb_list%]
 [%if [@dah_partfinder_active@] eq 'y'%]
 <div class="dah_newpartfinder parts_finder" style="position: relative; z-index: 9;">
-	[%set [@dah_partcategories@] %]
-	[%list type:'content' filter:'content_type=parts_finder&content_level=1' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
-	[%param *body%]
-		{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
-		[%list type:'content' filter:'content_type=parts_finder&content_level=2&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
-		[%param *header%][[%/param%]
-		[%param *body%]
+
+	[%site_value id:'footer_javascript'%]
+		<script>
+			const partfindercat = [[%cache type:'content' id:'dah_partfinder_json' expiry:'3600'%][%format type:'text' trim:'e1'%][%list type:'content' filter:'content_type=parts_finder&content_level=1' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+			[%param *body%]
+			{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+			[%list type:'content' filter:'content_type=parts_finder&content_level=2&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+			[%param *header%][[%/param%]
+			[%param *body%]
 			{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
 			[%list type:'content' filter:'content_type=parts_finder&content_level=3&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
 			[%param *header%][[%/param%]
 			[%param *body%]
-				{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
-				[%list type:'content' filter:'content_type=parts_finder&content_level=4&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
-				[%param *header%][[%/param%]
-				[%param *body%]
-					{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
-					[%list type:'content' filter:'content_type=parts_finder&content_level=5&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
-					[%param *header%][[%/param%]
-					[%param *body%]{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:0},[%/param%]
-					[%param *footer%]][%/param%]
-					[%param *ifempty%]0[%/param%]
-					[%/list%]
-				},
-				[%/param%]
-				[%param *footer%]][%/param%]
-				[%param *ifempty%]0[%/param%]
-				[%/list%]
-			},
-			[%/param%]
+			{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+			[%list type:'content' filter:'content_type=parts_finder&content_level=4&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+			[%param *header%][[%/param%]
+			[%param *body%]
+			{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+			[%list type:'content' filter:'content_type=parts_finder&content_level=5&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+			[%param *header%][[%/param%]
+			[%param *body%]{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:0},[%/param%]
 			[%param *footer%]][%/param%]
 			[%param *ifempty%]0[%/param%]
 			[%/list%]
-		},
-		[%/param%]
-		[%param *footer%]][%/param%]
-		[%param *ifempty%]0[%/param%]
-		[%/list%]
-	},
-	[%/param%]
-	[%/list%]
-	[%/set%]
-	[%site_value id:'footer_javascript'%]
-		<script>
-			const partfindercat = [[%format type:'text' trim:'e1'%][@dah_partcategories@][%/format%]];
+			},[%/param%]
+			[%param *footer%]][%/param%]
+			[%param *ifempty%]0[%/param%]
+			[%/list%]
+			},[%/param%]
+			[%param *footer%]][%/param%]
+			[%param *ifempty%]0[%/param%]
+			[%/list%]
+			},[%/param%]
+			[%param *footer%]][%/param%]
+			[%param *ifempty%]0[%/param%]
+			[%/list%]
+			},[%/param%]
+			[%/list%][%/format%][%/cache%]];
 			//console.log(partfindercat);
 			var lvl_1 ="";
 			var lvl_2 ="";
