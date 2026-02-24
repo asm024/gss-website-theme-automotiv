@@ -1,0 +1,89 @@
+<div class="row">
+	<meta itemprop="itemCondition" content="NewCondition">
+	<meta itemprop="brand" content="[@brand@]"/>
+	<div class="wrapper-product-title col-12">
+		<h1 itemprop="name" aria-label="Product Name">
+			[%url_info type:'product' id:'[@inventory_id@]' name:'page_heading' default:'[@name@]'/%]
+		</h1>
+		[%if [@subtitle@]%]
+			<h3 class="text-muted" role="heading" aria-label="Product Subtitle">[@subtitle@]</h3>
+		[%/if%]
+		[%if [@sku@]%]
+			<p class="product-sku" role="SKU" aria-label="Product SKU">SKU code: [@sku@]</p>
+		[%/if%]
+
+		[%set [@review_sku@]%][%if [@parent_sku@]%][@parent_sku@][%else%][@sku@][%/if%][%/set%]
+		[%load_ajax_template id:'_reviews' type:'item' template:'reviews' preload:'1' tmpl_sku:'[@review_sku@]' /%]
+
+	</div>
+	[%set [@price_hide@] %]Y[%/set%]
+  	[%if [@config:wholesale@] eq '1'%][%if [@user:group_id@] eq [@config:default_groupid@]%][%set [@price_hide@] %]Y[%/set%][%else%][%set [@price_hide@]%]N[%/set%][%/if%][%else%][%set [@price_hide@]%]N[%/set%][%/if%]
+	[%if [@price_hide@] eq 'N'%]
+		[%if ![@has_child@] || [@has_variation@]%]
+			<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="wrapper-pricing col-12">
+				<meta itemprop="priceCurrency" content="[@config:defaultcurrency@]">
+				[%if ![@inpromo@]%]
+				[%if [@save@] > 0%]
+				<div class="productrrp text-muted small w-100 float-left" aria-label="RRP Price">
+					<s>RRP [%FORMAT type:'currency'%][@retail@][%/FORMAT%]</s>
+				</div>
+				[%/if%]
+				<div class="d-flex align-items-center float-left w-100">
+					<div class="h1" itemprop="price" content="[@store_price@]" aria-label="Store Price">
+						[%FORMAT type:'currency'%][@store_price@][%/FORMAT%]
+					</div>
+					[%if [@save@] > 0%]
+						<div class="productsave small" aria-label="Save Price">
+							SAVE [%format type:'currency'%][@save_price@][%/format%] ([%format type:'percent'%][@save@][%/format%])
+						</div>
+					[%/if%]
+				</div>
+				[%else%]
+				[%if [@save@] > 0%]
+				<div class="productrrp text-muted small w-100 float-left" aria-label="RRP Price">
+					<s>RRP [%FORMAT type:'currency'%][@retail@][%/FORMAT%]</s>
+				</div>
+				[%/if%]
+				<div class="d-block d-sm-flex align-items-center float-left w-100">
+					<div class="productwasprice h3" aria-label="Was price">
+						WAS [%FORMAT type:'currency'%][@store_price@][%/FORMAT%]
+					</div>				
+					<div class="productpromo h1" itemprop="price" content="[@promo_price@]" aria-label="Promo Price">
+						NOW [%FORMAT type:'currency'%][@promo_price@][%/FORMAT%]
+					</div>
+					[%if [@save@] > 0%]
+						<div class="productsave small" aria-label="Save Price">
+							SAVE [%format type:'percent'%][@save@][%/format%]!
+						</div>
+					[%/if%]
+				</div>	
+					<div class="productsavetext text-danger font-weight-bold">
+						Sale Ends in <span id="sale-end" class="time"></span>
+					</div>
+					<div class="time-text" itemprop="priceValidUntil" content="[%format type:'date' format:'#Y-#M-#d'%][@promo_end@][%END format%]">
+						[%format type:'date' format:' #H:#I #a, #d #K #Y'%][@promo_end@][%/format%]
+					</div>
+				[%/if%]
+				[%if [@form:disable_scripts@] ne 'true'%]
+				[%tracking_code type:'BuyingOptions' /%]
+				[%/if%]
+				[%if [@available_preorder_quantity@] > 0 AND [@preorder@] AND [@config:WEBSTORE_USE_PREORDER_QUANTITY@]%]
+					<span itemprop="availability" content="http://schema.org/PreOrder" class="text-warning font-weight-bold">Pre-order - Released [%format type:'date'%][@arrival_date@][%/format%]</span>
+				[%elseif [@store_quantity@] > 0 AND [@preorder@] AND ![@config:WEBSTORE_USE_PREORDER_QUANTITY@]%]
+					<span itemprop="availability" content="http://schema.org/PreOrder" class="text-warning font-weight-bold">Pre-order - Released [%format type:'date'%][@arrival_date@][%/format%]</span>
+				[%elseif [@store_quantity@] > 0 AND ![@preorder@] %]
+					<span itemprop="availability" content="http://schema.org/InStock" class="text-success font-weight-bold"><i class="fa fa-check-square"></i> In Stock</span>
+				[%elseif [@store_quantity@] < 1 AND [@config:ALLOW_NOSTOCK_CHECKOUT@] %]
+					<span itemprop="availability" content="http://schema.org/LimitedAvailability" class="text-danger font-weight-bold">Sold Out - Backorder Available</span>
+				[%else%]
+					<span itemprop="availability" content="http://schema.org/OutOfStock" class="text-danger font-weight-bold">Sold Out</span>
+				[%/if%]
+				[%if [@availability_description@]%]
+					<div class="availability_description">
+						[@availability_description@]
+					</div>
+				[%/if%]
+			</div>
+		[%/if%]
+	[%/if%]
+</div>
