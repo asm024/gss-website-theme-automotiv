@@ -64,41 +64,58 @@
     </style>
 [%/if%]
 <footer class="wrapper-footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-8">
-				<nav class="row" aria-label="Footer menu">
-					[%cache type:'menu' id:'footer-content-menu' ttl:'86400'%]
-						[%menu id:'web_footer'%]
-							[%param *level_1%]
-								<div class="col-12 col-md-4 text-md-left">
-									<ul class="nav flex-column">
-										<li class="nav-item"><h4 class="nav-link py-0 mt-4 mt-md-0">[@name@]</h4></li>
-										[@next_level@]
-									</ul>
-								</div>
-							[%/param%]
-							[%param *level_2%]
-								<li class="nav-item"><a href="[@url@]" class="nav-link">[@name@]</a></li>
-							[%/param%]
-						[%/menu%]
-					[%/cache%]
-				</nav>
-			</div>
-			<div class="col-12 col-md-4 text-md-left col-footer-about">
-				[%set [@footer_logo@] %]no[%/set%]
-				[%advert type:'text' limit:'1' ad_group:'footer-logo' sortby:'sortorder' category:'0'%]
-				[%param *body%]
-					[%set [@^footer_logo@] %][%asset_url type:'adw' id:'[@ad_id@]'%][%param default%]no[%/ param%][%/ asset_url%][%/set%]
-				[%/param%]
-				[%/advert%]
-				<img src="[%if [@footer_logo@] ne 'no'%][@footer_logo@][%else%][@config:imageurl@]/website_logo.png?[@config:neto_css_version@][%/if%]" alt="[@config:company_name@] Footer Logo" class="img-fluid mt-4 mt-md-0" />
-				<p>[%content_zone id:'footer blurb'/%]</p>
-				<ul class="nav flex-column text-left">
-				</ul>
-			</div>
-		</div>
-	</div>
+<div class="container">
+  <div class="row">
+
+    <!-- Customer Service -->
+    <div class="col-12 col-md-4 text-md-left">
+      [%menu id:'customer_servic'%]
+      [%param *header%]
+      <h4><i class="fas fa-file-alt mr-2"></i>Customer Service</h4>
+      <ul class="nav flex-column">
+      [%/param%]
+      [%param *level_1%]
+      <li class="nav-item"><a href="[@url@]" class="nav-link">[@name@]</a></li>
+      [%/param%]
+      [%param *footer%]
+      </ul>
+      [%/param%]
+      [%/menu%]
+    </div>
+
+    <!-- My Account -->
+    <div class="col-12 col-md-4 text-md-left">
+      [%menu id:'footer_my_act'%]
+      [%param *header%]
+      <h4><i class="far fa-user mr-2"></i>My Account</h4>
+      <ul class="nav flex-column">
+      [%if [@user:username@]%]
+      <li class="nav-item"><a class="nav-link" href="[%url page:'account'/%]">My Account</a></li>
+      <li class="nav-item"><a class="nav-link" href="[%url page:'account' type:'logout'/%]">Logout</a></li>
+      [%else%]
+      <li class="nav-item"><a class="nav-link" href="[%url page:'account' type:'login'/%]">Sign in</a></li>
+      <li class="nav-item"><a class="nav-link" href="[%url page:'account' type:'register'/%]">Register</a></li>
+      [%/if%]
+      [%/param%]
+      [%param *level_1%]
+      [%if [@user:username@]%]
+      <li class="nav-item"><a href="[@url@]" class="nav-link">[@name@]</a></li>
+      [%/if%]
+      [%/param%]
+      [%param *footer%]
+      </ul>
+      [%/param%]
+      [%/menu%]
+    </div>
+
+    <!-- Logo + Blurb -->
+    <div class="col-12 col-md-4 text-md-left col-footer-about">
+      <img src="[@config:imageurl@]/website_logo.png?[@config:neto_css_version@]" alt="[@config:company_name@] Footer Logo" class="img-fluid mt-4 mt-md-0" />
+      <p>[%content_zone id:'footer blurb'/%]</p>
+    </div>
+
+  </div>
+</div>
 	<div class="container-fluid px-0">
 		<div class="row mx-0"><div class="col-12 px-0"><hr aria-hidden="true"/></div></div>
 	</div>
