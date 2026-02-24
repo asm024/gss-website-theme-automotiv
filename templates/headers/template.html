@@ -227,7 +227,7 @@
 						   </li>
 					    [%/param%]
 					[%/menu%]
-					[%content_menu content_type:'part-finder' sortby:'sortorder,name' show_empty:'1'%]
+					[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
 					    [%param *header%]
 					        <li class="nav-item dropdown">
 					            <a href="javascript:;" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse by Make</a>
@@ -398,8 +398,12 @@
 			var lvl_1 ="";
 			var lvl_2 ="";
 			var lvl_3 ="";
+			var lvl_4 ="";
+			var lvl_5 ="";
 			var lvl_1_id ="";
 			var lvl_2_id ="";
+			var lvl_3_id ="";
+			var lvl_4_id ="";
 			partfindercat.forEach(function(e) {
 				lvl_1 += "<option value='"+e.id+"'>"+e.name+"</option>";
 			});
@@ -421,6 +425,8 @@
 							}else{
 								$("#dah_partfinder_opt_2").attr("disabled","disabled");
 								$("#dah_partfinder_opt_3").attr("disabled","disabled");
+								$("#dah_partfinder_opt_4").attr("disabled","disabled");
+								$("#dah_partfinder_opt_5").attr("disabled","disabled");
 							}
 							$(".dah_compat-btn").attr("data-url",e.url);
 							$(".dah_compat-btn").removeAttr("disabled");
@@ -429,6 +435,8 @@
 				}else{
 					reset_lvl_2();
 					reset_lvl_3();
+					reset_lvl_4();
+					reset_lvl_5();
 					$(".dah_compat-btn").attr("data-url","");
 					$(".dah_compat-btn").attr("disabled","disabled");
 				}
@@ -439,17 +447,21 @@
 						if(e.id == lvl_1_id){
 							e.subcategories.forEach(function(h){
 								if(h.id == parseInt(id)){
-									reset_lvl_3();
-									if(Array.isArray(h.subcategories)){
-										lvl_2_id = parseInt(id);
-										h.subcategories.forEach(function(subcat) {
-											lvl_3 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
-										});
-										$("#dah_partfinder_opt_3").html("<option value=''>Please Select...</option>" + lvl_3);
-										$("#dah_partfinder_opt_3").removeAttr("disabled");
-									}else{
-										$("#dah_partfinder_opt_3").attr("disabled","disabled");
-									}
+																	reset_lvl_3();
+								reset_lvl_4();
+								reset_lvl_5();
+								if(Array.isArray(h.subcategories)){
+									lvl_2_id = parseInt(id);
+									h.subcategories.forEach(function(subcat) {
+										lvl_3 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
+									});
+									$("#dah_partfinder_opt_3").html("<option value=''>Please Select...</option>" + lvl_3);
+									$("#dah_partfinder_opt_3").removeAttr("disabled");
+								}else{
+									$("#dah_partfinder_opt_3").attr("disabled","disabled");
+									$("#dah_partfinder_opt_4").attr("disabled","disabled");
+									$("#dah_partfinder_opt_5").attr("disabled","disabled");
+								}
 									$(".dah_compat-btn").attr("data-url",h.url);
 									$(".dah_compat-btn").removeAttr("disabled");
 								}
@@ -458,13 +470,15 @@
 					});
 				}else{
 					reset_lvl_3();
+					reset_lvl_4();
+					reset_lvl_5();
 					partfindercat.forEach(function(e) {
 						if(e.id == lvl_1_id){
 							$(".dah_compat-btn").attr("data-url",e.url);
 						}
 					});
 				}
-			} 
+			}
 			function lvl_3_option_change(id){
 				if(id){
 					partfindercat.forEach(function(e) {
@@ -473,8 +487,18 @@
 								if(h.id == lvl_2_id){
 									h.subcategories.forEach(function(i){
 										if(i.id == parseInt(id)){
+											reset_lvl_4();
+											reset_lvl_5();
 											if(Array.isArray(i.subcategories)){
-												alert("There are level 4!");
+												lvl_3_id = parseInt(id);
+												i.subcategories.forEach(function(subcat) {
+													lvl_4 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
+												});
+												$("#dah_partfinder_opt_4").html("<option value=''>Please Select...</option>" + lvl_4);
+												$("#dah_partfinder_opt_4").removeAttr("disabled");
+											}else{
+												$("#dah_partfinder_opt_4").attr("disabled","disabled");
+												$("#dah_partfinder_opt_5").attr("disabled","disabled");
 											}
 											$(".dah_compat-btn").attr("data-url",i.url);
 											$(".dah_compat-btn").removeAttr("disabled");
@@ -485,6 +509,8 @@
 						}
 					});
 				}else{
+					reset_lvl_4();
+					reset_lvl_5();
 					partfindercat.forEach(function(e) {
 						if(e.id == lvl_1_id){
 							e.subcategories.forEach(function(h) {
@@ -495,15 +521,114 @@
 						}
 					});
 				}
-			} 
+			}
+			function lvl_4_option_change(id){
+				if(id){
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == lvl_2_id){
+									h.subcategories.forEach(function(i){
+										if(i.id == lvl_3_id){
+											i.subcategories.forEach(function(j){
+												if(j.id == parseInt(id)){
+													reset_lvl_5();
+													if(Array.isArray(j.subcategories)){
+														lvl_4_id = parseInt(id);
+														j.subcategories.forEach(function(subcat) {
+															lvl_5 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
+														});
+														$("#dah_partfinder_opt_5").html("<option value=''>Please Select...</option>" + lvl_5);
+														$("#dah_partfinder_opt_5").removeAttr("disabled");
+													}else{
+														$("#dah_partfinder_opt_5").attr("disabled","disabled");
+													}
+													$(".dah_compat-btn").attr("data-url",j.url);
+													$(".dah_compat-btn").removeAttr("disabled");
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}else{
+					reset_lvl_5();
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == lvl_2_id){
+									h.subcategories.forEach(function(i){
+										if(i.id == lvl_3_id){
+											$(".dah_compat-btn").attr("data-url",i.url);
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			}
+			function lvl_5_option_change(id){
+				if(id){
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == lvl_2_id){
+									h.subcategories.forEach(function(i){
+										if(i.id == lvl_3_id){
+											i.subcategories.forEach(function(j){
+												if(j.id == lvl_4_id){
+													j.subcategories.forEach(function(k){
+														if(k.id == parseInt(id)){
+															$(".dah_compat-btn").attr("data-url",k.url);
+															$(".dah_compat-btn").removeAttr("disabled");
+														}
+													});
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}else{
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == lvl_2_id){
+									h.subcategories.forEach(function(i){
+										if(i.id == lvl_3_id){
+											i.subcategories.forEach(function(j){
+												if(j.id == lvl_4_id){
+													$(".dah_compat-btn").attr("data-url",j.url);
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			}
 			function reset_lvl_2(){
 				lvl_2 ="";
 				$("#dah_partfinder_opt_2").html("<option value=''>Model</option>");
 			}
 			function reset_lvl_3(){
 				lvl_3 ="";
-				//$("#dah_partfinder_opt_3").find('option').remove();
-				$("#dah_partfinder_opt_3").html("<option value=''>Submodel/Year</option>");
+				$("#dah_partfinder_opt_3").html("<option value=''>Year</option>");
+			}
+			function reset_lvl_4(){
+				lvl_4 ="";
+				$("#dah_partfinder_opt_4").html("<option value=''>Series/Engine</option>");
+			}
+			function reset_lvl_5(){
+				lvl_5 ="";
+				$("#dah_partfinder_opt_5").html("<option value=''>Body/Driveline</option>");
 			}
 			$(".dah_compat-btn").click(function(){
 				window.location.href = $(this).attr('data-url');
@@ -520,7 +645,7 @@
 						data-toggle="collapse" data-target=".parts-finder-content-new">Find your vehicle</button>
 					<div class="parts-finder-content-new py-1 collapse d-md-block">
 						<input type="hidden" id="clist_search" value="button">
-						<input type="hidden" id="clist_size" value="3">
+						<input type="hidden" id="clist_size" value="5">
 						<input type="hidden" id="clist_hidden" value="">
 						<div id="compat_list" class="d-flex flex-column flex-md-row justify-content-around align-items-center">
 							<p class="d-none d-md-flex mb-0 text-nowrap mr-md-3 font-weight-bold text-uppercase">Find your vehicle:</p>
@@ -530,10 +655,16 @@
 							<select name="clist_12_2" onchange="lvl_2_option_change(this.value);" id="dah_partfinder_opt_2" class="dah_partfinder_opt_2 dah_compatibility_list form-control" rel="Option Above">
 								<option value="">Model</option>
 							</select>
-							<select name="clist_12_3" onchange="lvl_3_option_change(this.value);" id="dah_partfinder_opt_3" class="dah_partfinder_opt_3 dah_compatibility_list form-control" rel="Option Above">
-								<option value="">Submodel/Year</option>
-							</select>
-							<button type="submit" class="btn btn-primary text-uppercase font-weight-bold dah_compat-btn col-12 col-md-auto" data-url="" disabled>go</button>
+																<select name="clist_12_3" onchange="lvl_3_option_change(this.value);" id="dah_partfinder_opt_3" class="dah_partfinder_opt_3 dah_compatibility_list form-control" rel="Option Above">
+										<option value="">Year</option>
+									</select>
+									<select name="clist_12_4" onchange="lvl_4_option_change(this.value);" id="dah_partfinder_opt_4" class="dah_partfinder_opt_4 dah_compatibility_list form-control" rel="Option Above" disabled>
+										<option value="">Series/Engine</option>
+									</select>
+									<select name="clist_12_5" onchange="lvl_5_option_change(this.value);" id="dah_partfinder_opt_5" class="dah_partfinder_opt_5 dah_compatibility_list form-control" rel="Option Above" disabled>
+										<option value="">Body/Driveline</option>
+									</select>
+									<button type="submit" class="btn btn-primary text-uppercase font-weight-bold dah_compat-btn col-12 col-md-auto" data-url="" disabled>FIND NOW></button>
 						</div>
 					</div>
 				</div>
@@ -543,7 +674,7 @@
 </div>
 [%/if%]
 </header>
-[%if [@config:current_page_type@] ne 'home' or [@config:current_page_type@] ne 'customer_account'%]
+[%if [@config:current_page_type@] ne 'home' and [@config:current_page_type@] ne 'customer_account'%]
 [%breadcrumb%]
 	[%param *header%]
 	<div class="container-fluid breadcrumb-section px-0">
