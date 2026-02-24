@@ -369,25 +369,47 @@
 [%/param%]
 [%/thumb_list%]
 [%if [@dah_partfinder_active@] eq 'y'%]
-<div class="dah_newpartfinder parts_finder">
+<div class="dah_newpartfinder parts_finder" style="position: relative; z-index: 9;">
 	[%set [@dah_partcategories@] %]
-	[%content_menu content_type:'parts_finder' sortby:'name' show_empty:'1'%]
-		[%param *level_1%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+	[%list type:'content' filter:'content_type=parts_finder&content_level=1' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+	[%param *body%]
+		{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+		[%list type:'content' filter:'content_type=parts_finder&content_level=2&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+		[%param *header%][[%/param%]
+		[%param *body%]
+			{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+			[%list type:'content' filter:'content_type=parts_finder&content_level=3&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+			[%param *header%][[%/param%]
+			[%param *body%]
+				{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+				[%list type:'content' filter:'content_type=parts_finder&content_level=4&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+				[%param *header%][[%/param%]
+				[%param *body%]
+					{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:
+					[%list type:'content' filter:'content_type=parts_finder&content_level=5&content_parent=[@content_id@]' sort:'sortorder,content_name' limit:'999' show_empty:'0'%]
+					[%param *header%][[%/param%]
+					[%param *body%]{id:[@content_id@],name:"[%escape%][@content_name@][%/escape%]",url:"[@url@]",subcategories:0},[%/param%]
+					[%param *footer%]][%/param%]
+					[%param *ifempty%]0[%/param%]
+					[%/list%]
+				},
+				[%/param%]
+				[%param *footer%]][%/param%]
+				[%param *ifempty%]0[%/param%]
+				[%/list%]
+			},
+			[%/param%]
+			[%param *footer%]][%/param%]
+			[%param *ifempty%]0[%/param%]
+			[%/list%]
+		},
 		[%/param%]
-		[%param *level_2%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_3%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_4%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_5%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-	[%/content_menu%]
+		[%param *footer%]][%/param%]
+		[%param *ifempty%]0[%/param%]
+		[%/list%]
+	},
+	[%/param%]
+	[%/list%]
 	[%/set%]
 	[%site_value id:'footer_javascript'%]
 		<script>
