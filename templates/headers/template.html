@@ -321,7 +321,7 @@
             					        <li><a href="[@url@]">[@name@]</a></li>
             					    [%/param%]
 				                [%/menu%]
-								[%content_menu content_type:'part-finder' sortby:'sortorder,name' show_empty:'1'%]
+								[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
 									[%param *header%]
 										<li class="dropdown dropdown-hover">
 											<a href="javascript:;" class="dropdown-toggle">Browse by Make <span><i class="fa fa-plus"></i></span></a>
@@ -363,16 +363,15 @@
 	</div>
 </div>
 [%set [@dah_partfinder_active@] %]n[%/set%]
-[%thumb_list type:'content' content_type:'part-finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
+[%thumb_list type:'content' content_type:'partS_finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
 [%param *body%]
 	[%set [@^dah_partfinder_active@] %]y[%/set%]
 [%/param%]
 [%/thumb_list%]
 [%if [@dah_partfinder_active@] eq 'y'%]
-<div class="dah_newpartfinder part-finder">
+<div class="dah_newpartfinder parts_finder">
 	[%set [@dah_partcategories@] %]
-	[%cache id:'dah_partcategories' type:'cmenu'%]
-	[%content_menu content_type:'part-finder' sortby:'name' show_empty:'1'%]
+	[%content_menu content_type:'parts_finder' sortby:'name' show_empty:'1'%]
 		[%param *level_1%]
 			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
 		[%/param%]
@@ -389,7 +388,6 @@
 			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
 		[%/param%]
 	[%/content_menu%]
-	[%/cache%]
 	[%/set%]
 	[%site_value id:'footer_javascript'%]
 		<script>
