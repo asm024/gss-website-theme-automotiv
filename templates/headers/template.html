@@ -155,51 +155,31 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbarMainMenu" data-parent=".menu-section">
 				[%cache type:'cmenu' id:'header_category_menu'%]
-				<ul class="navbar-nav mr-auto align-items-center d-none d-md-flex flex-wrap" role="navigation" aria-label="Category menu">
-					[%content_menu content_type:'category' sortby:'sortorder,name' show_empty:'1'%]
-					    [%param *level_1%]
-					        <li class="nav-item [%if [@next_level@]%] dropdown position-static [%/if%]">
-					            <a href="[@url@]" class="nav-link [%if [@next_level@]%] dropdown-toggle[%/if%]" [%if [@next_level@]%]role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"[%/if%]>[@name@]</a>
-								[%if [@next_level@]%]								
-									[%thumb_list type:'products' template:'' filter_category:'[@id@]' sortby:'popular' limit:'1'%]
-										[%param *header%]
-										<div class="dropdown-menu p-lg-3">
-											<div class="row">
-												<div class="col-12 col-md-9">
-													<ul class="mega-menu-cat p-0">
-														[@next_level@]
-													</ul>
-												</div>
-												<div class="col-12 col-md-3 megamenu_products">
-										[%/param%]
-										[%param *footer%]
-												</div>
-											</div>
-										</div>
-										[%/param%]
-										[%param *ifempty%]
-											<ul class="dropdown-menu mega-menu-cat w-100 p-lg-3">
-												[@next_level@]
-											</ul>
-										[%/param%]
-									[%/thumb_list%]	
-								[%/if%]
-					        </li>
-					        [%/param%]
-					    [%param *level_2%]
-					    <li class="nav-item d-inline-block w-100">
-					    	<a href="[@url@]" class="nav-link font-weight-bold">[@name@]</a>
-					    	[%if [@next_level@]%]
-					    	<ul class="nav flex-column px-2">[@next_level@]</ul>
-					    	[%/if%]
-					    </li>
-					    [%/param%]
-					    [%param *level_3%]
-					    <li class="nav-item">
-					    	<a href="[@url@]" class="nav-link py-1">[@name@]</a>
-					    </li>
-					    [%/param%]
-					[%/content_menu%]
+				<ul class="navbar-nav mr-auto align-items-center d-none d-md-flex" role="navigation" aria-label="Category menu">
+									<!-- Shop mega menu: all categories collapsed into one dropdown -->
+				<li class="nav-item dropdown mega-menu-parent position-static">
+					<a href="javascript:;" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+					<div class="dropdown-menu w-100 p-3">
+						<div class="row">
+							[%content_menu content_type:'category' sortby:'sortorder,name' show_empty:'1'%]
+								[%param *level_1%]
+								<div class="col-6 col-md-3 col-lg-2 mb-3">
+									<a href="[@url@]" class="font-weight-bold d-block mb-1">[@name@]</a>
+									[%if [@next_level@]%]
+									<ul class="list-unstyled mb-0">[@next_level@]</ul>
+									[%/if%]
+								</div>
+								[%/param%]
+								[%param *level_2%]
+								<li><a href="[@url@]" class="small dropdown-item px-0 py-0">[@name@]</a></li>
+								[%/param%]
+								[%param *level_3%]
+								<li class="pl-2"><a href="[@url@]" class="small dropdown-item px-0 py-0 text-muted">[@name@]</a></li>
+								[%/param%]
+							[%/content_menu%]
+						</div>
+					</div>
+				</li>
 					[%menu id:'web_header'%]
 						[%param *level_1%]
 						   <li class="nav-item [%if [@next_level@]%] dropdown [%/if%]">
