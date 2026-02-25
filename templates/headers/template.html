@@ -227,7 +227,7 @@
 						   </li>
 					    [%/param%]
 					[%/menu%]
-					[%content_menu content_type:'parts-finder' sortby:'sortorder,name' show_empty:'1'%]
+					[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
 					    [%param *header%]
 					        <li class="nav-item dropdown">
 					            <a href="javascript:;" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse by Make</a>
@@ -321,7 +321,7 @@
             					        <li><a href="[@url@]">[@name@]</a></li>
             					    [%/param%]
 				                [%/menu%]
-								[%content_menu content_type:'parts-finder' sortby:'sortorder,name' show_empty:'1'%]
+								[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
 									[%param *header%]
 										<li class="dropdown dropdown-hover">
 											<a href="javascript:;" class="dropdown-toggle">Browse by Make <span><i class="fa fa-plus"></i></span></a>
@@ -363,16 +363,16 @@
 	</div>
 </div>
 [%set [@dah_partfinder_active@] %]n[%/set%]
-[%thumb_list type:'content' content_type:'parts-finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
+[%thumb_list type:'content' content_type:'parts_finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
 [%param *body%]
 	[%set [@^dah_partfinder_active@] %]y[%/set%]
 [%/param%]
 [%/thumb_list%]
 [%if [@dah_partfinder_active@] eq 'y'%]
-<div class="dah_newpartfinder parts-finder">
+<div class="dah_newpartfinder parts_finder">
 	[%set [@dah_partcategories@] %]
 	[%cache id:'dah_partcategories' type:'cmenu'%]
-	[%content_menu content_type:'parts-finder' sortby:'name' show_empty:'1'%]
+	[%content_menu content_type:'parts_finder' sortby:'name' show_empty:'1'%]
 		[%param *level_1%]
 			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
 		[%/param%]
@@ -517,8 +517,8 @@
 			<div class="col-12">
 				<div id="parts_finder">
 					<button class="d-md-none btn btn-primary btn-block mb-2 font-weight-bold text-uppercase"
-						data-toggle="collapse" data-target=".parts-finder-content-new">Find your vehicle</button>
-					<div class="parts-finder-content-new py-1 collapse d-md-block">
+						data-toggle="collapse" data-target=".parts_finder-content-new">Find your vehicle</button>
+					<div class="parts_finder-content-new py-1 collapse d-md-block">
 						<input type="hidden" id="clist_search" value="button">
 						<input type="hidden" id="clist_size" value="3">
 						<input type="hidden" id="clist_hidden" value="">
