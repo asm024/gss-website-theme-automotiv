@@ -159,42 +159,48 @@
 										<td>[@artist_author@]</td>
 									</tr>
 								[%/if%]
-								[%if [@weight@] > '0'%]
-									<tr>
-										<td><strong>Shipping Weight</strong></td>
-										<td>[@weight@]kg</td>
-									</tr>
-								[%/if%]
-								[%if [@width@] > '0'%]
-									<tr>
-										<td><strong>Shipping Width</strong></td>
-										<td>[@width@]m</td>
-									</tr>
-								[%/if%]
-								[%if [@height@] > '0'%]
-									<tr>
-										<td><strong>Shipping Height</strong></td>
-										<td>[@height@]m</td>
-									</tr>
-								[%/if%]
-								[%if [@length@] > '0'%]
-									<tr>
-										<td><strong>Shipping Length</strong></td>
-										<td>[@length@]m</td>
-									</tr>
-								[%/if%]
-								[%if [@cubic@] > '0'%]
-									<tr>
-										<td><strong>Shipping Cubic</strong></td>
-										<td>[@cubic@]m3</td>
-									</tr>
-								[%/if%]
-								[%if [@unit@]%]
-									<tr>
-										<td><strong>Unit Of Measure</strong></td>
-										<td>[@unit@]</td>
-									</tr>
-								[%/if%]
+															<!-- Shipping Weight/Width/Height/Length removed
+							[%if [@weight@] > '0'%]
+								<tr>
+									<td><strong>Shipping Weight</strong></td>
+									<td>[@weight@]kg</td>
+								</tr>
+							[%/if%]
+							[%if [@width@] > '0'%]
+								<tr>
+									<td><strong>Shipping Width</strong></td>
+									<td>[@width@]m</td>
+								</tr>
+							[%/if%]
+							[%if [@height@] > '0'%]
+								<tr>
+									<td><strong>Shipping Height</strong></td>
+									<td>[@height@]m</td>
+								</tr>
+							[%/if%]
+							[%if [@length@] > '0'%]
+								<tr>
+									<td><strong>Shipping Length</strong></td>
+									<td>[@length@]m</td>
+								</tr>
+							[%/if%]
+							-->
+															<!-- Shipping Cubic removed
+							[%if [@cubic@] > '0'%]
+								<tr>
+									<td><strong>Shipping Cubic</strong></td>
+									<td>[@cubic@]m3</td>
+								</tr>
+							[%/if%]
+							-->
+															<!-- Unit of Measure removed
+							[%if [@unit@]%]
+								<tr>
+									<td><strong>Unit Of Measure</strong></td>
+									<td>[@unit@]</td>
+								</tr>
+							[%/if%]
+							-->
 								[%if [@actual_length@] > '0'%]
 									<tr>
 										<td><strong>Assembled Length</strong></td>
@@ -213,12 +219,14 @@
 										<td>[@actual_width@]m</td>
 									</tr>
 								[%/if%]
-								[%if [@product_type@]%]
-									<tr>
-										<td><strong>Type</strong></td>
-										<td>[@product_type@]</td>
-									</tr>
-								[%/if%]
+															<!-- Type removed
+							[%if [@product_type@]%]
+								<tr>
+									<td><strong>Type</strong></td>
+									<td>[@product_type@]</td>
+								</tr>
+							[%/if%]
+							-->
 								[%if [@format@]%]
 									<tr>
 										<td><strong>Format</strong></td>
