@@ -16,6 +16,22 @@
 		<li class="nav-item mr-2" id="tabSpecifications" role="tab" aria-controls="specifications" aria-selected="false">
 			<a class="nav-link" href="#specifications" data-toggle="tab">Specifications</a>
 		</li>
+		[%if [@misc35@]%]
+			<li class="nav-item mr-2" id="tabNotes" role="tab" aria-controls="notes" aria-selected="false">
+				<a class="nav-link" href="#notes" data-toggle="tab">Notes</a>
+			</li>
+		[%/if%]
+		<li class="nav-item mr-2" id="tabItemSpecifics" role="tab" aria-controls="itemSpecifics" aria-selected="false">
+			<a class="nav-link" href="#itemSpecifics" data-toggle="tab">Item Specifics</a>
+		</li>
+		<li class="nav-item mr-2" id="tabAboutBrand" role="tab" aria-controls="aboutBrand" aria-selected="false">
+			<a class="nav-link" href="#aboutBrand" data-toggle="tab">About This Brand</a>
+		</li>
+		[%if [@misc40@] eq 'y'%]
+			<li class="nav-item mr-2" id="tabVehicleFitment" role="tab" aria-controls="vehicleFitment" aria-selected="false">
+				<a class="nav-link" href="#vehicleFitment" data-toggle="tab">Vehicle Fitment</a>
+			</li>
+		[%/if%]
 		[%if [@tnc@]%]
 			<li class="nav-item mr-2" id="tabTermsConditions" role="tab" aria-controls="termsConditions" aria-selected="false">
 				<a class="nav-link" href="#termsConditions" data-toggle="tab">Terms and Conditions</a>
@@ -215,6 +231,126 @@
 				</div>
 			</div>
 		</div>
+		[%if [@misc35@]%]
+			<div class="tab-pane" id="notes" role="tabpanel" aria-labelledby="tabNotes">
+				<div class="card mb-2 mb-md-0">
+					<div class="card-header py-1 px-2" id="headingNotes">
+						<h5 class="mb-0">
+							<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionNotes" aria-expanded="true" aria-controls="accordionNotes">
+								Notes
+							</button>
+						</h5>
+					</div>
+					<div id="accordionNotes" class="collapse" aria-labelledby="headingNotes">
+						<div class="card-body p-md-0">
+							<div class="n-responsive-content">
+								[@misc35@]
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		[%/if%]
+		<div class="tab-pane" id="itemSpecifics" role="tabpanel" aria-labelledby="tabItemSpecifics">
+			<div class="card mb-2 mb-md-0">
+				<div class="card-header py-1 px-2" id="headingItemSpecifics">
+					<h5 class="mb-0">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionItemSpecifics" aria-expanded="true" aria-controls="accordionItemSpecifics">
+							Item Specifics
+						</button>
+					</h5>
+				</div>
+				<div id="accordionItemSpecifics" class="collapse" aria-labelledby="headingItemSpecifics">
+					<div class="card-body p-md-0">
+						[%item_specifics id:'[@sku@]'%]
+						[%param *header%]
+						<table class="table table-sm table-striped">
+							<tbody>
+						[%/param%]
+						[%param *body%]
+							<tr id="[@itmspec_id@]-[@itmspecval_id@]">
+								<td>[@itmspec_name@]</td>
+								<td>[@itmspecval_value@]</td>
+							</tr>
+						[%/param%]
+						[%param *footer%]
+							</tbody>
+						</table>
+						[%/param%]
+						[%/item_specifics%]
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="aboutBrand" role="tabpanel" aria-labelledby="tabAboutBrand">
+			<div class="card mb-2 mb-md-0">
+				<div class="card-header py-1 px-2" id="headingAboutBrand">
+					<h5 class="mb-0">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionAboutBrand" aria-expanded="true" aria-controls="accordionAboutBrand">
+							About This Brand
+						</button>
+					</h5>
+				</div>
+				<div id="accordionAboutBrand" class="collapse" aria-labelledby="headingAboutBrand">
+					<div class="card-body p-md-0">
+						[%list type:'content' filter:'content_type=brand&sku=[@sku@]'%]
+						[%param *body%]
+						[%if [@content_description1@]%]
+							[%if [@thumb@]%]
+								<p class="brand"><img alt="[@brand@]" class="img-fluid" src="[@thumb@]" /></p>
+							[%/if%]
+							<div class="n-responsive-content">[@content_description1@]</div>
+						[%/if%]
+						[%/param%]
+						[%/list%]
+					</div>
+				</div>
+			</div>
+		</div>
+		[%if [@misc40@] eq 'y'%]
+		<div class="tab-pane" id="vehicleFitment" role="tabpanel" aria-labelledby="tabVehicleFitment">
+			<div class="card mb-2 mb-md-0">
+				<div class="card-header py-1 px-2" id="headingVehicleFitment">
+					<h5 class="mb-0">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionVehicleFitment" aria-expanded="true" aria-controls="accordionVehicleFitment">
+							Vehicle Fitment
+						</button>
+					</h5>
+				</div>
+				<div id="accordionVehicleFitment" class="collapse" aria-labelledby="headingVehicleFitment">
+					<div class="card-body p-md-0">
+						<p class="text-muted small mb-2">This product is compatible with the following vehicles:</p>
+						<div class="table-responsive">
+							<table class="table table-sm table-bordered fitment-table">
+								<thead class="thead-dark">
+									<tr>
+										<th>Make</th>
+										<th>Model</th>
+										<th>Submodel</th>
+										<th>Year Range</th>
+										<th>Variant</th>
+										<th>Engine</th>
+										<th>Notes</th>
+									</tr>
+								</thead>
+								<tbody>
+									[%content_path id:'[@inventory_id@]' type:'fitment_table' sortby:'content_fullpath'%]
+									[%param *body%]
+										[%split delimiter:'@'%][%param data1%][@content_fullpath@][%/param%]
+											[%param header%]<tr>[%/param%]
+											[%param *body%]<td>[@data1@]</td>[%/param%]
+											[%param footer%]</tr>[%/param%]
+										[%/split%]
+									[%/param%]
+									[%/content_path%]
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		[%/if%]
 		[%if [@tnc@]%]
 			<div class="tab-pane" id="termsConditions" role="tabpanel" aria-labelledby="tabTermsConditions">
 				<div class="card mb-2 mb-md-0">
