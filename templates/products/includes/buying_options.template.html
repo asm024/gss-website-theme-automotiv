@@ -1,4 +1,81 @@
 <div class="extra-options">
+
+	<!-- ===== PRICING BLOCK ===== -->
+	[%if ![@has_child@] || [@has_variation@]%]
+	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="wrapper-pricing mb-3">
+		<meta itemprop="priceCurrency" content="[@config:defaultcurrency@]">
+
+		[%if ![@inpromo@]%]
+			<!-- Standard pricing -->
+			<div class="product-price display-price" itemprop="price" content="[@store_price@]" aria-label="Price">
+				[%FORMAT type:'currency'%][@store_price@][%/FORMAT%]
+			</div>
+			[%if [@save@] > 0%]
+			<div class="price-meta mt-1">
+				<span class="product-rrp text-muted small">RRP [%FORMAT type:'currency'%][@retail@][%/FORMAT%]</span>
+				<span class="badge badge-success ml-2">SAVE [%format type:'currency'%][@save_price@][%/format%] ([%format type:'percent'%][@save@][%/format%])</span>
+			</div>
+			[%/if%]
+		[%else%]
+			<!-- Promo pricing -->
+			<div class="product-was text-muted small" aria-label="Was Price">
+				WAS [%FORMAT type:'currency'%][@store_price@][%/FORMAT%]
+			</div>
+			[%if [@retail@] > [@store_price@]%]
+			<div class="product-rrp text-muted small">
+				RRP [%FORMAT type:'currency'%][@retail@][%/FORMAT%]
+			</div>
+			[%/if%]
+			<div class="product-price promo-price" itemprop="price" content="[@promo_price@]" aria-label="Promo Price">
+				NOW [%FORMAT type:'currency'%][@promo_price@][%/FORMAT%]
+			</div>
+			[%if [@save@] > 0%]
+			<span class="badge badge-danger mt-1">SAVE [%format type:'percent'%][@save@][%/format%]!</span>
+			[%/if%]
+			<div class="text-muted small mt-1">
+				Sale Ends: <strong><span id="sale-end"></span></strong>
+				<span itemprop="priceValidUntil" content="[%format type:'date' format:'#Y-#M-#d'%][@promo_end@][%END format%]">
+					[%format type:'date' format:'#d #K #Y #H:#I'%][@promo_end@][%/format%]
+				</span>
+			</div>
+		[%/if%]
+
+		<!-- Availability -->
+		<div class="product-availability mt-2">
+			[%if [@store_quantity@] > 0 AND [@preorder@]%]
+				<span itemprop="availability" content="https://schema.org/PreOrder" class="badge badge-warning px-2 py-1">
+					<i class="fas fa-clock mr-1"></i> Special Order — [@misc25@]
+				</span>
+			[%elseif [@store_quantity@] > 0 AND ![@preorder@]%]
+				<span itemprop="availability" content="https://schema.org/InStock" class="badge badge-success px-2 py-1">
+					<i class="fas fa-check-circle mr-1"></i> Available for Online Purchases
+				</span>
+			[%elseif [@store_quantity@] < 1 AND [@config:ALLOW_NOSTOCK_CHECKOUT@]%]
+				<span itemprop="availability" content="https://schema.org/OutOfStock" class="badge badge-danger px-2 py-1">
+					<i class="fas fa-times-circle mr-1"></i> Sold Out — Backorder Available
+				</span>
+			[%else%]
+				<span itemprop="availability" content="https://schema.org/OutOfStock" class="badge badge-danger px-2 py-1">
+					<i class="fas fa-times-circle mr-1"></i> Sold Out
+				</span>
+			[%/if%]
+		</div>
+
+		<!-- Online price notice -->
+		<div class="alert alert-warning py-1 px-2 mt-2 small mb-0" role="alert">
+			<strong>ONLINE PRICE ONLY</strong> — This price is valid for online orders only and is not available in-store.
+		</div>
+
+		<!-- Click & Collect / Stock Availability Zone -->
+		[%content_zone id:'click-collect-code'%][%end content_zone%]
+
+		[%if [@form:disable_scripts@] ne 'true'%]
+			[%tracking_code type:'BuyingOptions' /%]
+		[%/if%]
+	</div>
+	[%/if%]
+	<!-- ===== END PRICING BLOCK ===== -->
+
 	[%set [@price_hide@] %]Y[%/set%]
 	[%if [@config:wholesale@] eq '1'%][%if [@user:group_id@] eq [@config:default_groupid@]%][%set [@price_hide@] %]Y[%/set%][%else%][%set [@price_hide@]%]N[%/set%][%/if%][%else%][%set [@price_hide@]%]N[%/set%][%/if%]
 	[%if [@price_hide@] eq 'N'%]
