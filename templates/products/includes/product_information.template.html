@@ -21,9 +21,7 @@
 				<a class="nav-link" href="#notes" data-toggle="tab">Notes</a>
 			</li>
 		[%/if%]
-		<li class="nav-item mr-2" id="tabItemSpecifics" role="tab" aria-controls="itemSpecifics" aria-selected="false">
-			<a class="nav-link" href="#itemSpecifics" data-toggle="tab">Item Specifics</a>
-		</li>
+
 		<li class="nav-item mr-2" id="tabAboutBrand" role="tab" aria-controls="aboutBrand" aria-selected="false">
 			<a class="nav-link" href="#aboutBrand" data-toggle="tab">About This Brand</a>
 		</li>
@@ -124,11 +122,6 @@
 				</div>
 				<div id="accordionSpecifications" class="collapse" aria-labelledby="headingSpecificatoin">
 					<div class="card-body p-md-0">
-						[%if [@specifications@]%]
-							<div class="n-responsive-content">
-								[@specifications@]
-							</div>
-						[%/if%]
 						<table class="table">
 							<tbody>
 								<tr>
@@ -227,14 +220,30 @@
 								</tr>
 							[%/if%]
 							-->
-								[%if [@format@]%]
-									<tr>
-										<td><strong>Format</strong></td>
-										<td>[@format@]</td>
-									</tr>
-								[%/if%]
-							</tbody>
-						</table>
+															[%if [@format@]%]
+								<tr>
+									<td><strong>Format</strong></td>
+									<td>[@format@]</td>
+								</tr>
+							[%/if%]
+						</tbody>
+					</table>
+					[%item_specifics id:'[@sku@]'%]
+										[%param *header%]
+						<table class="table">
+							<tbody>
+						[%/param%]
+						[%param *body%]
+							<tr id="[@itmspec_id@]-[@itmspecval_id@]">
+								<td><strong>[@itmspec_name@]</strong></td>
+								<td>[@itmspecval_value@]</td>
+							</tr>
+						[%/param%]
+					[%param *footer%]
+						</tbody>
+					</table>
+					[%/param%]
+					[%/item_specifics%]
 					</div>
 				</div>
 			</div>
@@ -259,37 +268,7 @@
 				</div>
 			</div>
 		[%/if%]
-		<div class="tab-pane" id="itemSpecifics" role="tabpanel" aria-labelledby="tabItemSpecifics">
-			<div class="card mb-2 mb-md-0">
-				<div class="card-header py-1 px-2" id="headingItemSpecifics">
-					<h5 class="mb-0">
-						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionItemSpecifics" aria-expanded="true" aria-controls="accordionItemSpecifics">
-							Item Specifics
-						</button>
-					</h5>
-				</div>
-				<div id="accordionItemSpecifics" class="collapse" aria-labelledby="headingItemSpecifics">
-					<div class="card-body p-md-0">
-						[%item_specifics id:'[@sku@]'%]
-						[%param *header%]
-						<table class="table table-sm table-striped">
-							<tbody>
-						[%/param%]
-						[%param *body%]
-							<tr id="[@itmspec_id@]-[@itmspecval_id@]">
-								<td>[@itmspec_name@]</td>
-								<td>[@itmspecval_value@]</td>
-							</tr>
-						[%/param%]
-						[%param *footer%]
-							</tbody>
-						</table>
-						[%/param%]
-						[%/item_specifics%]
-					</div>
-				</div>
-			</div>
-		</div>
+
 		<div class="tab-pane" id="aboutBrand" role="tabpanel" aria-labelledby="tabAboutBrand">
 			<div class="card mb-2 mb-md-0">
 				<div class="card-header py-1 px-2" id="headingAboutBrand">
