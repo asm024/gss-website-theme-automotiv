@@ -7,7 +7,7 @@
 
 		[%if ![@inpromo@]%]
 			<!-- Standard pricing -->
-			<div class="product-price display-price" itemprop="price" content="[@store_price@]" aria-label="Price">
+			<div class="product-price display-price display-4 font-weight-bold" itemprop="price" content="[@store_price@]" aria-label="Price">
 				[%FORMAT type:'currency'%][@store_price@][%/FORMAT%]
 			</div>
 			[%if [@save@] > 0%]
@@ -26,7 +26,7 @@
 				RRP [%FORMAT type:'currency'%][@retail@][%/FORMAT%]
 			</div>
 			[%/if%]
-			<div class="product-price promo-price" itemprop="price" content="[@promo_price@]" aria-label="Promo Price">
+			<div class="product-price promo-price display-4 font-weight-bold" itemprop="price" content="[@promo_price@]" aria-label="Promo Price">
 				NOW [%FORMAT type:'currency'%][@promo_price@][%/FORMAT%]
 			</div>
 			[%if [@save@] > 0%]
