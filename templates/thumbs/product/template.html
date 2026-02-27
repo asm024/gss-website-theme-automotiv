@@ -1,16 +1,16 @@
 [%cache type:'gallery' id:'[@inventory_id@]'%]
 <article class="col-6 col-sm-6 col-lg-3 col-xl-3 pb-2" role="article" aria-label="Product thumbnail">
-	<div class="card thumbnail card-body text-center" itemscope itemtype="http://schema.org/Product">
+	<div class="card thumbnail card-body text-center d-flex flex-column" itemscope itemtype="http://schema.org/Product">
 		<meta itemprop="brand" content="[@brand@]"/>
 		<meta itemprop="mpn" content="[@sku@]"/>
 		<a href="[@URL@]" class="thumbnail-image pb-2">
 			<img src="[%asset_url type:'product' thumb:'thumb' id:'[@SKU@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%end param%][%/asset_url%]" itemprop="image" class="product-image img-fluid" alt="[@model@]" rel="itmimg[@SKU@]">
 		</a>
-		<p class="card-title h4" itemprop="name"><a href="[@URL@]">[%format type:'text' truemaxlength:'50' rmhtml:'1'%][@model@][%/format%]</a></p>
+		<p class="card-title h4" itemprop="name"><a href="[@URL@]">[%format type:'text' truemaxlength:'80' rmhtml:'1'%][@model@][%/format%]</a></p>
 		[%set [@price_hide@] %]Y[%/set%]
 		[%if [@config:wholesale@] eq '1'%][%if [@user:group_id@] eq [@config:default_groupid@]%][%set [@price_hide@] %]Y[%/set%][%else%][%set [@price_hide@]%]N[%/set%][%/if%][%else%][%set [@price_hide@]%]N[%/set%][%/if%]
 		[%if [@price_hide@] eq 'N'%]
-			<p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer" aria-label="[@model@] price">
+			<p class="price mt-auto" itemprop="offers" itemscope itemtype="http://schema.org/Offer" aria-label="[@model@] price">
 				<span class="rrp-price">[%if [@save@] > 0%]RRP <s>[%format type:'currency'%][@retail@][%/format%]</s>[%/if%]</span>
 				[%if [@inpromo@]%]
 					<meta itemprop="priceValidUntil" content="[%format type:'date' format:'#Y-#M-#d'%][@promo_end@][%END format%]"/>
