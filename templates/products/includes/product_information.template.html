@@ -122,8 +122,12 @@
 				</div>
 				<div id="accordionSpecifications" class="collapse" aria-labelledby="headingSpecificatoin">
 					<div class="card-body p-md-0">
+						[%if [@specifications@]%]
+							<div class="n-responsive-content">
+								[@specifications@]
+							</div>
+						[%/if%]
 						<table class="table">
-							<colgroup><col style="width:40%"><col></colgroup>
 							<tbody>
 								<tr>
 									<td><strong>SKU</strong></td>
@@ -221,31 +225,24 @@
 								</tr>
 							[%/if%]
 							-->
-															[%if [@format@]%]
-								<tr>
-									<td><strong>Format</strong></td>
-									<td>[@format@]</td>
-								</tr>
-							[%/if%]
-						</tbody>
-					</table>
-					[%item_specifics id:'[@sku@]'%]
-										[%param *header%]
-						<table class="table">
-							<colgroup><col style="width:40%"><col></colgroup>
-							<tbody>
-						[%/param%]
-						[%param *body%]
-							<tr id="[@itmspec_id@]-[@itmspecval_id@]">
-								<td><strong>[@itmspec_name@]</strong></td>
-								<td>[@itmspecval_value@]</td>
-							</tr>
-						[%/param%]
-					[%param *footer%]
-						</tbody>
-					</table>
-					[%/param%]
-					[%/item_specifics%]
+																							[%if [@format@]%]
+									<tr>
+										<td><strong>Format</strong></td>
+										<td>[@format@]</td>
+									</tr>
+								[%/if%]
+								[%item_specifics id:'[@sku@]'%]
+								[%param *header%][%/param%]
+								[%param *body%]
+									<tr id="[@itmspec_id@]-[@itmspecval_id@]">
+										<td>[@itmspec_name@]</td>
+										<td>[@itmspecval_value@]</td>
+									</tr>
+								[%/param%]
+								[%param *footer%][%/param%]
+								[%/item_specifics%]
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -309,36 +306,68 @@
 				<div id="accordionVehicleFitment" class="collapse" aria-labelledby="headingVehicleFitment">
 					<div class="card-body p-md-0">
 						<p class="text-muted small mb-2">This product is compatible with the following vehicles:</p>
-						<div class="table-responsive">
-							<table class="table table-sm table-bordered fitment-table">
-								<thead class="thead-dark">
-									<tr>
-										<th>Make</th>
-										<th>Model</th>
-										<th>Submodel</th>
-										<th>Year Range</th>
-										<th>Variant</th>
-										<th>Engine</th>
-										<th>Notes</th>
-									</tr>
-								</thead>
-								<tbody>
-									[%content_path id:'[@inventory_id@]' type:'fitment-table' sortby:'content_fullpath'%]
-									[%param *body%]
-										[%split delimiter:'@'%][%param data1%][@content_fullpath@][%/param%]
-											[%param header%]<tr>[%/param%]
-											[%param *body%]<td>[@data1@]</td>[%/param%]
-											[%param footer%]</tr>[%/param%]
-										[%/split%]
-									[%/param%]
-									[%/content_path%]
-								</tbody>
-							</table>
+										<div class="table-responsive">
+											<table class="table table-sm table-bordered fitment-table">
+												<thead class="thead-dark">
+													<tr>
+														<th>Vehicle</th>
+														<th>Notes</th>
+													</tr>
+												</thead>
+												<tbody>
+													[%list type:'content' filter:'content_type=fitment-table&sku=[@sku@]' sortby:'content_fullpath' limit:'500'%]
+														[%param *body%]
+															[%split delimiter:'::'%][%param data1%][@content_fullpath@][%/param%]
+																[%param header%]<tr>[%/param%]
+																[%param *body%]<td style="border: 1px solid #dee2e6;">[@data1@]</td>[%/param%]
+																[%param footer%]</tr>[%/param%]
+															[%/split%]
+													[%/param%]
+													[%/list%]
+												</tbody>
+											</table>
+																				</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			(function() {
+				var table = document.querySelector('.fitment-table');
+				if (!table) return;
+				var tbody = table.querySelector('tbody');
+				var headers = table.querySelectorAll('thead th');
+				var sortState = { col: 0, asc: true };
+				function sortTable(col, asc) {
+					var rows = Array.from(tbody.querySelectorAll('tr'));
+					rows.sort(function(a, b) {
+						var aText = (a.cells[col] ? a.cells[col].textContent : '').trim().toLowerCase();
+						var bText = (b.cells[col] ? b.cells[col].textContent : '').trim().toLowerCase();
+						return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+					});
+					rows.forEach(function(r) { tbody.appendChild(r); });
+					headers.forEach(function(h, i) {
+						h.style.cursor = 'pointer';
+						h.setAttribute('title', 'Click to sort');
+						h.innerHTML = h.textContent.trim() + (i === col ? (asc ? ' &#9650;' : ' &#9660;') : ' &#9651;');
+					});
+				}
+				headers.forEach(function(h, i) {
+					h.style.cursor = 'pointer';
+					h.addEventListener('click', function() {
+						if (sortState.col === i) { sortState.asc = !sortState.asc; }
+						else { sortState.col = i; sortState.asc = true; }
+						sortTable(sortState.col, sortState.asc);
+					});
+				});
+				// Auto-sort by Vehicle column on load
+				sortTable(0, true);
+			})();
+		</script>
 		[%/if%]
 		[%if [@tnc@]%]
 			<div class="tab-pane" id="termsConditions" role="tabpanel" aria-labelledby="tabTermsConditions">
