@@ -122,11 +122,7 @@
 				</div>
 				<div id="accordionSpecifications" class="collapse" aria-labelledby="headingSpecificatoin">
 					<div class="card-body p-md-0">
-						[%if [@specifications@]%]
-							<div class="n-responsive-content">
-								[@specifications@]
-							</div>
-						[%/if%]
+						
 						<table class="table">
 							<tbody>
 								<tr>
@@ -235,7 +231,7 @@
 								[%param *header%][%/param%]
 								[%param *body%]
 									<tr id="[@itmspec_id@]-[@itmspecval_id@]">
-										<td>[@itmspec_name@]</td>
+										<td><strong>[@itmspec_name@]</strong></td>
 										<td>[@itmspecval_value@]</td>
 									</tr>
 								[%/param%]
