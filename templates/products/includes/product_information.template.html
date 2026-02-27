@@ -74,8 +74,11 @@
 				<div id="accordionDescription" class="collapse" aria-labelledby="headingDescription">
 					<div class="card-body p-md-0">
 						<section class="productdetails n-responsive-content" aria-label="Product Description">
-							[@description@]
-						</section>
+													[@description@]
+					</section>
+					[%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%]
+					[%content_zone id:'website-pickup'%][%/content_zone%]
+					[%/if%]
 					</div>
 				</div>
 			</div>
