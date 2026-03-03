@@ -1,0 +1,47 @@
+name: Deploy to SFTP Server
+
+on:
+  push:
+    branches:
+      - main          # Change this if your branch is named differently (e.g. "master")
+    paths:
+      - 'public/**'   # Only trigger if files inside /public change — adjust to your folder
+
+jobs:
+  deploy:
+    name: Upload changed files via SFTP
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Needed so we can compare commits to find changed files
+
+      # Step 2: Get the list of files that changed in this push
+      - name: Get changed files
+        id: changed_files
+        run: |
+          # Compare the last two commits to find what changed
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- public/)
+          echo "Changed files:"
+          echo "$CHANGED"
+          # Save to a temp file for use in the next step
+          echo "$CHANGED" > /tmp/changed_files.txt
+
+      # Step 3: Deploy changed files via SFTP
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_HOST }}
+          port: ${{ secrets.SFTP_PORT }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          # The local folder inside your repo to sync FROM:
+          local_path: './public/*'
+          # The folder on your SFTP server to sync TO:
+          remote_path: '/var/www/html'
+          # Only upload files that changed (instead of everything):
+          sftp_only: true
+          delete_remote_files: false   # Set to true if you want deleted local files removed on server too
