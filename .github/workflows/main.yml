@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main          # Change this if your branch is named differently (e.g. "master")
-    paths:
-      - 'public/**'   # Only trigger if files inside /public change — adjust to your folder
 
 jobs:
   deploy:
@@ -39,7 +37,7 @@ jobs:
           port: ${{ secrets.SFTP_PORT }}
           password: ${{ secrets.SFTP_PASSWORD }}
           # The local folder inside your repo to sync FROM:
-          local_path: './public/*'
+          local_path: './*'
           # The folder on your SFTP server to sync TO:
           remote_path: '/var/www/html'
           # Only upload files that changed (instead of everything):
