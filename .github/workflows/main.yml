@@ -37,9 +37,9 @@ jobs:
           port: ${{ secrets.SFTP_PORT }}
           password: ${{ secrets.SFTP_PASSWORD }}
           # The local folder inside your repo to sync FROM:
-          local_path: './*'
+          local_path: './httpdocs/*'
           # The folder on your SFTP server to sync TO:
-          remote_path: '/'
+          remote_path: '/httpdocs'
           # Only upload files that changed (instead of everything):
           sftp_only: true
           delete_remote_files: false   # Set to true if you want deleted local files removed on server too
