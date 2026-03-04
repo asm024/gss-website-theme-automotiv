@@ -22,7 +22,7 @@ jobs:
         id: changed_files
         run: |
           # Compare the last two commits to find what changed
-          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- public/)
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           echo "Changed files:"
           echo "$CHANGED"
           # Save to a temp file for use in the next step
@@ -39,7 +39,7 @@ jobs:
           # The local folder inside your repo to sync FROM:
           local_path: './*'
           # The folder on your SFTP server to sync TO:
-          remote_path: '/var/www/html'
+          remote_path: '/'
           # Only upload files that changed (instead of everything):
           sftp_only: true
           delete_remote_files: false   # Set to true if you want deleted local files removed on server too
