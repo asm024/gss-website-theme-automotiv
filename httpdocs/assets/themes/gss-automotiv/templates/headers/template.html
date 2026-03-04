@@ -56,7 +56,7 @@
 								<li><a class="dropdown-item" href="[%url page:'account'/%]#orders">Orders</a></li>
 								[%if [@config:allow_user_quote@]%]
 								<li><a class="dropdown-item" href="[%url page:'account'/%]#quotes">Quotes</a></li>
-								[%/ if%]
+								[%/if%]
 								<li><a class="dropdown-item" href="[%url page:'account' type:'payrec'/%]">Pay Invoices</a></li>
 								<li><a class="dropdown-item" href="[%url page:'account' type:'favourites'/%]">Reorder</a></li>
 								[%if [@config:show_wishlist@]%]
@@ -454,7 +454,6 @@
 									h.subcategories.forEach(function(i){
 										if(i.id == parseInt(id)){
 											if(Array.isArray(i.subcategories)){
-												alert("There are level 4!");
 											}
 											$(".dah_compat-btn").attr("data-url",i.url);
 											$(".dah_compat-btn").removeAttr("disabled");
@@ -523,7 +522,7 @@
 </div>
 [%/if%]
 </header>
-[%if [@config:current_page_type@] ne 'home' or [@config:current_page_type@] ne 'customer_account'%]
+[%if [@config:current_page_type@] ne 'home' and [@config:current_page_type@] ne 'customer_account'%]
 [%breadcrumb%]
 	[%param *header%]
 	<div class="container-fluid breadcrumb-section px-0">
@@ -553,4 +552,6 @@
 [%if [@config:current_page_type@] ne 'home'%]
 <div id="main-content" class="container mt-4" role="main">
 	<div class="row">
+[%else%]
+<div id="main-content" role="main">
 [%/if%]
