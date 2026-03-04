@@ -1,0 +1,50 @@
+<div class="row">
+	<meta itemprop="itemCondition" content="NewCondition">
+	<meta itemprop="brand" content="[@brand@]"/>
+	<div class="wrapper-product-title col-12">
+
+		<!-- Fitment status badge (shown/hidden via partfinder JS) -->
+		<div class="partfinder-status hidden mb-2" data-sku="[@sku@]">
+			<div class="dahgeneric">
+				<span class="badge badge-warning"><i class="fa fa-circle mr-1"></i> Universal Item</span>
+			</div>
+			<div class="dahfitted">
+				<span class="badge badge-success"><i class="fa fa-check-circle mr-1"></i> Fits Your Selected Vehicle</span>
+			</div>
+		</div>
+
+		<!-- Title row: product name left, brand logo right -->
+		<div class="row align-items-start">
+			<div class="col-12 col-sm-8">
+				<h1 itemprop="name" aria-label="Product Name">
+					[%url_info type:'product' id:'[@inventory_id@]' name:'page_heading' default:'[@name@]'/%]
+				</h1>
+				[%if [@subtitle@]%]
+					<h3 class="text-muted" role="heading" aria-label="Product Subtitle">[@subtitle@]</h3>
+				[%/if%]
+				[%if [@sku@]%]
+					<p class="product-sku" aria-label="Product SKU">SKU: [@sku@]</p>
+				[%/if%]
+			</div>
+			<div class="col-12 col-sm-4 text-sm-right">
+				[%list type:'content' filter:'content_type=brand&sku=[@sku@]'%]
+				[%param *body%]
+					[%if [@thumb@]%]
+						<a title="[@content_name@]" href="[%url type:'brand' id:'[@content_name@]'/%]">
+							<img class="img-fluid" src="[@thumb@]" alt="[@content_name@]" style="max-height:60px;">
+						</a>
+					[%else%]
+						<span class="text-muted small">Manufactured by:<br>
+							<a title="[@content_name@]" href="[%url type:'brand' id:'[@content_name@]'/%]"><strong>[@brand@]</strong></a>
+						</span>
+					[%/if%]
+				[%/param%]
+				[%/list%]
+			</div>
+		</div>
+
+		[%set [@review_sku@]%][%if [@parent_sku@]%][@parent_sku@][%else%][@sku@][%/if%][%/set%]
+		[%load_ajax_template id:'_reviews' type:'item' template:'reviews' preload:'1' tmpl_sku:'[@review_sku@]' /%]
+
+	</div>
+</div>
