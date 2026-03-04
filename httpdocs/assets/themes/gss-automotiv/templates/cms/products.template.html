@@ -1,0 +1,37 @@
+[%load_template file:'cms/includes/sidebar.template.html'/%]
+
+<h1>[@content_name@]</h1>
+<section class="n-responsive-content" aria-label="Short description">
+	[@content_short_description1@]
+	[@content_short_description2@]
+	[@content_short_description3@]
+</section>
+<section class="n-responsive-content" aria-label="Description">
+	[%parse%]
+		[@content_description1@]
+		[@content_description2@]
+		[@content_description3@]
+	[%/ parse%]
+</section>
+<hr aria-hidden="true"/>
+[%content_menu content_type:'category' sortby:'sortorder,name' show_empty:'1' limit:''%]
+	[%param header%]
+		<section class="row" aria-label="Categories">
+	[%/ param%]
+	[%param *level_1%]
+		<div class="col-6 col-sm-4 category-thumbnail" role="article" aria-label="[@name@] category">
+			<div class="card mb-4">
+			<a href="[@url@]" class="card-img-top">
+				<img src="[%asset_url type:'category' id:'[@id@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%end param%][%END asset_url%]" class="img-fluid" alt="[@name@]" />
+			</a>
+			
+                <h4 class="card-header text-center mb-0"><a href="[@url@]">[@name@]</a></h4>
+            
+              </div>
+		</div>
+	[%/ param%]
+	[%param footer%]
+		</section>
+	[%/ param%]
+[%/ content_menu%]
+</div>
