@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head itemscope itemtype="http://schema.org/WebSite">
+	[%load_template file:'headers/includes/head.template.html'/%]
+	<link rel="preload" href="[%ntheme_asset%]css/app.css[%/ntheme_asset%]" as="style">
+	<link rel="preload" href="[%ntheme_asset%]css/style.css[%/ntheme_asset%]" as="style">
+	<link class="theme-selector" rel="stylesheet" href="[%ntheme_asset%]css/app.css[%/ntheme_asset%]" media="all"/>
+	<link rel="stylesheet" href="[%ntheme_asset%]css/style.css[%/ntheme_asset%]" media="all"/>
+</head>
+<body id="n_[@config:current_page_type@]" class="n_[@CONFIG:TEMPLATELANG@]">
+<a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+<header class="wrapper-header" aria-label="Header container">
+	<div class="header-topbar">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 d-flex">
+					<ul class="nav list-social mr-auto justify-content-center justify-content-md-start" itemscope itemtype="http://schema.org/Organization" role="contentinfo" aria-label="Social media">
+						<meta itemprop="url" content="[@config:home_url@]"/>
+						<meta itemprop="logo" content="[@config:home_url@][@config:imageurl@]/website_logo.png"/>
+						<meta itemprop="name" content="[@config:company_name@]"/>
+						[%if [@config:facebook_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:facebook_account_id@]" target="_blank" title="[@config:company_name@] on Facebook" rel="noopener"><i class="fab fa-facebook-f" aria-hidden="true"></i><span class="sr-only">Facebook</span></a></li>
+						[%/if%]
+						[%if [@config:twitter_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:twitter_account_id@]" target="_blank" title="[@config:company_name@] on Twitter" rel="noopener"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Twitter</span></a></li>
+						[%/if%]
+						[%if [@config:googleplus_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:googleplus_account_id@]" target="_blank" title="[@config:company_name@] on Google Plus" rel="noopener"><i class="fab fa-google-plus-g" aria-hidden="true"></i><span class="sr-only">Google Plus</span></a></li>
+						[%/if%]
+						[%if [@config:youtube_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:youtube_account_id@]" target="_blank" title="[@config:company_name@] on Youtube" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="sr-only">Youtube</span></a></li>
+						[%/if%]
+						[%if [@config:instagram_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:instagram_account_id@]" target="_blank" title="[@config:company_name@] on Instagram" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i><span class="sr-only">Instagram</span></a></li>
+						[%/if%]
+						[%if [@config:pinterest_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:pinterest_account_id@]" target="_blank" title="[@config:company_name@] on Pinterest" rel="noopener"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pinterest</span></a></li>
+						[%/if%]
+						[%if [@config:tumblr_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:tumblr_account_id@]" target="_blank" title="[@config:company_name@] on Tumblr" rel="noopener"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Tumblr</span></a></li>
+						[%/if%]
+						[%if [@config:linkedin_account_id@]%]
+						<li class="nav-item px-1"><a itemprop="sameAs" href="[@config:linkedin_account_id@]" target="_blank" title="[@config:company_name@] on Linkedin" rel="noopener"><i class="fab fa-linkedin-in" aria-hidden="true"></i><span class="sr-only">Linkedin</span></a></li>
+						[%/if%]
+					</ul>
+					<ul class="nav ml-auto" role="navigation" aria-label="Main menu">
+						<li class="nav-item d-none d-sm-block">
+						    <a href="[%url id:'contact_us' /%]" class="nav-link text-uppercase">contact us</a>
+						</li>
+
+						[%if [@user:username@]%]
+						<li class="nav-item dropdown">
+							<a href="[%url page:'account'/%]" role="button" class="nav-link dropdown-toggle pr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Account dropdown"><i class="fa fa-user"></i> <span class="visible-lg visible-inline-lg">My Account</span></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a class="dropdown-item" href="[%url page:'account'/%]">Account Home</a></li>
+								<li><a class="dropdown-item" href="[%url page:'account'/%]#orders">Orders</a></li>
+								[%if [@config:allow_user_quote@]%]
+								<li><a class="dropdown-item" href="[%url page:'account'/%]#quotes">Quotes</a></li>
+								[%/ if%]
+								<li><a class="dropdown-item" href="[%url page:'account' type:'payrec'/%]">Pay Invoices</a></li>
+								<li><a class="dropdown-item" href="[%url page:'account' type:'favourites'/%]">Reorder</a></li>
+								[%if [@config:show_wishlist@]%]
+								<li><a class="dropdown-item" href="[%url page:'account' type:'wishlist'/%]">Wishlists</a></li>
+								[%/if%]
+								<li><a class="dropdown-item" href="[%url page:'account' type:'warranty'/%]">Resolution Centre</a></li>
+								<li><a class="dropdown-item" href="[%url page:'account' type:'edit_account'/%]">Edit My Details</a></li>
+								<li><a class="dropdown-item" href="[%url page:'account' type:'edit_address'/%]">Edit My Address Book</a></li>
+								<li> <a class="dropdown-item" href="[%url page:'account' type:'edit_pwd'/%]">Change My Password</a> </li>
+								<li> <a class="dropdown-item" href="[%url page:'account' type:'logout'/%]">Log Out</a> </li>
+							</ul>
+						</li>
+						[%else%]
+						<li class="nav-item">
+							<a class="nav-link text-uppercase pr-0" href="[%url page:'account' type:'login'/%]" title="Login">Login / Register</a>
+						</li>
+						[%/if%]
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="logo-section">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-7 col-sm-4 col-md-3 wrapper-logo text-sm-left">
+				<a href="[@config:home_url@]" title="[@config:company_name@]">
+					<img class="logo" src="[@config:imageurl@]/website_logo.png?[@config:neto_css_version@]" alt="[@config:company_name@] logo"/>
+				</a>
+			</div>
+			<div class="col-5 col-sm-8 d-flex align-items-center d-md-none ml-auto justify-content-end">
+			    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+					<i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+				</button>
+				<a class="navbar-toggler d-sm-inline-block d-md-none pr-0" href="javascript:;" type="button" data-toggle="collapse" data-target="#searchMobile" aria-controls="searchMobile" aria-expanded="false" aria-label="Toggle search mobile"><i class="fa fa-search"></i></a>
+				<a class="navbar-toggler d-sm-inline-block d-md-none" href="[%url page:'checkout' type:'cart'/%]" aria-label="Shopping cart">
+					<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+					<span class="badge badge-pill badge-secondary" rel="a2c_item_count">[%format type:'number' dp:'0'%][%CART id:'total_items'%][%/CART%][%/format%]</span>
+				</a>
+			</div>
+			<div class="d-none d-md-flex col-12 col-sm-8 col-md-9 justify-content-end align-items-center">
+				<div class="header-search pt-2 pt-md-0">
+					<form name="productsearch" method="get" action="/" role="search" aria-label="Product search">
+						<input type="hidden" name="rf" value="kw"/>
+						<div class="input-group">
+							<input class="form-control ajax_search" value="[%nohtml%][%filter ID:'keywords'%][%/filter%][%/nohtml%]" id="name_search" autocomplete="off" name="kw" type="search" aria-label="Input search" placeholder="Search…"/>
+							<div class="input-group-append">
+								<button type="submit" value="Search" class="btn btn-outline-secondary" aria-label="Search site"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="header-cart" class="btn-group" role="group">
+					<a href="[%url page:'checkout' type:'cart'/%]"  class="btn p-0 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Shopping cart dropdown" id="cartcontentsheader">
+						<p class="m-0 h2"><i class="fa fa-shopping-cart"></i></p>
+						<div><span>My Cart</span><span rel="a2c_sub_total" id="header-subtotal">[%format type:'currency' dp:'2'%][%CART
+								id:'product_total' /%][%/format%]</span></div>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right float-right">
+						<li class="box" id="neto-dropdown">
+							<div class="body" id="cartcontents"></div>
+							<div class="footer"></div>
+						</li>
+					</ul>
+				</div>
+				[%if [@CONFIG:COMPANY_PHONE@]%]
+				<div id="header-call" class="d-none d-lg-flex">
+					<div class="divider"></div>
+					<div class="d-flex align-items-center">
+						<div><p class="mb-0 mr-3 h2"><i class="fa fa-phone"></i></p></div>
+						<div>
+							<p class="mb-0">Need help?</p>
+							<p class="mb-0"><a href="tel:[@CONFIG:COMPANY_PHONE@]">[@CONFIG:COMPANY_PHONE@]</a></p>
+						</div>
+					</div>
+				</div>
+				[%/if%]
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="menu-section mb-2 mb-md-0">
+	<div class="container">
+		<nav class="navbar navbar-expand-md navbar-light mt-0 p-md-0">
+		    <div class="d-md-none collapse navbar-collapse" id="searchMobile" data-parent=".menu-section">
+    			<form class="d-block d-md-none" name="productsearch" method="get" action="/" role="search" aria-label="Product search">
+    				<input type="hidden" name="rf" value="kw"/>
+    				<div class="input-group">
+    					<input class="form-control ajax_search" value="[%nohtml%][%filter ID:'keywords'%][%/filter%][%/nohtml%]" id="name_search-xs" placeholder="Search…" autocomplete="off" name="kw" type="search" aria-label="Input search"/>
+    					<div class="input-group-append">
+    						<button type="submit" value="Search" class="btn btn-outline-secondary" aria-label="Search site">GO</button>
+    					</div>
+    				</div>
+    			</form>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarMainMenu" data-parent=".menu-section">
+				[%cache type:'cmenu' id:'header_category_menu'%]
+				<ul class="navbar-nav mr-auto align-items-center d-none d-md-flex" role="navigation" aria-label="Category menu">
+									<!-- Shop mega menu: all categories collapsed into one dropdown -->
+				<li class="nav-item dropdown mega-menu-parent position-static">
+					<a href="javascript:;" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+					<div class="dropdown-menu w-100 p-3">
+						<div class="row">
+							[%content_menu content_type:'category' sortby:'sortorder,name' show_empty:'1'%]
+								[%param *level_1%]
+								<div class="col-6 col-md-3 col-lg-2 mb-3">
+									<a href="[@url@]" class="font-weight-bold d-block mb-1">[@name@]</a>
+									[%if [@next_level@]%]
+									<ul class="list-unstyled mb-0">[@next_level@]</ul>
+									[%/if%]
+								</div>
+								[%/param%]
+								[%param *level_2%]
+								<li><a href="[@url@]" class="small dropdown-item px-0 py-0">[@name@]</a></li>
+								[%/param%]
+								[%param *level_3%]
+								<li class="pl-2"><a href="[@url@]" class="small dropdown-item px-0 py-0 text-muted">[@name@]</a></li>
+								[%/param%]
+							[%/content_menu%]
+						</div>
+					</div>
+				</li>
+					[%menu id:'web_header'%]
+						[%param *level_1%]
+						   <li class="nav-item [%if [@next_level@]%] dropdown [%/if%]">
+							  <a href="[@url@]" class="nav-link [%if [@next_level@]%] dropdown-toggle[%/if%]" [%if [@next_level@]%]role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"[%/if%]>[@name@]</a>
+							  [%if [@next_level@]%]
+								 <ul class="dropdown-menu">
+									[@next_level@]
+								 </ul>
+							  [%/if%]
+						   </li>
+						   [%/param%]
+					    [%param *level_2%]
+						   <li class="[%if [@next_level@]%] dropdown dropdown-hover [%/if%]">
+							  <a href="[@url@]" class="nuhover dropdown-item">[@name@]</a>
+							  [%if [@next_level@]%]
+								 <ul class="dropdown-menu dropdown-menu-horizontal">
+									[@next_level@]
+								 </ul>
+							  [%/if%]
+						   </li>
+						   [%/param%]
+					    [%param *level_3%]
+						   <li>
+							  <a href="[@url@]" class="dropdown-item pl-5 pl-md-4">[@name@]</a>
+						   </li>
+					    [%/param%]
+					[%/menu%]
+					[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
+					    [%param *header%]
+					        <li class="nav-item dropdown">
+					            <a href="javascript:;" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse by Make</a>
+
+					                <ul class="dropdown-menu dropdown-col-3 dropdown-menu-right">
+
+
+					        [%/param%]
+					    [%param *level_1%]
+					    <li class="w-100">
+							<a href="[@url@]" class="nuhover dropdown-item">[@name@]</a>
+						 </li>
+					        [%/param%]
+					    [%param *footer%]
+					       </ul>
+					        </li>
+					    [%/param%]
+					[%/content_menu%]
+					[%set [@dah_brand_count@] %]1[%/set%]
+					[%content_menu content_type:'brand' sortby:'sortorder,name' show_empty:'1'%]
+					    [%param *header%]
+					        <li class="nav-item dropdown mega-menu-parent">
+					            <a href="[@url@]" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brands</a>
+								<ul class="dropdown-menu mega-menu w-100">
+						[%/param%]
+						[%param *level_1%]
+								[%if [@dah_brand_count@] < 16%]			
+									[%set [@^dah_brand_count@] %][%calc [@dah_brand_count@] + 1 /%][%/set%]
+									<li class="nav-item d-inline-block w-100">
+										<a href="[@url@]" class="nav-link font-weight-bold">
+											<img class="img-fluid" src="[%ASSET_URL type:'content' id:'[@content_id@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/param%][%/ASSET_URL%]" alt="[@name@]"/>
+										</a>
+									</li>
+								[%/if%]
+						[%/param%]
+						[%param *footer%]
+									<li class="nav-item d-inline-block w-100"><a href="[%url id:'allbrands'/%]">View all brands</a></li>
+					        	</ul>
+					        </li>
+					    [%/param%]
+					[%/content_menu%]
+				</ul>
+				[%/cache%]
+				<div class="burger-menu d-block d-md-none">
+            		<div class="">
+            			<ul class="nav navbar-nav">
+            				[%cache type:'cmenu' id:'web_burgermenu'%]
+            					[%content_menu content_type:'category' sortby:'sortorder,name' show_empty:'1'%]
+            					    [%param *level_1%]
+            					        <li class="[%if [@next_level@]%]dropdown dropdown-hover[%/if%]"> <a href="[%if [@next_level@]%]javascript:;[%else%][@url@][%/if%]" [%if [@next_level@]%]class="dropdown-toggle"[%/if%]>[@name@] [%if [@next_level@]%]<span><i class="fa fa-plus"></i></span>[%/if%]</a>
+            					            [%if [@next_level@]%]
+            					               	<ul class="nav navbar-nav d-none">
+            					                    [@next_level@]
+            					               	</ul>
+            					            [%/if%]
+            					        </li>
+            					        [%/param%]
+            					    [%param *level_2%]
+            					        <li class=""> <a href="[%if [@next_level@]%]javascript:;[%else%][@url@][%/if%]" class="[%if [@next_level@]%]dah_subcat [%/if%] nuhover dropdown-toggle">[@name@] [%if [@next_level@]%]<span><i class="fa fa-plus"></i></span>[%/if%]</a>
+            					            [%if [@next_level@]%]
+            					               	<ul class="nav navbar-nav d-none">
+            					                    [@next_level@]
+            					               	</ul>
+            					            [%/if%]
+            					        </li>
+            					        [%/param%]
+            					    [%param *level_3%]
+            					        <li><a href="[@url@]">[@name@]</a></li>
+            					    [%/param%]
+            					[%/content_menu%]	
+            					[%menu id:'web_header'%]
+						            [%param *level_1%]
+            					        <li class="[%if [@next_level@]%]dropdown dropdown-hover[%/if%]"> <a href="[%if [@next_level@]%]javascript:;[%else%][@url@][%/if%]" [%if [@next_level@]%]class="dropdown-toggle"[%/if%]>[@name@] [%if [@next_level@]%]<span><i class="fa fa-plus"></i></span>[%/if%]</a>
+            					            [%if [@next_level@]%]
+            					               	<ul class="nav navbar-nav d-none">
+            					                    [@next_level@]
+            					               	</ul>
+            					            [%/if%]
+            					        </li>
+            					        [%/param%]
+            					    [%param *level_2%]
+            					        <li class=""> <a href="[%if [@next_level@]%]javascript:;[%else%][@url@][%/if%]" class="[%if [@next_level@]%]dah_subcat [%/if%] nuhover dropdown-toggle">[@name@] [%if [@next_level@]%]<span><i class="fa fa-plus"></i></span>[%/if%]</a>
+            					            [%if [@next_level@]%]
+            					               	<ul class="nav navbar-nav d-none">
+            					                    [@next_level@]
+            					               	</ul>
+            					            [%/if%]
+            					        </li>
+            					        [%/param%]
+            					    [%param *level_3%]
+            					        <li><a href="[@url@]">[@name@]</a></li>
+            					    [%/param%]
+				                [%/menu%]
+								[%content_menu content_type:'parts_finder' sortby:'sortorder,name' show_empty:'1'%]
+									[%param *header%]
+										<li class="dropdown dropdown-hover">
+											<a href="javascript:;" class="dropdown-toggle">Browse by Make <span><i class="fa fa-plus"></i></span></a>
+											<ul class="nav navbar-nav d-none">
+									[%/param%]
+									[%param *level_1%]
+												<li><a href="[@url@]">[@name@]</a></li>
+									[%/param%]
+									[%param *footer%]
+											</ul>
+										</li>
+									[%/param%]
+								[%/content_menu%]
+								[%set [@dah_brand_count_mob@] %]1[%/set%]
+								[%content_menu content_type:'brand' sortby:'sortorder,name' show_empty:'1'%]
+									[%param *header%]
+										<li class="dropdown dropdown-hover">
+											<a href="javascript:;" class="dropdown-toggle">Brands <span><i class="fa fa-plus"></i></span></a>
+											<ul class="nav navbar-nav d-none">
+									[%/param%]
+									[%param *level_1%]
+											[%if [@dah_brand_count_mob@] < 16%]			
+												[%set [@^dah_brand_count_mob@] %][%calc [@dah_brand_count_mob@] + 1 /%][%/set%]
+												<li class="brand-item-[@dah_brand_count_mob@]"><a href="[@url@]">[@name@]</a></li>
+											[%/if%]
+									[%/param%]
+									[%param *footer%]
+												<li><a href="[%url id:'allbrands'/%]">View all brands</a></li>
+											</ul>
+										</li>
+									[%/param%]
+								[%/content_menu%]
+							[%/cache%]
+            			</ul>
+            		</div>
+            	</div>
+		  </div>
+		</nav>
+	</div>
+</div>
+[%set [@dah_partfinder_active@] %]n[%/set%]
+[%thumb_list type:'content' content_type:'parts_finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
+[%param *body%]
+	[%set [@^dah_partfinder_active@] %]y[%/set%]
+[%/param%]
+[%/thumb_list%]
+[%if [@dah_partfinder_active@] eq 'y'%]
+<div class="dah_newpartfinder parts_finder">
+	[%set [@dah_partcategories@] %]
+	[%cache id:'dah_partcategories' type:'cmenu'%]
+	[%content_menu content_type:'parts_finder' sortby:'name' show_empty:'1'%]
+		[%param *level_1%]
+			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+		[%/param%]
+		[%param *level_2%]
+			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+		[%/param%]
+		[%param *level_3%]
+			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+		[%/param%]
+		[%param *level_4%]
+			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+		[%/param%]
+		[%param *level_5%]
+			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
+		[%/param%]
+	[%/content_menu%]
+	[%/cache%]
+	[%/set%]
+	[%site_value id:'footer_javascript'%]
+		<script>
+			const partfindercat = [[%format type:'text' trim:'e1'%][@dah_partcategories@][%/format%]];
+			//console.log(partfindercat);
+			var lvl_1 ="";
+			var lvl_2 ="";
+			var lvl_3 ="";
+			var lvl_1_id ="";
+			var lvl_2_id ="";
+			partfindercat.forEach(function(e) {
+				lvl_1 += "<option value='"+e.id+"'>"+e.name+"</option>";
+			});
+			$("#dah_partfinder_opt_1").html($("#dah_partfinder_opt_1").html() + lvl_1);
+
+			function lvl_1_option_change(id){
+				if(id){
+					partfindercat.forEach(function(e) {
+						if(e.id == parseInt(id)){
+							reset_lvl_2();
+							reset_lvl_3();
+							if(Array.isArray(e.subcategories)){
+								lvl_1_id = e.id;
+								e.subcategories.forEach(function(subcat) {
+									lvl_2 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
+								});
+								$("#dah_partfinder_opt_2").html("<option value=''>Please Select...</option>" + lvl_2);
+								$("#dah_partfinder_opt_2").removeAttr("disabled");
+							}else{
+								$("#dah_partfinder_opt_2").attr("disabled","disabled");
+								$("#dah_partfinder_opt_3").attr("disabled","disabled");
+							}
+							$(".dah_compat-btn").attr("data-url",e.url);
+							$(".dah_compat-btn").removeAttr("disabled");
+						}
+					});
+				}else{
+					reset_lvl_2();
+					reset_lvl_3();
+					$(".dah_compat-btn").attr("data-url","");
+					$(".dah_compat-btn").attr("disabled","disabled");
+				}
+			} 
+			function lvl_2_option_change(id){
+				if(id){
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == parseInt(id)){
+									reset_lvl_3();
+									if(Array.isArray(h.subcategories)){
+										lvl_2_id = parseInt(id);
+										h.subcategories.forEach(function(subcat) {
+											lvl_3 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
+										});
+										$("#dah_partfinder_opt_3").html("<option value=''>Please Select...</option>" + lvl_3);
+										$("#dah_partfinder_opt_3").removeAttr("disabled");
+									}else{
+										$("#dah_partfinder_opt_3").attr("disabled","disabled");
+									}
+									$(".dah_compat-btn").attr("data-url",h.url);
+									$(".dah_compat-btn").removeAttr("disabled");
+								}
+							});
+						}
+					});
+				}else{
+					reset_lvl_3();
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							$(".dah_compat-btn").attr("data-url",e.url);
+						}
+					});
+				}
+			} 
+			function lvl_3_option_change(id){
+				if(id){
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h){
+								if(h.id == lvl_2_id){
+									h.subcategories.forEach(function(i){
+										if(i.id == parseInt(id)){
+											if(Array.isArray(i.subcategories)){
+												alert("There are level 4!");
+											}
+											$(".dah_compat-btn").attr("data-url",i.url);
+											$(".dah_compat-btn").removeAttr("disabled");
+										}
+									});
+								}
+							});
+						}
+					});
+				}else{
+					partfindercat.forEach(function(e) {
+						if(e.id == lvl_1_id){
+							e.subcategories.forEach(function(h) {
+								if(h.id == lvl_2_id){
+									$(".dah_compat-btn").attr("data-url",h.url);
+								}
+							});
+						}
+					});
+				}
+			} 
+			function reset_lvl_2(){
+				lvl_2 ="";
+				$("#dah_partfinder_opt_2").html("<option value=''>Model</option>");
+			}
+			function reset_lvl_3(){
+				lvl_3 ="";
+				//$("#dah_partfinder_opt_3").find('option').remove();
+				$("#dah_partfinder_opt_3").html("<option value=''>Submodel/Year</option>");
+			}
+			$(".dah_compat-btn").click(function(){
+				window.location.href = $(this).attr('data-url');
+			});
+
+
+		</script>
+	[%/site_value%]
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-12">
+				<div id="parts_finder">
+					<button class="d-md-none btn btn-primary btn-block mb-2 font-weight-bold text-uppercase"
+						data-toggle="collapse" data-target=".parts_finder-content-new">Find your vehicle</button>
+					<div class="parts_finder-content-new py-1 collapse d-md-block">
+						<input type="hidden" id="clist_search" value="button">
+						<input type="hidden" id="clist_size" value="3">
+						<input type="hidden" id="clist_hidden" value="">
+						<div id="compat_list" class="d-flex flex-column flex-md-row justify-content-around align-items-center">
+							<p class="d-none d-md-flex mb-0 text-nowrap mr-md-3 font-weight-bold text-uppercase">Find your vehicle:</p>
+							<select name="clist_12_1" onchange="lvl_1_option_change(this.value);" id="dah_partfinder_opt_1" class="dah_partfinder_opt_1 dah_compatibility_list form-control" rel="Option Above">
+								<option value="">Make</option>
+							</select>
+							<select name="clist_12_2" onchange="lvl_2_option_change(this.value);" id="dah_partfinder_opt_2" class="dah_partfinder_opt_2 dah_compatibility_list form-control" rel="Option Above">
+								<option value="">Model</option>
+							</select>
+							<select name="clist_12_3" onchange="lvl_3_option_change(this.value);" id="dah_partfinder_opt_3" class="dah_partfinder_opt_3 dah_compatibility_list form-control" rel="Option Above">
+								<option value="">Submodel/Year</option>
+							</select>
+							<button type="submit" class="btn btn-primary text-uppercase font-weight-bold dah_compat-btn col-12 col-md-auto" data-url="" disabled>go</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+[%/if%]
+</header>
+[%if [@config:current_page_type@] ne 'home' or [@config:current_page_type@] ne 'customer_account'%]
+[%breadcrumb%]
+	[%param *header%]
+	<div class="container-fluid breadcrumb-section px-0">
+	    <div class="container">
+        	<div class="row">
+        		<nav aria-label="breadcrumb">
+        			<ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+        				<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        					<a href="[@config:home_url@]" itemprop="item"><span itemprop="name">Home</span></a>
+        					<meta itemprop="position" content="0" />
+        				</li>
+	[%/param%]
+	[%param *body%]
+        				<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        					<a href="[@url@]" itemprop="item"><span itemprop="name">[@name@]</span></a>
+        					<meta itemprop="position" content="[%calc [@count@] + 1 /%]" />
+        				</li>
+	[%/param%]
+	[%param *footer%]
+        			</ol>
+        		</nav>
+    		</div>
+		</div>
+	</div>
+	[%/param%]
+[%/breadcrumb%]
+[%if [@config:current_page_type@] ne 'home'%]
+<div id="main-content" class="container mt-4" role="main">
+	<div class="row">
+[%/if%]
