@@ -14,7 +14,7 @@
 		<div class="col-md-6 text-right">
 			<h1>
 				[%IF [@config:SHOW_PAYPAL_EXPRESS_LINK@] %]
-					<a class="_cpy_thirdparty_btn" ref="paypal" href="[%URL page:'checkout' fn:'3rdparty' qs:'payment=6'%][%/ URL%]"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" border="0" alt="Checkout With Paypal"/></a>
+					<a class="_cpy_thirdparty_btn" ref="paypal" href="[%URL page:'checkout' fn:'3rdparty' qs:'payment=6'%][%/ URL%]"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Checkout With Paypal"/></a>
 				[%/ IF%]
 			</h1>
 		</div>
@@ -318,7 +318,6 @@
 			<div class="col-12 col-sm-8">
 			[%payment_methods type:'[@order_type@]'%]
 			[%PARAM header%]
-				<span class="hidden-md hidden-lg"><br></span>
 				<ul class="list-inline d-flex flex-wrap">
 			[%/ PARAM%]
 			[%PARAM *body%]
@@ -409,11 +408,11 @@
 			[%/ payment_methods%]
 				[%payment_plans type:'[@order_type@]' sortby:'sortorder,name'%]
 			[%PARAM *header%]
-				<div class="card panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">Select your payment plan</h4>
+				<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Select your payment plan</h4>
 				</div>
-				<div class="card-body panel-body">
+				<div class="card-body">
 					<div id="_cpy_plan_pl"></div>
 					<hr>
 					[%/ PARAM%]
@@ -448,7 +447,7 @@
 
 				[%load_ajax_template id:'redeem_vouchers' type:'cart' template:'redeem_vouchers' preload:"1"%][%/ load_ajax_template%]
 
-				<p><h3>Balance Due: <span class="_cpy_balancedue">[%format type:'currency'%][@grand_total@][%end format%]</span></h3></p>
+				<h3>Balance Due: <span class="_cpy_balancedue">[%format type:'currency'%][@grand_total@][%end format%]</span></h3>
 				<input name="grand_total" id="grand_total" type="hidden" value="[%CART id:'grand_total'%][%/ CART%]"/>
 				<div ref="card" class="_cpy_paydesc alert alert-info">
 					[%IF [@processor_type@] eq ''%]
@@ -460,8 +459,8 @@
 					</div>
 					<div class="col-12">
 						<div class="form-group">
-							<label>Card Holder's Name</label>
-							<input class="form-control"  type="text"  name="card_holder" maxlength="40" value="" />
+							<label for="card_holder">Card Holder's Name</label>
+							<input class="form-control"  type="text"  id="card_holder" name="card_holder" maxlength="40" value="" />
 						</div>
 					</div>
 					<div class="col-12">
@@ -487,8 +486,8 @@
 					</div>
 					<div class="col-12">
 						<div class="form-group">
-							<label>Card Security Code</label>
-							<input type="text" name="card_ccid" class="form-control" />
+							<label for="card_ccid">Card Security Code</label>
+							<input type="text" id="card_ccid" name="card_ccid" class="form-control" />
 							<span class="help-inline">3-4 digit security code (<a href="#" data-toggle="modal" data-target="#ccvModal">What is this?</a>)</span>
 						</div>
 					</div>
@@ -547,7 +546,7 @@
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								</div>
 								<div class="modal-body">[%content_zone id:'terms'/%]</div>
-								<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+								<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
 							</div>
 						</div>
 					</div>
@@ -559,7 +558,7 @@
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								</div>
 								<div class="modal-body">[%show_content id:'2'%][%param *body%][@content_description1@][%/param%][%/show_content%]</div>
-								<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+								<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
 							</div>
 						</div>
 					</div>
@@ -579,19 +578,19 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							</div>
 							<div class="modal-body">For <b>Visa</b>, <b>MasterCard</b>, and <b>Discover cards</b>, the card security code is the last <b>3 digit</b> number located on the BACK of your card on or above your signature line. For an <b>American Express</b> card, it is the <b>4 digits</b> on the FRONT above the end of your card number. </div>
-							<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+							<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
 						</div>
 					</div>
 				</div>
 				<p class="form-actions">
-					<button type="submit" class="btn btn-success btn-lg btn-block">Confirm &amp; Process Order <i class="fa fa-chevron-right icon-white"></i></button>
+					<button type="submit" class="btn btn-success btn-lg btn-block">Confirm &amp; Process Order <i class="fa fa-chevron-right"></i></button>
 				</p>
 				<!-- End Payment -->
 			</div>
 			[%/ DATA%]
 			[%DATA id:'order_type' if:'eq' value:'quote'%]
 			<p class="form-actions">
-				<button id="_cpy_checkout_submit" type="button" class="btn btn-success btn-large float-right">Confirm &amp; Process Quote <i class="fa fa-chevron-right icon-white"></i></button>
+				<button id="_cpy_checkout_submit" type="button" class="btn btn-success btn-lg float-right">Confirm &amp; Process Quote <i class="fa fa-chevron-right"></i></button>
 			</p>
 			[%/ DATA%]
 		</form>

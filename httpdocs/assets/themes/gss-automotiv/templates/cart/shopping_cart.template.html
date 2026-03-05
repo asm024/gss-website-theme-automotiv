@@ -4,7 +4,7 @@
 	<div class="row btn-stack">
 		<div class="col-12 col-md-8 col-lg-9">
 			[%if [@config:allow_user_quote@] eq '1'%]
-				<button class="btn btn-outline-secondary" type="button" role="link" onclick="window.location='[%url page:'checkout' fn:'quote'/%]';" title="Create Quote From Cart"> <i class="fa fa-list-alt" aria-hidden="true"></i> Create Quote From Cart</button>
+				<button class="btn btn-outline-secondary" type="button" onclick="window.location='[%url page:'checkout' fn:'quote'/%]';" title="Create Quote From Cart"> <i class="fa fa-list-alt" aria-hidden="true"></i> Create Quote From Cart</button>
 			[%/if%]
 			<!-- Uncomment if you'd like a "Edit gift messages" button above the cart summary. Requires checkout_upsell_extra to be configured correctly.
 			[%if [@config:checkout_upsell_extra@]%]
@@ -12,7 +12,7 @@
 			[%/if%] -->
 		</div>
 		<div class="col-12 col-md-4 col-lg-3">
-			<button class="btn btn-success btn-lg btn-block" type="button" role="link" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout Now"><i class="fa fa-shopping-cart icon-white" aria-hidden="true"></i> Checkout Now</button>
+			<button class="btn btn-success btn-lg btn-block" type="button" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout Now"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout Now</button>
 		</div>
 	</div>
 	<div class="row">
@@ -43,7 +43,7 @@
 								<p class="small">
 									[@extra@]
 									[%if [@config:checkout_upsell_extra@]%]
-										<a class="btn btn-outline-secondary btn-sm" role="link" href="[%url page:'checkout' fn:'upsell'/%]" title="Edit extra options"> <i class="fa fa-pencil-alt icon-white" aria-hidden="true"></i></a>
+										<a class="btn btn-outline-secondary btn-sm" href="[%url page:'checkout' fn:'upsell'/%]" title="Edit extra options"> <i class="fa fa-pencil-alt" aria-hidden="true"></i></a>
 									[%/if%]
 								</p>
 								[%if [@aff_id@] eq '[@config:AFF_EBAY_ID@]'%]
@@ -64,7 +64,7 @@
 											<li>
 												<input type="hidden" name="compsku[@count@]_[@component_count@]" value="[@SKU@]">
 												<label>[@model@] x </label>
-												<input type="number" min="[@min_assemble@]" max="[@max_assemble@]" name="compqty[@count@]_[@component_count@]" class="form-control [%if [@fixed_assemble@]%]readonly [%/if%]" [%if [@fixed_assemble@]%]readonly [%/if%] value="[@qty@]" size="3">
+												<input type="number" min="[@min_assemble@]" max="[@max_assemble@]" name="compqty[@count@]_[@component_count@]" class="form-control" [%if [@fixed_assemble@]%]readonly[%/if%] value="[@qty@]" size="3">
 											</li>
 										[%/param%]
 										[%param *footer%]
@@ -75,7 +75,7 @@
 								[%/if%]
 								[%if [@gifts_available@]%]
 									<p class="h4">Congratulations! The above purchase has made you eligible for [@gifts_available@] of the following FREE Gifts!</p>
-									<span class="help-box">You can add any of the following gifts to your shopping Shopping Cart now and you will not be charged for them!</span> <br />
+									<span class="help-box">You can add any of the following gifts to your shopping cart now and you will not be charged for them!</span> <br />
 									<br />
 									[%free_gifts id:'[@SKU@]'%]
 										[%param *header%]
@@ -125,7 +125,7 @@
 		</div>
 		<div class="row btn-stack">
 			<div class="col-12 col-md-4 col-lg-3">
-				<button type="button" role="link" onclick="window.location='[%last_visited default:'[@config:home_url@]'/%]';" class="btn btn-outline-secondary btn-block" title="Continue shopping"><i class="fa fa-reply" aria-hidden="true"></i> Continue Shopping</button>
+				<button type="button" onclick="window.location='[%last_visited default:'[@config:home_url@]'/%]';" class="btn btn-outline-secondary btn-block" title="Continue shopping"><i class="fa fa-reply" aria-hidden="true"></i> Continue Shopping</button>
 			</div>
 			<div class="col-12 col-md-4 offset-md-4 col-lg-3 offset-lg-6">
 				<button type="button" class="btn btn-primary btn-block" onclick="javascript:document.checkout.submit();" title="Update changes"><i class="fa fa-sync" aria-hidden="true"></i> Update My Changes</button>
@@ -177,7 +177,7 @@
 									[%if [@delivery_time@] >= 1%]
 									<p>Estimated arrival of [%format type:'number' tl_unit:'day' tl_plural:'days'%][@delivery_time@][%/format%]</p>
 									[%/if%]
-									<p>[@shipping_description@]<p>
+									<p>[@shipping_description@]</p>
 									</label>
 								</div>
 							[%/param%]
@@ -252,7 +252,7 @@
 										<option value="">Select your payment plan</option>
 					[%/param%]
 					[%param *body%]
-										<option value="[@id@]" [%if [%id%] eq [@payment_plan_id@]%]selected[%/if%]>[@name@]</option>
+										<option value="[@id@]" [%if [@id@] eq [@payment_plan_id@]%]selected[%/if%]>[@name@]</option>
 					[%/param%]
 					[%param *footer%]
 										</select>
@@ -261,7 +261,7 @@
 							</div>
 						</div>
 					[%/param%]
-					[%/ payment_plans%]
+					[%/payment_plans%]
 					<div class="row btn-stack">
 						<div class="col-12 col-lg-6 text-center text-md-left mb-1">
 							[%if [@config:show_paypal_express_link@]%]
@@ -278,7 +278,7 @@
 							[%/if%]
 						</div>
 						<div class="col-12 col-lg-6 text-center mb-1">
-							<button class="btn btn-success btn-lg btn-block" role="link" type="button" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout now">
+							<button class="btn btn-success btn-lg btn-block" type="button" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout now">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout Now
 							</button>
 						</div>

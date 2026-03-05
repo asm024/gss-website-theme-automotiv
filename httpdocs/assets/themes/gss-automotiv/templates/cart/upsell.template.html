@@ -21,34 +21,34 @@
 					[%/param%]
 					[%param *body%]
 						<input type="hidden" name="line[@line@]" id="line[@line@]" value="[@counter@]">
-						<div class="panel panel-default">
-							<div class="panel-body">
+						<div class="card">
+							<div class="card-body">
 								<div class="row">
 									<div class="col-12"><h3>#[@item_count@] &nbsp; [@model@]</h3></div>
 								</div>
 								<div class="row">
 									<div class="col-12 col-sm-4">
-										<img src="[@thumb@]" class="img-fluid" alt="[@model@]" border="0">
+										<img src="[@thumb@]" class="img-fluid" alt="[@model@]">
 									</div>
 									<div class="options-form-container col-12 col-sm-8">
 										[%extra_options id:'[@SKU@]' currentextra:'[@currentextras@]'%]
 											[%PARAM *header%]
-												<table class="productoptions table table-striped table-bordered" border="0" cellspacing="0" cellpadding="4">
+												<table class="productoptions table table-striped table-bordered">
 											[%/PARAM%]
 											[%PARAM *number_option%]
 												<tr>
-													<td valign="top"><span id="exname[@line@]_[@count@]">[@name@]</span>:</td>
-													<td valign="top" width="70%"><input type="text" class="form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" value="[@currentextra@]"></td>
+													<td><span id="exname[@line@]_[@count@]">[@name@]</span>:</td>
+													<td><input type="text" class="form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" value="[@currentextra@]"></td>
 												</tr>
 											[%/PARAM%]
 											[%PARAM *text_option%]
 												<tr>
-													<td valign="top"><span id="exname[@line@]_[@count@]">[@name@]</span>:</td>
-													<td valign="top" width="70%">
+													<td><span id="exname[@line@]_[@count@]">[@name@]</span>:</td>
+													<td>
 														[%if [@length@] > '100'%]
-															<textarea class="inputtext form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" max="[@length@]" cols="20">[@currentextra@]</textarea>
+															<textarea class="inputtext form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" maxlength="[@length@]" cols="20">[@currentextra@]</textarea>
 														[%else%]
-															<input type="text" class="form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" max="[@length@]" value="[@currentextra@]">
+															<input type="text" class="form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]" maxlength="[@length@]" value="[@currentextra@]">
 														[%/if%]
 													</td>
 												</tr>
@@ -56,7 +56,7 @@
 											[%PARAM *select_option%]
 												<tr>
 													<td><span id="exname[@line@]_[@count@]">[@name@]</span>:</td>
-													<td width="70%">
+													<td>
 														<select class="extrasel form-control" name="extra[@line@]_[@count@]" id="extra[@line@]_[@count@]">
 															[@choices@]
 														</select>
