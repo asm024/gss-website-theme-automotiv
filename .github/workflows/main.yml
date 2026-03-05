@@ -39,7 +39,23 @@ jobs:
       - name: Clean up node_modules
         run: rm -rf httpdocs/assets/themes/gss-automotiv/node_modules
 
-      # Step 6: Deploy all files via SFTP
+      # Step 6: Avoid server maintenance window (XX:55-XX:05) which rejects connections
+      - name: Wait out server maintenance window if needed
+        run: |
+          minute=$(date +%-M)
+          if [ "$minute" -ge 55 ] || [ "$minute" -le 5 ]; then
+            if [ "$minute" -ge 55 ]; then
+              wait_min=$(( 66 - minute ))
+            else
+              wait_min=$(( 6 - minute ))
+            fi
+            echo "Server maintenance window detected (current minute: $minute). Waiting ${wait_min} minute(s)..."
+            sleep $(( wait_min * 60 ))
+          else
+            echo "Outside maintenance window (current minute: $minute). Proceeding."
+          fi
+
+      # Step 7: Deploy all files via SFTP
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
