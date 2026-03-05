@@ -13,10 +13,9 @@ sass.compiler = require('node-sass');
 
 // -------------------- Configure object --------------------
 var config = {};
-config.src = './src';
-config.JS = config.src + '/js';
-config.SCSS = config.src + '/scss';
-config.CSS = config.src + '/css';
+config.JS = './js';
+config.SCSS = './scss';
+config.CSS = './css';
 config.buildTasks = ['sass', 'js'];
 config.jsFiles = ['node_modules/jquery/dist/jquery.min.js', 'node_modules/popper.js/dist/umd/popper.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js'];
 
@@ -35,7 +34,7 @@ task('sass', function() {
 		.pipe(dest(config.CSS))
 });
 
-// Move the JS files into our /src/js folder
+// Bundle vendor JS files into js/vendor.js
 task('js', function() {
 	return src(config.jsFiles)
 		.pipe(plumber())

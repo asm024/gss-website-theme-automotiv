@@ -1,13 +1,13 @@
-name: Deploy to SFTP Server
+name: Build and Deploy to SFTP Server
 
 on:
   push:
     branches:
-      - main          # Change this if your branch is named differently (e.g. "master")
+      - main
 
 jobs:
   deploy:
-    name: Upload changed files via SFTP
+    name: Build assets and upload via SFTP
     runs-on: ubuntu-latest
 
     steps:
@@ -15,20 +15,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Needed so we can compare commits to find changed files
+          fetch-depth: 0
 
-      # Step 2: Get the list of files that changed in this push
-      - name: Get changed files
-        id: changed_files
-        run: |
-          # Compare the last two commits to find what changed
-          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed files:"
-          echo "$CHANGED"
-          # Save to a temp file for use in the next step
-          echo "$CHANGED" > /tmp/changed_files.txt
+      # Step 2: Set up Node.js
+      # Pinned to Node 14 for compatibility with node-sass 4.x.
+      # When node-sass is upgraded to 7+ (Dart Sass), this can move to Node 18+.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
 
-      # Step 3: Deploy changed files via SFTP
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        working-directory: httpdocs/assets/themes/gss-automotiv
+        run: npm install
+
+      # Step 4: Compile SCSS and bundle vendor JS
+      - name: Build assets
+        working-directory: httpdocs/assets/themes/gss-automotiv
+        run: npm run build
+
+      # Step 5: Remove node_modules so it is not uploaded to the server
+      - name: Clean up node_modules
+        run: rm -rf httpdocs/assets/themes/gss-automotiv/node_modules
+
+      # Step 6: Deploy all files via SFTP
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -36,10 +47,7 @@ jobs:
           server: ${{ secrets.SFTP_HOST }}
           port: ${{ secrets.SFTP_PORT }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          # The local folder inside your repo to sync FROM:
           local_path: './httpdocs/*'
-          # The folder on your SFTP server to sync TO:
           remote_path: '/httpdocs'
-          # Only upload files that changed (instead of everything):
           sftp_only: true
-          delete_remote_files: false   # Set to true if you want deleted local files removed on server too
+          delete_remote_files: false
