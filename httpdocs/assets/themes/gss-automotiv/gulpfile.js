@@ -27,8 +27,7 @@ task('sass', function() {
 		cssnano()
 	];
 	return src(config.SCSS +'/*.scss')
-		.pipe(plumber())
-		.pipe(sass())
+		.pipe(sass().on('error', function(err) { sass.logError.call(this, err); process.exit(1); }))
 		.pipe(postcss(plugins))
 		.pipe(chmod(0o755))
 		.pipe(dest(config.CSS))
@@ -37,7 +36,6 @@ task('sass', function() {
 // Bundle vendor JS files into js/vendor.js
 task('js', function() {
 	return src(config.jsFiles)
-		.pipe(plumber())
 		.pipe(removeSourcemaps())
 		.pipe(concat('vendor.js'))
 		.pipe(dest(config.JS))
