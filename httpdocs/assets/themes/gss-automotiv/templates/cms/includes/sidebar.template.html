@@ -3,7 +3,7 @@
 		<div class="card mb-2">
 			<div class="card-header">
 				<h3 class="h4 mb-0">
-					<a class="d-block" role="button" data-toggle="collapse" aria-expanded="false" href="#filters" aria-controls="#filters">Filter Products</a>
+					<a class="d-block" role="button" data-toggle="collapse" aria-expanded="false" href="#filters" aria-controls="filters">Filter Products</a>
 				</h3>
 			</div>
 			<div id="filters" class="collapse">
@@ -92,7 +92,7 @@
 							[%/param%]
 							[%param *body%]
 								[%if [@selected@]%]
-									<a class="filter-remove list-group-item d-l-none d-xl-none d-flex justify-content-between align-items-center" href="[@remove_url@]" class="list-group-item" rel="nofollow">
+									<a class="filter-remove list-group-item d-l-none d-xl-none d-flex justify-content-between align-items-center" href="[@remove_url@]" rel="nofollow">
 										<span><i class="fa fa-check-square"></i> [@name@]</span>
 										<span class="badge badge-secondary badge-pill">[@total@]</span>
 									</a>
