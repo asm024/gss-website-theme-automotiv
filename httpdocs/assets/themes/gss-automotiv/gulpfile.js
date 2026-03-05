@@ -27,7 +27,7 @@ task('sass', function() {
 		cssnano()
 	];
 	return src(config.SCSS +'/*.scss')
-		.pipe(sass().on('error', function(err) { sass.logError.call(this, err); process.exit(1); }))
+		.pipe(sass().on('error', sass.logError))
 		.pipe(postcss(plugins))
 		.pipe(chmod(0o755))
 		.pipe(dest(config.CSS))

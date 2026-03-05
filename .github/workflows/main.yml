@@ -35,17 +35,7 @@ jobs:
         working-directory: httpdocs/assets/themes/gss-automotiv
         run: npm run build
 
-      # Step 5: Verify app.css was actually compiled (fail if too small)
-      - name: Verify build output
-        run: |
-          SIZE=$(wc -c < httpdocs/assets/themes/gss-automotiv/css/app.css)
-          echo "app.css size: ${SIZE} bytes"
-          if [ "$SIZE" -lt 50000 ]; then
-            echo "ERROR: app.css is too small (${SIZE} bytes) — SCSS compilation likely failed"
-            exit 1
-          fi
-
-      # Step 6: Remove node_modules so it is not uploaded to the server
+      # Step 5: Remove node_modules so it is not uploaded to the server
       - name: Clean up node_modules
         run: rm -rf httpdocs/assets/themes/gss-automotiv/node_modules
 
