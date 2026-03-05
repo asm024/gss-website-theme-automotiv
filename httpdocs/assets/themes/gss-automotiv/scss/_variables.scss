@@ -40,18 +40,17 @@ $enable-rounded:            true;
 $enable-shadows:            false;
 $enable-gradients:          false;
 $enable-transitions:        true;
-$enable-hover-media-query:  false; // Deprecated, no longer affects any compiled CSS
 $enable-grid-classes:       true;
 $enable-print-styles:       true;
 $enable-validation-icons:   false;
 // Fonts
 //
 // Font, line-height, and color for body text, headings, and more.
-$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Lato", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base:            $font-family-sans-serif;
 
-$font-size-base:              0.875rem; // Assumes the browser default, typically `1rem==16px`
+$font-size-base:              0.875rem; // 14px — intentionally smaller than the browser default of 1rem (16px)
 $font-size-lg:                ($font-size-base * 1.25);
 $font-size-sm:                ($font-size-base * .875);
 
@@ -78,6 +77,3 @@ $link-color:                $primary;
 $link-decoration:           none;
 $link-hover-color:          darken($link-color, 15%);
 $link-hover-decoration:     underline;
-// Breadcrumbs
-//
-$breadcrumb-bg:               $gray-100;
