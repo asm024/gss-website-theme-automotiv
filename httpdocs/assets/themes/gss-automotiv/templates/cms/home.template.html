@@ -14,11 +14,11 @@
 				[%param *footer%]
 						</div>
 						[%if [@total_showing@] > 1%]
-							<a class="carousel-control-prev" href="#homepageCarousel" role="button" data-slide="prev">
+							<a class="carousel-control-prev" href="#homepageCarousel2" role="button" data-slide="prev">
 								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 								<span class="sr-only">Previous</span>
 							</a>
-							<a class="carousel-control-next" href="#homepageCarousel" role="button" data-slide="next">
+							<a class="carousel-control-next" href="#homepageCarousel2" role="button" data-slide="next">
 								<span class="carousel-control-next-icon" aria-hidden="true"></span>
 								<span class="sr-only">Next</span>
 							</a>
@@ -34,7 +34,7 @@
 		[%/if%]
 	</div>
 </div>
-<div id="main-content" class="container" role="main">
+<div class="container">
 	<div class="row">
 		<div class="col-12">
 			[%if [@config:show_home_ads@]%]
@@ -48,7 +48,7 @@
 					[%param *body%]
 								<div class="col-6 col-md-4">
 									<div class="thumbnail">
-										<a class="image float-left" href="[@url@]"><img src="[%asset_url type:'adw' id:'[@ad_id@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/ param%][%/ asset_url%]" width="100%"
+										<a class="image float-left" href="[@url@]"><img src="[%asset_url type:'adw' id:'[@ad_id@]'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/ param%][%/ asset_url%]" class="img-fluid"
 												alt="[@headline@]" /></a>
 										[%if [@headline@] or [@linktext@] %]
 										<div class="caption">
