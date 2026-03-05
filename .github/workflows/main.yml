@@ -28,7 +28,7 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         working-directory: httpdocs/assets/themes/gss-automotiv
-        run: npm install
+        run: npm install --no-package-lock
 
       # Step 4: Compile SCSS and bundle vendor JS
       - name: Build assets
