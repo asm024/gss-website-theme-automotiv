@@ -407,7 +407,18 @@ div#footer-newsletter h3 {
 }
 
 footer.wrapper-footer {
-    padding-top: 50px
+    padding-top: 50px;
+    background-color: #000000;
+}
+
+div#footer-newsletter {
+    margin-bottom: -50px;
+    z-index: 10;
+    clear: left;
+}
+
+#footer-newsletter + footer.wrapper-footer {
+    padding-top: 100px;
 }
 
 #header-cart {

@@ -1,6 +1,8 @@
 [%if [@config:current_page_type@] ne 'home'%]
 	</div>
 </div>
+[%else%]
+</div>
 [%/if%]
 [%advert type:'text' template:'footer-usps' limit:'4' ad_group:'footer-usps' sortby:'sortorder,name' category:'0'%]
     [%param *header%]
@@ -41,8 +43,8 @@
                                     <label class="small mb-0 d-sm-flex d-block align-items-center">
                                         <input type="checkbox" value="y" class="terms_box mr-1" required/>
                                         I have read and agree to
-                                        <a href="#" data-toggle="modal" data-target="#termsModal" class="mx-1">Terms & Conditions</a> &
-                                        <a href="#" data-toggle="modal" data-target="#privacyModal" class="ml-1">Privacy Policy</a>.
+                                        <button type="button" class="btn btn-link p-0 mx-1" data-toggle="modal" data-target="#termsModal">Terms &amp; Conditions</button> &amp;
+                                        <button type="button" class="btn btn-link p-0 ml-1" data-toggle="modal" data-target="#privacyModal">Privacy Policy</button>.
                                     </label>
                                 </div>
                             </form>
@@ -52,19 +54,8 @@
             </div>
         </div>
     </div>
-    <style>
-        footer.wrapper-footer {
-            padding-top: 100px;
-            background-color: #000000 !important;
-        }
-        div#footer-newsletter {
-            margin-bottom: -50px;
-            z-index: 10;
-			clear: left;
-        }
-    </style>
 [%/if%]
-<footer class="wrapper-footer" style="background-color: #000000 !important;">
+<footer class="wrapper-footer">
 <div class="container">
   <div class="row">
 
@@ -112,7 +103,7 @@
     <!-- Logo + Blurb -->
     <div class="col-12 col-md-4 text-md-left col-footer-about">
       <img src="[@config:imageurl@]/website_logo.png?[@config:neto_css_version@]" alt="[@config:company_name@] Footer Logo" class="img-fluid mt-4 mt-md-0" />
-      <p>[%content_zone id:'footer blurb'/%]</p>
+      <div>[%content_zone id:'footer blurb'/%]</div>
     </div>
 
   </div>
@@ -123,7 +114,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center">
-				<p data-test-id="address">&copy; [%format type:'date' format:'#Y'%]today[%/format%] [@config:company_name@]. [%if [@config:company_abn@]%][%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]: [@config:company_abn@]. [%/ if%]All rights reserved.</p>
+				<p data-test-id="address">&copy; [%format type:'date' format:'#Y'%]today[%/format%] [@config:company_name@]. [%if [@config:company_abn@]%][%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]: [@config:company_abn@]. [%/if%]All rights reserved.</p>
 			</div>
 			<div class="col-12 d-none d-sm-flex justify-content-center">
 				[%checkout_pay_icons show_icon:'1' ignore_balance:'1'%]
@@ -145,11 +136,11 @@
 		</div>
 	</div>
 </footer>
-<div class="modal fade" id="termsModal">
+<div class="modal fade" id="termsModal" aria-modal="true" aria-labelledby="termsModalTitle">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Terms &amp; Conditions</h4>
+				<h4 class="modal-title" id="termsModalTitle">Terms &amp; Conditions</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">[%content_zone id:'terms'/%]</div>
@@ -157,11 +148,11 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="privacyModal">
+<div class="modal fade" id="privacyModal" aria-modal="true" aria-labelledby="privacyModalTitle">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Privacy Policy</h4>
+				<h4 class="modal-title" id="privacyModalTitle">Privacy Policy</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">[%show_content id:'2'%][%param *body%][@content_description1@][%/param%][%/show_content%]</div>
