@@ -139,7 +139,7 @@
 							<label>[@name@]</label>
 						</td>
 						<td>
-							<textarea name="extra[@count@]" [%if [@length@]%]maxlength="[@length@]"[%/if%]class="form-control" id="productextra[@count@]" rel="[@SKU@]" cols="20"></textarea>
+							<textarea name="extra[@count@]" [%if [@length@]%]maxlength="[@length@]" [%/if%]class="form-control" id="productextra[@count@]" rel="[@SKU@]" cols="20"></textarea>
 						</td>
 					</tr>
 				[%/ param%]
@@ -183,7 +183,7 @@
 			<input type="hidden" id="thumb[@rndm@][@SKU@]" name="thumb" value="[@thumb@]">
 			<input type="hidden" id="sku[@rndm@][@SKU@]" name="sku" value="[@SKU@]">
 			<p class="dah_psectitle mb-0">Quantity:</p>
-			<div class="row mx-auto btn-stack align-tems-center">
+			<div class="row mx-auto btn-stack align-items-center">
 				<div>
 					<label class="sr-only" for="qty[@rndm@][@SKU@]">[@model@] quantity field</label>
 					<input type="number" min="[@min_qty@]" class="form-control qty form-control-lg" id="qty[@rndm@][@SKU@]" name="qty" aria-label="[@model@] quantity field" value="[%data id:'min_qty' if:'ne' value:'0' %][@min_qty@][%end data%][%data id:'min_qty' if:'eq' value:'0' %]1[%end data%]" size="2"/>
@@ -198,7 +198,7 @@
 					[%elseif [@store_quantity@] < 1 AND [@config:ALLOW_NOSTOCK_CHECKOUT@] %]
 					<button type="button" title="Add [@model@] to Cart" class="addtocart btn btn-primary btn-block btn-lg btn-ajax-loads" data-loading-text="<i class='fa fa-spinner fa-spin' style='font-size: 14px'></i>" rel="[@rndm@][@SKU@]">Backorder</button>
 					[%else%]
-					<a href title="Notify Me When [@model@] Is Back In Stock" class="btn btn-primary btn-block btn-lg btn-ajax-loads" data-loading-text="<i class='fa fa-spinner fa-spin' style='font-size: 14px'></i>" data-toggle="modal" data-target="#notifymodal">Notify Me</a>
+					<a href="javascript:void(0);" title="Notify Me When [@model@] Is Back In Stock" class="btn btn-primary btn-block btn-lg btn-ajax-loads" data-loading-text="<i class='fa fa-spinner fa-spin' style='font-size: 14px'></i>" data-toggle="modal" data-target="#notifymodal">Notify Me</a>
 					[%/ if%]
 				</div>
 				<div>
@@ -206,10 +206,10 @@
 						<div class="product-wishlist">
 							[%IN_WISHLIST id:'[@SKU@]' %]
 							[%param if_true%]
-								<a class="wishlist_toggle btn btn-lg btn-block btn-warning" href role="button" title="Remove From Wishlist" rel="[@SKU@]"><span class="remove" rel="wishlist_text[@SKU@]"><img src="[%ntheme_asset%]img/wishlist-icon.png[%/ntheme_asset%]" class="img-fluid"></span></a>
+								<a class="wishlist_toggle btn btn-lg btn-block btn-warning" href="javascript:void(0);" role="button" title="Remove From Wishlist" rel="[@SKU@]"><span class="remove" rel="wishlist_text[@SKU@]"><img src="[%ntheme_asset%]img/wishlist-icon.png[%/ntheme_asset%]" class="img-fluid"></span></a>
 							[%/ param%]
 							[%param if_false%]
-								<a class="wishlist_toggle btn btn-outline-secondary btn-lg btn-block" href role="button" title="Add To Wishlist" rel="[@SKU@]"><span class="add" rel="wishlist_text[@SKU@]"><img src="[%ntheme_asset%]img/wishlist-icon.png[%/ntheme_asset%]" class="img-fluid"></span></a>
+								<a class="wishlist_toggle btn btn-outline-secondary btn-lg btn-block" href="javascript:void(0);" role="button" title="Add To Wishlist" rel="[@SKU@]"><span class="add" rel="wishlist_text[@SKU@]"><img src="[%ntheme_asset%]img/wishlist-icon.png[%/ntheme_asset%]" class="img-fluid"></span></a>
 							[%/ param%]
 							[%/ IN_WISHLIST%]
 						</div>
@@ -238,11 +238,12 @@
 	</nav>
 </div>
 [%if [@price_hide@] eq 'N'%]
-<div class="modal fade notifymodal" id="notifymodal">
+<div class="modal fade notifymodal" id="notifymodal" aria-modal="true" aria-labelledby="notifyModalTitle">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Notify me when back in stock</h4>
+				<h4 class="modal-title" id="notifyModalTitle">Notify me when back in stock</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
@@ -257,10 +258,10 @@
 					<label>
 						<input type="checkbox" value="y" class="terms_box" required/>
 						I have read and agree to
-						<a href="#" data-toggle="modal" data-target="#termsModal">Terms &amp; Conditions</a> and
-						<a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a>.
+						<button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#termsModal">Terms &amp; Conditions</button> and
+						<button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#privacyModal">Privacy Policy</button>.
 					</label>
-					<span class="help-block hidden">Please tick this box to proceed.</span>
+					<span class="help-block d-none">Please tick this box to proceed.</span>
 				</div>
 			</div>
 			<div class="modal-footer">

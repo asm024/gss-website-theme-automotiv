@@ -4,7 +4,7 @@
 	<div class="wrapper-product-title col-12">
 
 		<!-- Fitment status badge (shown/hidden via partfinder JS) -->
-		<div class="partfinder-status hidden mb-2" data-sku="[@sku@]">
+		<div class="partfinder-status d-none mb-2" data-sku="[@sku@]">
 			<div class="dahgeneric">
 				<span class="badge badge-warning"><i class="fa fa-circle mr-1"></i> Universal Item</span>
 			</div>
@@ -20,7 +20,7 @@
 					[%url_info type:'product' id:'[@inventory_id@]' name:'page_heading' default:'[@name@]'/%]
 				</h1>
 				[%if [@subtitle@]%]
-					<h3 class="text-muted" role="heading" aria-label="Product Subtitle">[@subtitle@]</h3>
+					<h3 class="text-muted">[@subtitle@]</h3>
 				[%/if%]
 				[%if [@sku@]%]
 					<p class="product-sku" aria-label="Product SKU">SKU: [@sku@]</p>
