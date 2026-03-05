@@ -69,7 +69,7 @@
 					[%param *previous_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go back one page"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>[%/param%]
 					[%param *goback_pages%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
 					[%param *current_page%]<li class="page-item active"><a class="page-link" href="[@url@]" aria-label="Current page">[@page@]</a></li>[%/param%]
-					[%param *gonext_pages%]<li><a href="[@url@]" class="page-link" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
+					[%param *gonext_pages%]<li class="page-item"><a href="[@url@]" class="page-link" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
 					[%param *next_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go forward one page"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>[%/param%]
 				[%/paging%]
 			</ul>
@@ -87,14 +87,13 @@
 [%/thumb_list%]
 [%if [@content_allow_reviews@]%]
 	<div class="dropdown">
-		<button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu[@content_id@]" data-toggle="dropdown" aria-controls="dropdownMenu[@content_id@]" aria-label="Share page">
+		<button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu[@content_id@]" data-toggle="dropdown" aria-controls="dropdownMenuContent[@content_id@]" aria-label="Share page">
 			Share: <i class="fab fa-facebook text-facebook" aria-hidden="true"></i>
 			<i class="fab fa-twitter text-twitter" aria-hidden="true"></i>
 			<i class="fab fa-pinterest text-pinterest" aria-hidden="true"></i>
 			<i class="fab fa-google-plus-g text-google-plus" aria-hidden="true"></i>
-			<span class="caret"></span>
 		</button>
-		<ul id="dropdownMenu[@content_id@]" class="dropdown-menu" aria-labelledby="dropdownMenu[@content_id@]">
+		<ul id="dropdownMenuContent[@content_id@]" class="dropdown-menu" aria-labelledby="dropdownMenu[@content_id@]">
 			<li><a class="dropdown-item js-social-share" href="//www.facebook.com/sharer/sharer.php?u=[%url_encode%][@url@][%/url_encode%]"><i class="fab fa-facebook text-facebook" aria-hidden="true"></i> Facebook</a></li>
 			<li><a class="dropdown-item js-social-share" href="//twitter.com/intent/tweet/?text=[%url_encode%][@content_name@][%/url_encode%]&amp;url=[%url_encode%][@url@][%/url_encode%]"><i class="fab fa-twitter text-twitter" aria-hidden="true"></i> Twitter</a></li>
 			<li><a class="dropdown-item js-social-share" href="//www.pinterest.com/pin/create/button/?url=[%url_encode%][@url@][%/url_encode%]&amp;description=[%url_encode%][@content_name@][%/url_encode%]"><i class="fab fa-pinterest text-pinterest" aria-hidden="true"></i> Pinterest</a></li>
@@ -152,7 +151,7 @@
 					</div>
 				[%/if%]
 			[%/ajax_loader%]
-			<p><button type="submit" class="btn btn-success" />Post Comment</button></p>
+			<p><button type="submit" class="btn btn-success">Post Comment</button></p>
 			<p class="text-muted">Comments have to be approved before showing up</p>
 		</fieldset>
 	</form>
