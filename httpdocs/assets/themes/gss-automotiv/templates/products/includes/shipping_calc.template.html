@@ -38,8 +38,7 @@
 					<input type="text" id="ship_selector" class="form-control" value="[%session id:'ship_city'/%]" size="50" maxlength="50" autocomplete="off" placeholder="Enter Suburb" />
 				</div>
 				<div class="col-12 col-sm-3">
-					<label>&nbsp;</label>
-					<button type="button" class="btn btn-primary btn-block btn-loads" id="suburb_search_btn" data-loading-text="<i class='fa fa-sync fa-spin' style='font-size: 14px'></i>" title="Calculate"
+					<button type="button" class="btn btn-primary btn-block btn-loads mt-sm-4" id="suburb_search_btn" data-loading-text="<i class='fa fa-sync fa-spin' style='font-size: 14px'></i>" title="Calculate" aria-label="Calculate shipping"
 							onClick="$.load_ajax_template('_buying_options', {'showloading': '1', 'sku': '[@sku@]', 'qty': $('#n_qty').val(), 'ship_zip': $('#ship_zip').val(), 'ship_city':$('#ship_selector').val(), 'ship_state': $('#ship_state').val(), 'ship_country': $('#ship_country').val() });">
 						Calculate
 					</button>
@@ -64,8 +63,7 @@
 					</select>
 				</div>
 				<div class="col-12 col-md-3">
-					<label>&nbsp;</label>
-					<button type="button" class="btn btn-primary btn-block btn-loads" data-loading-text="<i class='fa fa-refresh fa-spin' style='font-size: 14px'></i>" title="Calculate"
+					<button type="button" class="btn btn-primary btn-block btn-loads mt-md-4" data-loading-text="<i class='fa fa-sync fa-spin' style='font-size: 14px'></i>" title="Calculate" aria-label="Calculate shipping"
 						onClick="$.load_ajax_template('_buying_options', {'showloading': '1', 'sku': '[@sku@]', 'qty': $('#n_qty').val(), 'ship_zip': $('#ship_zip').val(), 'ship_city':$('#ship_selector').val(), 'ship_state': $('#ship_state').val(), 'ship_country': $('#ship_country').val()})">
 						Calculate
 					</button>

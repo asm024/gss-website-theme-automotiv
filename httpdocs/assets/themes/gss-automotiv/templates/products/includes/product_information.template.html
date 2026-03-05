@@ -125,14 +125,14 @@
 		[%/if%]
 		<div class="tab-pane" id="specifications" role="tabpanel" aria-labelledby="tabSpecifications">
 			<div class="card mb-2 mb-md-0">
-				<div class="card-header py-1 px-2" id="headingSpecificatoin">
+				<div class="card-header py-1 px-2" id="headingSpecification">
 					<h5 class="mb-0">
 						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#accordionSpecifications" aria-expanded="true" aria-controls="accordionSpecifications">
 							Specifications
 						</button>
 					</h5>
 				</div>
-				<div id="accordionSpecifications" class="collapse" aria-labelledby="headingSpecificatoin">
+				<div id="accordionSpecifications" class="collapse" aria-labelledby="headingSpecification">
 					<div class="card-body p-md-0">
 						
 						<table class="table">
@@ -327,7 +327,7 @@
 														[%param *body%]
 															[%split delimiter:'::'%][%param data1%][@content_fullpath@][%/param%]
 																[%param header%]<tr>[%/param%]
-																[%param *body%]<td style="border: 1px solid #dee2e6;">[@data1@]</td>[%/param%]
+																[%param *body%]<td>[@data1@]</td>[%/param%]
 																[%param footer%]</tr>[%/param%]
 															[%/split%]
 													[%/param%]
@@ -339,10 +339,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<script>
 			(function() {
 				var table = document.querySelector('.fitment-table');
