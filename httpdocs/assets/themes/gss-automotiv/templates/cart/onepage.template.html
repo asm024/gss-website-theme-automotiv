@@ -3,8 +3,9 @@
 <script>
 	$(document).ready(function() {
 		$.checkout_Init({});
-		if ($('#js-has-pickup-only').length > 0) {
+		if ($('.js-pickup-trigger').length > 0 || sessionStorage.getItem('gss_pickup_only') === '1') {
 			$('#clickCollectModal').modal('show');
+			sessionStorage.removeItem('gss_pickup_only');
 		}
 	});
 </script>
@@ -606,10 +607,14 @@
 	[%load_ajax_template id:'address' type:'cart' template:'address' preload:"0"%][%/load_ajax_template%]
 </div>
 <!-- Server-side pickup-only detection: outputs hidden trigger if any cart item has misc32=N -->
+[%cart_addresses%]
+[%param *body%]
 [%cart_items%]
-[%param *body%][%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%]<span id="js-has-pickup-only" style="display:none;" aria-hidden="true"></span>[%/if%]
+[%param *body%][%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%]<span class="js-pickup-trigger" style="display:none;" aria-hidden="true"></span>[%/if%]
 [%/param%]
 [%/cart_items%]
+[%/param%]
+[%/cart_addresses%]
 <!-- Click & Collect notice modal — shown automatically when cart contains pickup-only items -->
 <div class="modal fade" id="clickCollectModal" tabindex="-1" role="dialog" aria-labelledby="clickCollectModalTitle" aria-modal="true">
 	<div class="modal-dialog modal-lg" role="document">
