@@ -21,6 +21,17 @@
 	</div>
 </div>
 [%load_template file:"cart/cart.error.html"/%]
+<div id="pickup-only-notice" class="alert alert-warning" style="display:none">
+	<h5><i class="fas fa-warehouse mr-2"></i>Click &amp; Collect — Important Notice</h5>
+	<p>Your cart contains item(s) that are <strong>available for Click &amp; Collect only</strong> — these cannot be shipped.</p>
+	<p class="mb-0">Pick up is available from <strong>Mount Druitt, NSW only</strong>, Mon–Fri 9am–4:30pm. Please allow a minimum of 3–4 hours preparation time. You will be notified when your order is ready for collection.</p>
+</div>
+<script>
+	if (sessionStorage.getItem('gss_pickup_only') === '1') {
+		document.getElementById('pickup-only-notice').style.display = '';
+		sessionStorage.removeItem('gss_pickup_only');
+	}
+</script>
 [%IF [@processor_account@] ne '' %]
 <div class="alert alert-warning">
 	<strong>Important! Your order is not yet complete.</strong>
