@@ -69,7 +69,7 @@
 <tbody>
 	[%/param%]
 	[%param *body%]
-	<tr>
+	<tr[%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%] data-pickup-only="true"[%/if%]>
 	<td>[@qty@]</td>
 	<td>[@model@] <i>[@extra@]</i>
 	[%DATA id:'has_components' if:'==' value:'1'%]

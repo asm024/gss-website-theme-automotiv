@@ -1,7 +1,12 @@
 [%SITE_VALUE id:'footer_javascript'%]
 <script src="[%NETO_JS id:'checkout'%][%/NETO_JS%]"></script>
 <script>
-	$(document).ready(function() { $.checkout_Init({}); });
+	$(document).ready(function() {
+		$.checkout_Init({});
+		if ($('tr[data-pickup-only]').length > 0) {
+			$('#clickCollectModal').modal('show');
+		}
+	});
 </script>
 [%/SITE_VALUE%]
 <div class="col-12">
@@ -599,5 +604,22 @@
 <hr />
 	[%load_ajax_template id:'cart_items' type:'cart' template:'cart_items' preload:"1"%][%/load_ajax_template%]
 	[%load_ajax_template id:'address' type:'cart' template:'address' preload:"0"%][%/load_ajax_template%]
+</div>
+<!-- Click & Collect notice modal — shown automatically when cart contains pickup-only items -->
+<div class="modal fade" id="clickCollectModal" tabindex="-1" role="dialog" aria-labelledby="clickCollectModalTitle" aria-modal="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="clickCollectModalTitle"><i class="fas fa-warehouse mr-2"></i>Click &amp; Collect Order</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				[%content_zone id:'checkout-click-collect'/%]
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">I Understand, Continue</button>
+			</div>
+		</div>
+	</div>
 </div>
 [%GA_FUNNEL%]/purchase/confirmation.html[%/GA_FUNNEL%]
