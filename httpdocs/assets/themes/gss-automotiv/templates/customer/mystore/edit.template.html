@@ -7,10 +7,10 @@
 		</ol>
 	</nav>
 	[%DATA id:'msg' if:'ne' value:''%]
-		<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a> [@msg@]</div>
+		<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> [@msg@]</div>
 	[%END DATA%]
 	[%DATA id:'error' if:'ne' value:''%]
-		<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a> [@error@]</div>
+		<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> [@error@]</div>
 	[%END DATA%]
 
     [%SITE_VALUE id:'footer_javascript'%]
@@ -82,7 +82,7 @@
 		<input name="proc" type="hidden" value="edit"/>
 		<input name="fn" type="hidden" value="edit"/>
 		<input name="updcategory" type="hidden" value="y"/>
-		<div class="page-header"><h1>Edit My Store</h1></div>
+		<h1>Edit My Store</h1>
 		<div class="row">
 			<div class="col-12">
 				<h4>Details</h4>
@@ -92,8 +92,8 @@
 					<input name="stloc_name" class="form-control" type="text" size="50" maxlength="50" value="[%NOHTML%][@stloc_name@][%END NOHTML%]" />
 				</div>
 				<div class="form-group">
-					<label for="stloc_name">Status</label>
-					<select name="active" class="form-control">
+					<label for="active">Status</label>
+					<select id="active" name="active" class="form-control">
 						<option value="y" [%DATA id:'active' if:'eq' value:'y'%]selected[%END DATA%]>Active</option>
 						<option value="n" [%DATA id:'active' if:'eq' value:'n'%]selected[%END DATA%]>Inactive</option>
 					</select>
@@ -155,7 +155,7 @@
 						<div class="form-group">
 							<label for="[@field_id@]">[@field_name@]</label>
 							[%if [@required_field@]%]<span class="required text-danger">*</span>[%/if%]
-							<input class="datepicker" class="form-control" id="[@field_id@]" name="[@field_id@]" id="[@field_id@]" type="text" value="[%NOHTML%][@default_value@][%END NOHTML%]" [%if [@required_field@]%]required="true"[%/if%]>
+							<input class="datepicker form-control" id="[@field_id@]" name="[@field_id@]" type="text" value="[%NOHTML%][@default_value@][%END NOHTML%]" [%if [@required_field@]%]required="true"[%/if%]>
 						</div>
 					</div>
 				[%END PARAM%]
@@ -174,7 +174,7 @@
 						</div>
 					</div>
 				[%END PARAM%]
-			[%/ EXTRA_STORE_FIELDS%]
+			[%/EXTRA_STORE_FIELDS%]
 		</div>
 		<hr />
 		<div class="row">
@@ -213,19 +213,19 @@
 					<input type="text" name="stloc_state" class="form-control" id="stloc_state" value="[%NOHTML%][@stloc_state@][%END NOHTML%]" size="50" maxlength="50" />
 				</div>
 				<div class="form-group">
-					<input id="geo_getloc_btn" type="button" class="btn btn-default" value="Get the Latitude and Longitude for the above address">
+					<input id="geo_getloc_btn" type="button" class="btn btn-secondary" value="Get the Latitude and Longitude for the above address">
 				</div>
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="stloc_lat">Latitude:</label>
-							<input type="text" name="stloc_lat" class="readonly form-control" readonly value="[%NOHTML%][@stloc_lat@][%END NOHTML%]" size="15" />
+							<input type="text" name="stloc_lat" class="form-control" readonly value="[%NOHTML%][@stloc_lat@][%END NOHTML%]" size="15" />
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="stloc_lng">Longitude:</label>
-							<input type="text" name="stloc_lng" class="readonly form-control" readonly value="[%NOHTML%][@stloc_lng@][%END NOHTML%]" size="15" />
+							<input type="text" name="stloc_lng" class="form-control" readonly value="[%NOHTML%][@stloc_lng@][%END NOHTML%]" size="15" />
 						</div>
 					</div>
 				</div>
@@ -267,7 +267,7 @@
 							</ul>
 						</div>
 					[%END PARAM%]
-				[%/ CATEGORYMENU%]
+				[%/CATEGORYMENU%]
 			</div>
 			<div class="col-12 col-md-6">
 				<h4>Images</h4>
@@ -287,15 +287,15 @@
 								<div><input type="file" class="form-control" name="stloc_logo[@type@]"></div>
 							</li>
 						[%END PARAM%]
-					[%/ THUMBNAILS%]
+					[%/THUMBNAILS%]
 				</ul>
 			</div>
 		</div>
 		<hr/>
 		<div class="row">
 			<div class="col-12">
-				<div class="form-actions">
-					<input type="button" class="btn btn-default" value="Reset" onclick="location.href='[%URL page:'account' type:'mystore' fn:'edit' id:'[@stloc_id@]'%][%END URL%]'"> &nbsp;
+				<div>
+					<input type="button" class="btn btn-secondary" value="Reset" onclick="location.href='[%URL page:'account' type:'mystore' fn:'edit' id:'[@stloc_id@]'%][%END URL%]'"> &nbsp;
 					<input type="submit" class="btn btn-success" value="Save Changes">
 				</div>
 			</div>

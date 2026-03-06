@@ -1,7 +1,7 @@
 <div class="col-12">
 	<script>
 		function print_quote() {
-			var win = window.open('[%URL page:"account" type:"print" fn:"invoice" id:"[@order_id@]"%][%/ URL%]', 'print_invoice', 'width=740,height=400,scrollbars=yes,resizeable=yes');
+			var win = window.open('[%URL page:"account" type:"print" fn:"invoice" id:"[@order_id@]"%][%/URL%]', 'print_invoice', 'width=740,height=400,scrollbars=yes,resizeable=yes');
 		}
 	</script>
 	<nav aria-label="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -14,7 +14,7 @@
 	<h1>Dismiss Quote</h1>
 	<form name="dismissForm" method="post" action="[%URL page:'account' type:'approve_quote'  id:'[@order_id@]' fn:'confirm'%][%END URL%]">
 		<input type="hidden" name="order_email" value="[%escape%][@order_email@][%/escape%]" />
-		<input type="hidden" name="action"value="dismiss" />
+		<input type="hidden" name="action" value="dismiss" />
 		<div class="row">
 			<div class="col-12 col-sm-6">
 				<label for="comment">Dismissal Reason</label>
@@ -26,5 +26,5 @@
 			</div>
 		</div>
 	</form>
-	[%print_order id:'[@order_id@]'%][%/ print_order%]
+	[%print_order id:'[@order_id@]'%][%/print_order%]
 </div>
