@@ -5,7 +5,7 @@
 		[%PARAM *group_header%]
 			<input type="hidden" id="model[@rndm@][@SKU@]" name="model" value="[@model@]">
 			<input type="hidden" id="thumb[@rndm@][@SKU@]" name="thumb" value="[@thumb@]">
-			<input class="input-tiny btn-large" id="qty[@rndm@][@SKU@]" name="qty" value="[%if [@min_qty@]%][@min_qty@][%else%]1[%/if%]" size="2" type="hidden">
+			<input class="d-none" id="qty[@rndm@][@SKU@]" name="qty" value="[%if [@min_qty@]%][@min_qty@][%else%]1[%/if%]" size="2" type="hidden">
 			<input type="hidden" id="sku[@rndm@][@SKU@]" name="sku" value="[@SKU@]">
 			<div class="card mb-2">
 				[%if [@assemble_group_fullname@]%]
@@ -24,7 +24,7 @@
 							<p class="card-title h5">[%format type:'text' maxlength:'50' rmhtml:'1'%][@model@][%/FORMAT%]</p>
 							<p class="price">
 								[%if [@itm_price@] AND [@itm_price@] >= 0 %]
-									[%format type:'currency'%][@itm_price@][%/ format%]
+									[%format type:'currency'%][@itm_price@][%/format%]
 								[%else%]
 									[%if [@inpromo@]%]
 										<strong>Now</strong> [%format type:'currency'%][@promo_price@][%/format%]
@@ -53,7 +53,7 @@
 							<p class="card-title h5">[%format type:'text' maxlength:'50' rmhtml:'1'%][@model@][%/FORMAT%]</p>
 							<p class="price">
 								[%if [@itm_price@] AND [@itm_price@] >= 0 %]
-									[%format type:'currency'%][@itm_price@][%/ format%]
+									[%format type:'currency'%][@itm_price@][%/format%]
 								[%else%]
 									[%if [@inpromo@]%]
 										<strong>Now</strong> [%format type:'currency'%][@promo_price@][%/format%]
@@ -88,7 +88,7 @@
 										<input type="number" min="[@min_assemble@]" [%if [@max_assemble@]%] max="[@max_assemble@]" [%/if%] id="productkitting[@rndm@][@kitting_sku@][@component_count@]" value="[@qty@]" ref="[@current_sku@]" component-id="[@component_count@]" component-sku="[@SKU@]" class="component-var-sku form-control component-config-input" [%if [@fixed_assemble@]%]readonly[%/if%]>
 									[%/if%]
 								[%else%]
-									<input type="number" readonly value="0" class="form-control readonly">
+									<input type="number" readonly value="0" class="form-control">
 								[%/if%]
 							</div>
 						</div>
@@ -108,19 +108,19 @@
 				<tr>
 					<th colspan="2">Available Options</th>
 				</tr>
-				[%/ PARAM%]
+				[%/PARAM%]
 				[%PARAM *number_option%]
 					<tr>
 						<td><label>[@name@]</label></td>
 						<td><input name="extra[@count@]" class="form-control" id="productextra[@count@]" rel="[@SKU@]" value=""></td>
 					</tr>
-				[%/ PARAM%]
+				[%/PARAM%]
 				[%PARAM *text_option%]
 					<tr>
 						<td><label>[@name@]</label></td>
 						<td><textarea name="extra[@count@]" [%if [@length@]%]maxlength="[@length@]"[%/if%]class="form-control" id="productextra[@count@]" rel="[@SKU@]" cols="20"></textarea></td>
 					</tr>
-				[%/ PARAM%]
+				[%/PARAM%]
 				[%PARAM *select_option%]
 					<tr>
 						<td><label>[@name@]</label></td>
@@ -130,20 +130,20 @@
 							</select>
 						</td>
 					</tr>
-				[%/ PARAM%]
+				[%/PARAM%]
 				[%PARAM *choices%]
-					<option type="text" class="form-control" value="[@option_id@]">[%nohtml%][@text@][%end nohtml%]
+					<option type="text" class="form-control" value="[@option_id@]">[%nohtml%][@text@][%/nohtml%]
 					[%DATA id:'price' if:'!=' value:'0'%]
-						(+ [%FORMAT type:'currency'%][@price@][%/ FORMAT%])
-					[%/ DATA%]
+						(+ [%FORMAT type:'currency'%][@price@][%/FORMAT%])
+					[%/DATA%]
 					</option>
-				[%/ PARAM%]
+				[%/PARAM%]
 				[%PARAM *footer%]
 				<input type="hidden" name="extras" value="[@total_options@]"/>
 			</table>
 			<hr />
-		[%/ PARAM%]
-	[%/ extra_options%]
+		[%/PARAM%]
+	[%/extra_options%]
 </div>
 <div class="row">
 	<div class="col-12 col-md-5">

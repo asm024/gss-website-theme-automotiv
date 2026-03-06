@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<!-- Meta Data -->
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta name="author" content="Maropost www.neto.com.au" />
@@ -19,7 +19,7 @@
 	<link href="[%ntheme_asset%]css/style.css[%/ntheme_asset%]">
 </head>
 <body>
-	<form method="post" name="adduserlogo" id="_adduser_form" enctype="multipart/form-data" action="[%URL page:'checkout'%][%END URL%]">
+	<form method="post" name="adduserlogo" id="_adduser_form" enctype="multipart/form-data" action="[%URL page:'checkout'%][%/URL%]">
 		<input type="hidden" name="fn" id="fn" value="adduserlogo" />
 		<input type="hidden" name="templatehead" value="empty" />
 		<input type="hidden" name="templatefoot" value="empty" />
@@ -33,14 +33,13 @@
 			<div class="col-6">
 				<div id="company_logo">
 					<div style="float:left; margin-right:15px;">
-						<img id="comp_logo_img" src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/pixel.gif'%][%END asset_url%]?[@config:current_timestamp@]"><br>
+						<img id="comp_logo_img" src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/pixel.gif'%][%/asset_url%]?[@config:current_timestamp@]"><br>
 						<a href="#" onClick="javascript:remlogo(); return false;">- Remove this logo</a>
 					</div>
 					<input style="float:left;" type="file" name="logo"><br>
 					<input style="float:left;" type="submit" name="submit " value="Add Logo" />
 				</div>
 			</div>
-			<div class="clear"></div>
 		</div>
 	</form>
 	<!-- end company logo -->

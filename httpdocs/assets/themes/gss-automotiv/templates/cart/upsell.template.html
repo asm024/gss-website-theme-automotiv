@@ -3,9 +3,7 @@
 	[%if [@config:checkout_upsell_extra@]%]
 		<div class="row">
 			<div class="col-12">
-				<div class="page-header">
-					<h1>Before you checkout...</h1>
-				</div>
+				<h1>Before you checkout...</h1>
 			</div>
 		</div>
 		<form method="post" enctype="multipart/form-data" action="[%url page:'checkout'/%]" id="upsellcartform">
@@ -98,14 +96,12 @@
 			[%param header%]
 				<div class="row">
 					<div class="col-12">
-						<div class="page-header">
-							<h1>Before you checkout, we thought you might like these:</h1>
-						</div>
+						<h1>Before you checkout, we thought you might like these:</h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 col-md-4 offset-md-8">
-						<a href="[%url page:'checkout' fn:'[@form:fn@]'/%]" class="btn btn-success btn-lg btn-block" title="Continue To Checkout">Continue To Checkout <i class="fa fa-chevron-right icon-white"></i></a>
+						<a href="[%url page:'checkout' fn:'[@form:fn@]'/%]" class="btn btn-success btn-lg btn-block" title="Continue To Checkout">Continue To Checkout <i class="fa fa-chevron-right"></i></a>
 					</div>
 				</div>
 				<div class="row">
@@ -122,7 +118,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-4 offset-md-8">
-				<a href="[%url page:'checkout' fn:'[@form:fn@]'/%]" class="btn btn-success btn-lg btn-block" title="Continue To Checkout">Continue To Checkout <i class="fa fa-chevron-right icon-white"></i></a>
+				<a href="[%url page:'checkout' fn:'[@form:fn@]'/%]" class="btn btn-success btn-lg btn-block" title="Continue To Checkout">Continue To Checkout <i class="fa fa-chevron-right"></i></a>
 			</div>
 		</div>
 	[%/if%]

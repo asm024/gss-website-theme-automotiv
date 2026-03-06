@@ -2,12 +2,12 @@
 	<nav aria-label="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
 		<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="[@config:home_url@]">Home</a></li>
-		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%END URL%]">My Account</a></li>
+		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%/URL%]">My Account</a></li>
 	</ol>
 </nav>
 	<h1>Forgot Password?</h1>
 	[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> [@error@] </div>[%/DATA%]
-	<form method="post" action="[%URL page:'account' type:'forgotpwd'%][%END URL%]">
+	<form method="post" action="[%URL page:'account' type:'forgotpwd'%][%/URL%]">
 		<input type="hidden" name="fn" value="proc" />
 		<div class="row">
 			<div class="col-12 col-md-4"> <br>

@@ -10,11 +10,11 @@
 				<input type="hidden" id="ship_country" name="ship_country" value="AU" />
 				<p>Enter your post code to calculate.</p>
 				<div class="form-group">
-					<label>Postal Code</label>
+					<label for="ship_zip">Postal Code</label>
 					<input type="text" class="form-control" size="5" id="ship_zip" name="ship_zip" value="[@ship_zip@]" />
 				</div>
 				<div class="form-group n-wrapper-form-control">
-					<label>Suburb</label>
+					<label for="ship_city">Suburb</label>
 					<span id="ship_selector"></span>
 					<input type="text"  class="form-control" id="ship_city" name="ship_city"  value="[%session id:'ship_city'/%]" size="50" maxlength="50"/>
 				</div>
@@ -31,7 +31,7 @@
 							});
 						});
 					</script>
-				[%/ site_value%]
+				[%/site_value%]
 			[%elseif [@config:shipping_calculator_type@] eq 'suburb_search'%]
 				<!-- suburb search -->
 				<input type="hidden" id="ship_zip" name="ship_zip" value="[@ship_zip@]" />
@@ -40,7 +40,7 @@
 				<input type="hidden" id="ship_country" value="AU"/>
 				<p>Enter your suburb/postal code to calculate.</p>
 				<div class="form-group">
-					<label>Suburb/Postal Code</label>
+					<label for="ship_selector">Suburb/Postal Code</label>
 					<input type="text" class="form-control" id="ship_selector" value="[%session id:'ship_city'/%]" size="50" maxlength="50" autocomplete="off" />
 				</div>
 				<div class="form-group">

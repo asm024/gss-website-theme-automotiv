@@ -30,7 +30,7 @@
                             <h3 class="m-0 text-uppercase">for news and special member-only offers and discounts</h3>
                         </div>
                         <div class="col-12 col-lg-7 pr-lg-0 pt-lg-0 pt-2">
-                            <form method="post" action="[%URL type:'page' id:'subscribe' https:'1'%][%END URL%]" aria-label="Newsletter subscribe form">
+                            <form method="post" action="[%URL type:'page' id:'subscribe' https:'1'%][%/URL%]" aria-label="Newsletter subscribe form">
                                 <input type="hidden" name="list_id" value="1">
                                 <input type="hidden" name="opt_in" value="y">
                                 <input type="hidden" name="inp-submit" value="y" />
@@ -39,7 +39,7 @@
                                     <input name="inp-email" class="form-control mr-1" type="email" value="[%nohtml%][@inp-email@][%/nohtml%]" placeholder="Enter Your Email Address" required aria-label="Email Address"/>
                                     <input class="btn btn-primary" type="submit" value="REGISTER NOW" data-loading-text="<i class='fa fa-spinner fa-spin' style='font-size: 14px'></i>"/>
                                 </div>
-                                <div class="checkbox mt-2">
+                                <div class="form-check mt-2">
                                     <label class="small mb-0 d-sm-flex d-block align-items-center">
                                         <input type="checkbox" value="y" class="terms_box mr-1" required/>
                                         I have read and agree to
@@ -144,7 +144,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">[%content_zone id:'terms'/%]</div>
-			<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+			<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
 		</div>
 	</div>
 </div>
@@ -156,7 +156,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">[%show_content id:'2'%][%param *body%][@content_description1@][%/param%][%/show_content%]</div>
-			<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+			<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
 		</div>
 	</div>
 </div>

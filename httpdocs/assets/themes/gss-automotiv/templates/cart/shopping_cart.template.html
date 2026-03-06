@@ -1,5 +1,5 @@
 <div class="col-12">
-	<div class="page-header"><h1>Shopping Cart</h1></div>
+	<h1>Shopping Cart</h1>
 	[%load_template file:'cart/cart.error.html'/%]
 	<div class="row btn-stack">
 		<div class="col-12 col-md-8 col-lg-9">
@@ -8,7 +8,7 @@
 			[%/if%]
 			<!-- Uncomment if you'd like a "Edit gift messages" button above the cart summary. Requires checkout_upsell_extra to be configured correctly.
 			[%if [@config:checkout_upsell_extra@]%]
-				<a class="btn btn-outline-secondary" type="button" href="[%url page:'checkout' fn:'upsell'/%]" title="Edit extra options"> <i class="fa fa-pencil-alt icon-white"></i> Edit extra options</a>
+				<a class="btn btn-outline-secondary" type="button" href="[%url page:'checkout' fn:'upsell'/%]" title="Edit extra options"> <i class="fa fa-pencil-alt"></i> Edit extra options</a>
 			[%/if%] -->
 		</div>
 		<div class="col-12 col-md-4 col-lg-3">

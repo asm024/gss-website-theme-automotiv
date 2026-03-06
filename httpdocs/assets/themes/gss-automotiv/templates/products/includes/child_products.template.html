@@ -33,7 +33,7 @@
 	[%/param%]
 	[%param *variation_body_radio%]
 	[%if ![@specific_autohide@]%]
-            <label class="_itmspec_listitm btn btn-default" ref="[@specific_id@]_[@value_id@]">
+            <label class="_itmspec_listitm btn btn-secondary" ref="[@specific_id@]_[@value_id@]">
               <input class="_itmspec_radio" type="radio" name="_itmspec_radio[@specific_id@]" value="[@value_id@]" ref="[@specific_id@]_[@value_id@]" [%if [@selected@]%]checked[%/if%]> [@value_name@]
             </label>
 	[%/if%]
@@ -53,7 +53,7 @@
 	[%/param%]
 	[%param *variation_footer%]
 	[%if ![@specific_autohide@]%]
-            <div class="clear"></div>
+            
           </div>
         </div>
 	[%/if%]
@@ -100,17 +100,17 @@
     		<div id="multiitemadd">
     			<a id="child"></a>
     			<div id="buy-child-list">
-    				<table class="table table-bordered" cellspacing="0">
+    				<table class="table table-bordered" >
     					<thead>
     						<tr>
-    							[%if [@price_hide@] eq 'N'%]<th width="1">Quantity</th>[%/if%]
-    							<th width="72">Image</th>
+    							[%if [@price_hide@] eq 'N'%]<th>Quantity</th>[%/if%]
+    							<th>Image</th>
     							<th>Name</th>
-    							[%if [@price_hide@] eq 'N'%]<th width="47">Price</th>[%/if%]
+    							[%if [@price_hide@] eq 'N'%]<th>Price</th>[%/if%]
     						</tr>
     					</thead>
     					<tbody>
-  		[%/ PARAM%]
+  		[%/PARAM%]
   		[%PARAM *body%]
     					<tr>
 							[%if [@price_hide@] eq 'N'%]
@@ -134,7 +134,7 @@
 										<input type="hidden" id="thumb[@rndm@][@SKU@]" name="thumb[@rndm@][@SKU@]" value="[@thumb@]">
     							[%else%]
                     <input type="text" value="" id="nov[@rndm@][@SKU@]" name="nov[@rndm@][@SKU@]" placeholder="Qty" class="form-control" disabled>
-    							[%/ if%]
+    							[%/if%]
 							</td>
 							[%/if%]
     						<td>
@@ -144,11 +144,11 @@
     							[@name@]
     							[%if [@subtitle@]%]
     							<div class="text-muted">[@subtitle@]</div>
-    							[%/ if%]
+    							[%/if%]
 							</td>
 							[%if [@price_hide@] eq 'N'%]
     						<td>
-    							<div class="child-price">[%format type:'currency'%][@price@][%END format%]</div>
+    							<div class="child-price">[%format type:'currency'%][@price@][%/format%]</div>
     							[%if [@extra@] or [@has_child@] %]
     							  <a href="[@URL@]" title="Buying Options" class="btn btn-primary">See Buying Options</a>
     							[%elseif [@available_preorder_quantity@] > 0 AND [@preorder@] AND [@config:WEBSTORE_USE_PREORDER_QUANTITY@]%]
@@ -161,11 +161,11 @@
     							  <span class="badge badge-warning">Back Order</span>
     							[%else%]
     							  <span class="badge badge-danger">Sold Out</span>
-    							[%/ if%]
+    							[%/if%]
 							</td>
 							[%/if%]
     					</tr>
-  		[%/ PARAM%]
+  		[%/PARAM%]
   		[%PARAM *footer%]
     					</tbody>
     				</table>
@@ -177,7 +177,7 @@
 				</div>
 				[%/if%]
     		</div>
-    	[%/ PARAM%]
-    [%/ DISPLAY_CHILD_PRODUCTS%]
+    	[%/PARAM%]
+    [%/DISPLAY_CHILD_PRODUCTS%]
   [%/if%]
 </form>

@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
 		<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="[@config:home_url@]">Home</a></li>
-		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%END URL%]">My Account</a></li>
+		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%/URL%]">My Account</a></li>
 		<li class="breadcrumb-item"><a href="#">Change My Password</a></li>
 		</ol>
 	</nav>
@@ -11,7 +11,7 @@
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">[@error@] <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
 	[%/DATA%]
 	<p>Please enter your current and new password below in order to change your password.</p>
-	<form method="POST" action="[%URL page:'account' type:'edit_pwd'%][%END URL%]">
+	<form method="POST" action="[%URL page:'account' type:'edit_pwd'%][%/URL%]">
 		<input type="hidden" name="fn" value="proc">
 		<div class="row">
 			<div class="col-12 col-md-4">

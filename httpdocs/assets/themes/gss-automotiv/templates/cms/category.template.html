@@ -1,7 +1,7 @@
 [%SET [@page_type@]='category'/%]
 [%load_template file:'cms/includes/sidebar.template.html'/%]
 
-<h1 class="page-header">
+<h1>
 	[%url_info name:'page_heading' default:'[@content_name@]'/%]
 	[%IF [@keywords@] == ''%]
 		[%FILTER ID:'keywords' if:'ne' value:''%][%NOHTML%][%FILTER ID:'keywords'%][%/FILTER%][%/NOHTML%][%/FILTER%]

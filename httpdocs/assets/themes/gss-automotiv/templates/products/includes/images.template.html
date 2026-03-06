@@ -1,15 +1,15 @@
 <div class="main-image text-center">
-	<a class="embed-responsive embed-responsive-1by1" href="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/param%][%END asset_url%]" data-lightbox="product-lightbox" data-title="Product main image" rel="product_images">
+	<a class="embed-responsive embed-responsive-1by1" href="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/param%][%/asset_url%]" data-lightbox="product-lightbox" data-title="Product main image" rel="product_images">
 		<div class="zoom embed-responsive-item d-flex align-items-center justify-content-center">
-			<img src="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/param%][%END asset_url%]" rel="itmimg[@SKU@]" alt="Product main image" id="main-image" itemprop="image">
+			<img src="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%param default%][%cdn_asset html:'0' library:'images'%]default_product.gif[%/cdn_asset%][%/param%][%/asset_url%]" rel="itmimg[@SKU@]" alt="Product main image" id="main-image" itemprop="image">
 		</div>
 	</a>
 </div>
 <div class="row align-items-center products_alt_images">
 	<div class="col-3 col-md-3">
-		<a href="javascript:;" rel="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%END asset_url%]" class="dahactive embed-responsive embed-responsive-1by1">
+		<a href="javascript:;" rel="[%asset_url type:'product' id:'[@SKU@]' thumb:'full' check_parent:'y'%][%/asset_url%]" class="dahactive embed-responsive embed-responsive-1by1">
 		    <span class="embed-responsive-item d-flex align-items-center justify-content-center">
-			    <img src="[%asset_url type:'product' id:'[@SKU@]' thumb:'thumb' check_parent:'y'%][%END asset_url%]" class="img-fluid product-image-small" alt="[@name@] thumbnail">
+			    <img src="[%asset_url type:'product' id:'[@SKU@]' thumb:'thumb' check_parent:'y'%][%/asset_url%]" class="img-fluid product-image-small" alt="[@name@] thumbnail">
 			</span>
 		</a>
 	</div>
@@ -22,11 +22,11 @@
 				</span>
 			</a>
 		</div>
-	[%/ param%]
+	[%/param%]
 	[%param *brochure%]
 		<div class="col-3 col-md-3">
 			<a class="display-4 embed-responsive embed-responsive-1by1" href="[@file@]" target="_blank" rel="noopener"><span class="embed-responsive-item d-flex align-items-center justify-content-center"><i class="far fa-file-pdf"></i></span></a>
 		</div>
-	[%/ param%]
-[%/ THUMBNAILS%]
+	[%/param%]
+[%/THUMBNAILS%]
 </div>

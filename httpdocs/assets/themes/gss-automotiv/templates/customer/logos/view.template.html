@@ -2,11 +2,11 @@
 	<nav aria-label="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
 		<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="[@config:home_url@]">Home</a></li>
-		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%END URL%]">My Account</a></li>
+		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%/URL%]">My Account</a></li>
 	</ol>
 	</nav>
 	<h1>Manage Logo</h1>
-	<form enctype="multipart/form-data" method="POST" name="updatelogo" id="updatelogo" action="[%URL page:'account' type:'logos'%][%END URL%]">
+	<form enctype="multipart/form-data" method="POST" name="updatelogo" id="updatelogo" action="[%URL page:'account' type:'logos'%][%/URL%]">
 		<input type="hidden" name="upld_logo_sku" value="COMPANY_LOGO">
 		<input type="hidden" id="upld_logo_qty" name="upld_logo_qty" value="0">
 		<div class="selcardpl"></div>
@@ -18,7 +18,7 @@
 				<h3>Upload your logo file here</h3>
 				<table>
 					<tr><td class="text-center">
-						<img id="upld_logo_img" width="100" src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/na.gif'%][%END asset_url%]?[%RANDOM_NUMBER timestamp:'1'%][%END RANDOM_NUMBER%]" />
+						<img id="upld_logo_img" width="100" src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/na.gif'%][%/asset_url%]?[%RANDOM_NUMBER timestamp:'1'%][%/RANDOM_NUMBER%]" />
 					</td></tr>
 				</table>
 				<div class="choose-file">
