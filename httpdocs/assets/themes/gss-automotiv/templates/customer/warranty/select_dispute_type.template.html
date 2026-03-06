@@ -6,12 +6,10 @@
 		<li class="breadcrumb-item"><a href="#">Resolution Centre</a></li>
 		</ol>
 	</nav>
-	<div class="page-header">
-		<h1>Resolution Centre</h1>
-		<h2>Step 1 - Choose the type of dispute you would like to raise</h2>
-	</div>
+	<h1>Resolution Centre</h1>
+	<h2>Step 1 - Choose the type of dispute you would like to raise</h2>
 	[%if [@error@]%]
-		<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a>[@error@]</div>
+		<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@error@]</div>
 	[%/if%]
 	<form name="disputeForm" action="[%url page:'account' type:'warranty' fn:'create'/%]" method="post">
 		[%dispute_types%]
@@ -42,10 +40,10 @@
 		</div>
 		<div class="row btn-stack">
 			<div class="col-12 col-md-3">
-				<a href="[%url page:'account' type:'warranty'/%]" class="btn btn-danger btn-block" value="Cancel"><i class="fas fa-times icon-white"></i> Cancel</a>
+				<a href="[%url page:'account' type:'warranty'/%]" class="btn btn-danger btn-block"><i class="fas fa-times"></i> Cancel</a>
 			</div>
 			<div class="col-12 col-md-3 offset-md-6">
-				<button type="submit" class="btn btn-success btn-block">Continue to Next Step <i class="fa fa-chevron-right icon-white"></i></button>
+				<button type="submit" class="btn btn-success btn-block">Continue to Next Step <i class="fa fa-chevron-right"></i></button>
 			</div>
 		</div>
 	</form>

@@ -6,9 +6,9 @@
 		<li class="breadcrumb-item"><a href="#">Resolution Centre</a></li>
 		</ol>
 	</nav>
-	<div class="page-header"><h1>Resolution Centre - Warranty, Payment &amp; Return Disputes</h1></div>
-	[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a>[@error@]</div>[%/ DATA%]
-	[%DATA id:'warning' if:'ne' value:''%]<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a>[@warning@]</div>[%/ DATA%]
+	<h1>Resolution Centre - Warranty, Payment &amp; Return Disputes</h1>
+	[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@error@]</div>[%/DATA%]
+	[%DATA id:'warning' if:'ne' value:''%]<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@warning@]</div>[%/DATA%]
 	<script>
 		function cancalAction() {
 			window.location.href = '[%URL page:"account" type:"warranty"%][%END URL%]';
@@ -17,7 +17,7 @@
 	<p>Your <a href="[%URL page:'account' type:'warranty' id:'[@dispute_id@]'%][%END URL%]">dispute #[@dispute_id@]</a> has been sent to [@config:company_name@]. You can track the progress of your dispute at any time from within your account.</p>
 	<div class="row btn-stack">
 		<div class="col-12 col-md-3">
-			<button type="button" value="Go Back To Start" class="btn btn-outline-secondary btn-block" onClick="cancalAction()"> Create Another Dispute <i class="fa fa-sync icon-white"></i></button>
+			<button type="button" value="Go Back To Start" class="btn btn-outline-secondary btn-block" onClick="cancalAction()"> Create Another Dispute <i class="fa fa-sync"></i></button>
 		</div>
 		<div class="col-12 col-md-3 offset-md-6"><a class="btn btn-block btn-success" href="[@config:home_url@]">Return Home</a></div>
 	</div>

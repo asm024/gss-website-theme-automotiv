@@ -24,12 +24,10 @@
 		<li class="breadcrumb-item"><a href="#">Resolution Centre</a></li>
 		</ol>
 	</nav>
-	<div class="page-header">
-		<h1>Resolution Centre</h1>
-		<h2>Step 2 - What type of dispute is this?</h2>
-	</div>
+	<h1>Resolution Centre</h1>
+	<h2>Step 2 - What type of dispute is this?</h2>
 	[%if [@error@]%]
-		<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a>[@error@]</div>
+		<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@error@]</div>
 	[%/if%]
 	<form name="disputeForm" action="[%URL page:'account' type:'warranty' fn:'create'/%]" method="post">
 		<input type="hidden" name="step" value="order">
@@ -76,19 +74,19 @@
 				[%/thumb_list%]
 			</div>
 			<div class="col-12 col-md-5">
-				<a class="btn btn-block btn-outline-secondary" href="[%url page:account/%]" target="_blank">View a list of your past order IDs</a>
+				<a class="btn btn-block btn-outline-secondary" href="[%url page:'account'/%]" target="_blank">View a list of your past order IDs</a>
 			</div>
 		</div>
 		<hr>
 		<div class="row btn-stack">
 			<div class="col-12 col-md-3">
-				<button name="button" type="button" onClick="cancalAction()" class="btn btn-block btn-danger" value="Cancel"> <i class="fas fa-times icon-white"></i> Cancel </button>
+				<button name="button" type="button" onClick="cancalAction()" class="btn btn-block btn-danger" value="Cancel"> <i class="fas fa-times"></i> Cancel </button>
 			</div>
 			<div class="col-12 col-md-3 offset-md-2 offset-lg-3">
 				<button name="button" type="button" onClick="goBack()" class="btn btn-outline-secondary btn-block" value="Go Back"><i class="fa fa-chevron-left"></i> Go Back </button>
 			</div>
 			<div class="col-12 col-md-4 col-lg-3">
-				<button type="submit" class="btn btn-success btn-block" >Continue to Next Step <i class="fa fa-chevron-right icon-white"></i></button>
+				<button type="submit" class="btn btn-success btn-block" >Continue to Next Step <i class="fa fa-chevron-right"></i></button>
 			</div>
 		</div>
 	</form>

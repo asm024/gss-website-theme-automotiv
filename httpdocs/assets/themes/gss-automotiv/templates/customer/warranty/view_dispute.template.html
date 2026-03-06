@@ -22,9 +22,9 @@
 		<li class="breadcrumb-item"><a href="[%URL page:'account' type:'warranty'/%]">Resolution Centre</a></li>
 		</ol>
 	</nav>
-	<div class="page-header"><h1>Resolution Centre - Warranty, Payment &amp; Return Disputes</h1></div>
-	[%if [@error@]%]<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a>[@error@]</div>[%/if%]
-	[%if [@warning@]%]<div class="alert alert-warning" role="alert"><a class="close" data-dismiss="alert">×</a>[@warning@]</div>[%/if%]
+	<h1>Resolution Centre - Warranty, Payment &amp; Return Disputes</h1>
+	[%if [@error@]%]<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@error@]</div>[%/if%]
+	[%if [@warning@]%]<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@warning@]</div>[%/if%]
 	<form name="disputeForm" action="[%URL page:'account' type:'warranty'/%]" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="[@dispute_id@]">
 		<input type="hidden" name="action" value="proc">
@@ -82,7 +82,7 @@
 							<th>Dispute Status</th>
 							<td>[@dispute_status@]</td>
 						[%if [@response_repuired@] eq '1'%]
-							<span class="tiny red">(Response Required)</span>
+							<span class="text-danger small">(Response Required)</span>
 						[%/if%]
 						</tr>
 						<tr>
@@ -119,7 +119,7 @@
 			[%/param%]
 			[%param *body%]
 				<tr >
-					<td nowrap>[@qty@]</td>
+					<td>[@qty@]</td>
 					<td>
 						<a href="[%url type:'item' id:'[@SKU@]'%][%/url%]"><img width="50" height="50" src="[%asset_url type:'item' id:'[@SKU@]' thumb:'thumb'%][%/asset_url%]"></a>
 						<a href="[%url type:'item' id:'[@SKU@]'%][%/url%]">[@model@] <i>[@extra@]</i></a>
@@ -160,12 +160,12 @@
 								<div class="col-sm-9  col-md-10">
 									<textarea name="message" class="form-control" rows="1">[%nohtml%][@message@][%/nohtml%]</textarea>
 									<br/>
-									<label><b>Upload Image</b></label>
+									<label for="disputeImage"><b>Upload Image</b></label>
 									<p>Choose file to select and upload.</p>
-									<input type="file" name="disputeImage" accept="image/png, image/jpeg, image/gif">
+									<input type="file" name="disputeImage" id="disputeImage" accept="image/png, image/jpeg, image/gif">
 								</div>
 								<div class="col-sm-3 col-md-2">
-									<button type="button" class="btn btn-block btn-success float-right" onclick="sendMessage()"> <i class="fa fa-envelope icon-white"></i> Send</button>
+									<button type="button" class="btn btn-block btn-success float-right" onclick="sendMessage()"> <i class="fa fa-envelope"></i> Send</button>
 								</div>
 							</div>
 						</div>
@@ -176,7 +176,7 @@
 			[%if ![@dispute_closed@]%]
 				<div class="row">
 					<div class="col-md-3 offset-md-9">
-						<button type="button" class="btn btn-lg btn-danger btn-block" onclick="closeDispute()"><i class="fas fa-times icon-white"></i> Close This Dispute </button>
+						<button type="button" class="btn btn-lg btn-danger btn-block" onclick="closeDispute()"><i class="fas fa-times"></i> Close This Dispute </button>
 					</div>
 				</div>
 			[%/if%]
