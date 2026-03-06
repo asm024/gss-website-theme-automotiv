@@ -8,8 +8,6 @@
 	[%if [@config:company_abn@]%]<strong>[%if [@config:PRIMARY_ABN_LABEL@]%][@config:PRIMARY_ABN_LABEL@][%else%]ABN[%/if%]:</strong> [@config:company_abn@] [%/if%]
 	[%if [@config:company_poaddr@]%]<strong>Address:</strong> [@config:company_poaddr@][%/if%]
 </footer>
-<!-- Required Maropost Commerce Cloud Scripts - DO NOT REMOVE -->
-[%load_template file:'footers/includes/scripts.template.html'/%]
 <!-- Click & Collect notice modal -->
 <div class="modal fade" id="clickCollectModal" tabindex="-1" role="dialog" aria-labelledby="clickCollectModalTitle" aria-modal="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -28,5 +26,7 @@
 		</div>
 	</div>
 </div>
+<!-- Required Maropost Commerce Cloud Scripts - DO NOT REMOVE -->
+[%load_template file:'footers/includes/scripts.template.html'/%]
 </body>
 </html>
