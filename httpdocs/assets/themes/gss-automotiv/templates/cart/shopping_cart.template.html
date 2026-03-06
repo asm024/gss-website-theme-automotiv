@@ -12,7 +12,7 @@
 			[%/if%] -->
 		</div>
 		<div class="col-12 col-md-4 col-lg-3">
-			<button class="btn btn-success btn-lg btn-block" type="button" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout Now"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout Now</button>
+			<button class="btn btn-success btn-lg btn-block" type="button" onclick="gssGoCheckout();" title="Checkout Now"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout Now</button>
 		</div>
 	</div>
 	<div class="row">
@@ -278,7 +278,7 @@
 							[%/if%]
 						</div>
 						<div class="col-12 col-lg-6 text-center mb-1">
-							<button class="btn btn-success btn-lg btn-block" type="button" onclick="window.location='[%url page:'checkout' fn:'payment'/%]';" title="Checkout now">
+							<button class="btn btn-success btn-lg btn-block" type="button" onclick="gssGoCheckout();" title="Checkout now">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout Now
 							</button>
 						</div>
@@ -290,6 +290,41 @@
 	[%/param%]
 	[%/cart_items%]
 </div>
+<!-- Click & Collect modal -->
+<div class="modal fade" id="gssPickupModal" tabindex="-1" role="dialog" aria-labelledby="gssPickupModalLabel" aria-modal="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="gssPickupModalLabel"><i class="fas fa-warehouse mr-2"></i>Click &amp; Collect — Important Notice</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<p>Your cart contains item(s) that are <strong>available for Click &amp; Collect only — these cannot be shipped.</strong></p>
+				<p>Pick up is available from <strong>Mount Druitt, NSW only</strong>, Mon–Fri 9am–4:30pm. Please allow a minimum of 3–4 hours preparation time. You will be notified when your order is ready for collection.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Back to Cart</button>
+				<button type="button" class="btn btn-primary" id="gssPickupConfirm">I Understand, Continue to Checkout</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var gssCheckoutUrl = "[%url page:'checkout' fn:'payment'/%]";
+	function gssGoCheckout() {
+		if (sessionStorage.getItem('gss_pickup_only') === '1') {
+			$('#gssPickupModal').modal('show');
+		} else {
+			window.location = gssCheckoutUrl;
+		}
+	}
+	$(document).ready(function() {
+		$('#gssPickupConfirm').on('click', function() {
+			sessionStorage.removeItem('gss_pickup_only');
+			window.location = gssCheckoutUrl;
+		});
+	});
+</script>
 <!-- Do not edit below this line-->
 <script>
 	function rmcart (id) { var obj = document.getElementById(id); if(obj) { obj.value="0"; document.checkout.submit(); } }
