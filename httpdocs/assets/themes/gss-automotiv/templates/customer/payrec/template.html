@@ -175,10 +175,10 @@
 	</nav>
 	<h1>Pay Outstanding Orders &amp; Invoices</h1>
 	[%if [@error@]%]
-		<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a>[@error@]</div>
+		<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@error@]</div>
 	[%/if%]
 	[%if [@msg@]%]
-		<div class="alert alert-success" role="alert"><a class="close" data-dismiss="alert">×</a>[@msg@]</div>
+		<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>[@msg@]</div>
 	[%/if%]
 <div id="processing" style="display:none;" class="alert alert-danger">
 	<h2>Payment Processing</h2>
@@ -193,14 +193,14 @@
 		<p><b>My Available Credit</b> [%format type:"currency"%][@user:credit@][%/format%]</p>
 		<hr />
 		<h3>Real-Time Payment Processor</h3>
-		<p class="help-block">
+		<p class="text-muted">
 			Enter your payment details and the amount you want to pay below. Then apply the payment to the invoices you want to pay until your <b>Out Of Balance</b> equals <b>0</b>. To finalise payment click on the <b>process payment</b> button at the bottom of the page.
 		</p>
 		<br />
 		<div class="row">
 			<div class="col-12 col-md-6">
-				<label>Select Payment Method</label>
-				<select class="form-control" name="card_type" onChange="showPD()">
+				<label for="card_type">Select Payment Method</label>
+				<select class="form-control" id="card_type" name="card_type" onChange="showPD()">
 					<option value="">Select an option</option>
 					[%payment_methods charge_type:'acc,cc' sortby:'sortorder,name' show_account:'1' no_surcharge:'[@config:NO_BULK_PAY_SURCHARGE@]' %]
 						[%PARAM *body%]
@@ -216,22 +216,22 @@
 					<hr>
 					<div class="card card-body">
 						<div class="form-group">
-							<label>Card Holder</label>
-							<input class="form-control" type="text" name="card_holder" size="30" maxlength="40" value="">
+							<label for="card_holder">Card Holder</label>
+							<input class="form-control" type="text" id="card_holder" name="card_holder" size="30" maxlength="40" value="">
 						</div>
 						<div class="form-group">
-							<label>Card Number</label>
-							<input class="form-control" type="text" name="card_number" size="16" maxlength="16" value="">
+							<label for="card_number">Card Number</label>
+							<input class="form-control" type="text" id="card_number" name="card_number" size="16" maxlength="16" value="">
 							<p class="small text-muted">(only digits)</p>
 						</div>
 						<div class="row">
 							<div class="col-12">
 								<label>Card Expiration Date</label>
 							</div>
-							<div class="col-xs-6">
+							<div class="col-6">
 								<div class="form-group">
-									<p class="help-block">Month</p>
-									<select class="input-small form-control " name="card_exp_month">
+									<p class="text-muted">Month</p>
+									<select class="form-control" name="card_exp_month">
 										<option value=""></option>
 										[%months%]
 											[%PARAM *body%]
@@ -241,10 +241,10 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-6">
+							<div class="col-6">
 								<div class="form-group">
-									<p class="help-block">Year</p>
-									<select class="input-small form-control" name="card_exp_year">
+									<p class="text-muted">Year</p>
+									<select class="form-control" name="card_exp_year">
 										<option value=""></option>
 										[%years from:'+0' to:'+10'%]
 											[%PARAM *body%]
@@ -254,10 +254,10 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-xs-4">
+							<div class="col-4">
 								<div class="form-group">
-									<label>Card CCID</label>
-									<input class="form-control" type="text"  name="card_ccid" size="5">
+									<label for="card_ccid">Card CCID</label>
+									<input class="form-control" type="text"  id="card_ccid" name="card_ccid" size="5">
 									<p class="small text-muted">(3-4 digit security code)</p>
 								</div>
 							</div>
@@ -269,8 +269,8 @@
 		<hr>
 		<div class="row">
 			<div class="col-12 col-md-3">
-				<label>Payment Amount ([@config:currency_symbol@])</label>
-				<input class="form-control" type="text" name="amount_paid" value="[@amount_paid@]" size="15"  onChange="updAmt()">
+				<label for="amount_paid">Payment Amount ([@config:currency_symbol@])</label>
+				<input class="form-control" type="text" id="amount_paid" name="amount_paid" value="[@amount_paid@]" size="15"  onChange="updAmt()">
 			</div>
 		</div>
 		<hr />
@@ -295,25 +295,25 @@
 			[%/PARAM%]
 			[%PARAM *body%]
 						<tr>
-							<td class="small" nowrap>[@order_id@]
+							<td class="small">[@order_id@]
 								<input type="hidden" name="oid[@count@]" value="[@order_id@]">
 								<input type="hidden" id="own[@count@]" value="[@amount_owed@]">
 								<input type="hidden" name="paid[@count@]" value="[@amount_paid@]">
 								<input type="hidden" name="total[@count@]" value="[@grand_total@]">
 							</td>
-							<td class="small" nowrap>[%format type:'date' default:'-' format:'DATE'%][@date_invoiced@][%/format%]</td>
+							<td class="small">[%format type:'date' default:'-' format:'DATE'%][@date_invoiced@][%/format%]</td>
 							<td class="small">[@terms@]</td>
-							<td class="small" nowrap>[%format type:'date' default:'[@date_due_text@]' format:'DATE'%][@date_due@][%/format%]</td>
-							<td class="small" nowrap>[%format type:"currency"%][@grand_total@][%/format%]</td>
-							<td class="small" nowrap>[%format type:"currency"%][@amount_owed@][%/format%]</td>
-							<td nowrap>[@config:currency_symbol@]<input type="text" class="input-small" name="pay[@count@]" value="[%DATA id:'apply[@order_id@]'%][%/DATA%]" size="7" onChange="updAmt(this)"></td>
-							<td nowrap><input class="btn btn-outline-secondary" type="button" value="Apply" onClick="appAmt([@count@])"></td>
+							<td class="small">[%format type:'date' default:'[@date_due_text@]' format:'DATE'%][@date_due@][%/format%]</td>
+							<td class="small">[%format type:"currency"%][@grand_total@][%/format%]</td>
+							<td class="small">[%format type:"currency"%][@amount_owed@][%/format%]</td>
+							<td>[@config:currency_symbol@]<input type="text" class="form-control form-control-sm d-inline w-auto" name="pay[@count@]" value="[%DATA id:'apply[@order_id@]'%][%/DATA%]" size="7" onChange="updAmt(this)"></td>
+							<td><input class="btn btn-outline-secondary" type="button" value="Apply" onClick="appAmt([@count@])"></td>
 						</tr>
 					[%/PARAM%]
 					[%PARAM *footer%]
-						<tr><td align="right" colspan="7" class="small">Total Applied</td><td align="right" class="small" nowrap>[@config:currency_symbol@]<span id="total_app">0.00</span></td></tr>
-						<tr><td align="right"	colspan="7" class="small">Payment Amount</td><td align="right" class="small" nowrap>[@config:currency_symbol@]<span id="total_rec">0.00</span></td></tr>
-						<tr><td align="right" colspan="7" class="small">Out of Balance</td><td align="right" class="small" nowrap>[@config:currency_symbol@]<span id="total_more">0.00</span></td></tr>
+						<tr><td class="text-right small" colspan="7">Total Applied</td><td class="text-right small">[@config:currency_symbol@]<span id="total_app">0.00</span></td></tr>
+						<tr><td class="text-right small" colspan="7">Payment Amount</td><td class="text-right small">[@config:currency_symbol@]<span id="total_rec">0.00</span></td></tr>
+						<tr><td class="text-right small" colspan="7">Out of Balance</td><td class="text-right small">[@config:currency_symbol@]<span id="total_more">0.00</span></td></tr>
 					</tbody>
 				</table>
 					[%/PARAM%]
@@ -321,8 +321,6 @@
 						No outstanding orders on this account.
 					[%/PARAM%]
 				[%/thumb_list%]
-				<div class="clear"></div>
-				<div class="form-actions"></div>
 				<div class="row"><div class="col-12"><hr></div></div>
 				<div class="row">
 					<div class="col-12 col-md-3">

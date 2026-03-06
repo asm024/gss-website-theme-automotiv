@@ -24,18 +24,23 @@
 								<th>Date Placed</th>
 								<td>[%format type:"date" default:"-" format:"DATE"%][@date_placed@][%/format%]</td>
 							</tr>
+							<tr>
 								<th>Current Status</th>
-								<td nowrap>[@order_status@] [%if [@request_to_stop@] eq '1'%]<br /><span class="small text-danger">Requesting To Stop</span>[%/if%]</td>
+								<td>[@order_status@] [%if [@request_to_stop@] eq '1'%]<br /><span class="small text-danger">Requesting To Stop</span>[%/if%]</td>
 							</tr>
+							<tr>
 								<th>Date Started</th>
 								<td>[%format type:"date" default:"-" format:"DATE"%][@date_start@][%/format%]</td>
 							</tr>
+							<tr>
 								<th>Amount On Order</th>
 								<td>[%format type:"currency"%][@grand_total@][%/format%]</td>
 							</tr>
+							<tr>
 								<th>Next Delivery</th>
 								<td>[%format type:"date" default:"-" format:"DATE"%][@date_next@][%/format%]</td>
 							</tr>
+							<tr>
 								<th>Date Fulfilled</th>
 								<td>[%format type:"date" default:"-" format:"DATE"%][@date_fulfilled@][%/format%]</td>
 							</tr>
@@ -50,7 +55,7 @@
 		</div>
 		[%/param%]
 		[%param *ifempty%]
-		<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a>No Standing Orders Found.</div>
+		<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>No Standing Orders Found.</div>
 		[%/param%]
 	[%/thumb_list%]
 </div>
