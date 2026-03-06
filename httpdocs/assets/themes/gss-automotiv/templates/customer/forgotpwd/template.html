@@ -5,8 +5,8 @@
 		<li class="breadcrumb-item"><a href="[%URL page:'account'%][%END URL%]">My Account</a></li>
 	</ol>
 </nav>
-	<div class="page-header"><h1> Forgot Password? </h1></div>
-	[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-error"> <a class="close" data-dismiss="alert">×</a> [@error@] </div>[%/ DATA%]
+	<h1>Forgot Password?</h1>
+	[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> [@error@] </div>[%/DATA%]
 	<form method="post" action="[%URL page:'account' type:'forgotpwd'%][%END URL%]">
 		<input type="hidden" name="fn" value="proc" />
 		<div class="row">
@@ -18,9 +18,9 @@
 				<input class="form-control" id="email" name="email" size="30" value="" />
 			</div>
 			<div class="col-12 col-md-4">
-				<div class="form-actions"> <br>
-					<button type="submit" class="btn btn-lg btn-block btn-success" name="login"/>
-					<i class="fa fa-envelope"></i> Send Me A New Password</div>
+				<div>
+					<button type="submit" class="btn btn-lg btn-block btn-success" name="login">
+					<i class="fa fa-envelope"></i> Send Me A New Password</button></div>
 			</div>
 		</div>
 	</form>

@@ -5,18 +5,18 @@
 		<li class="breadcrumb-item"><a href="[%url page:'account' /%]">My Account</a></li>
 		</ol>
 	</nav>
-	<div class="page-header"><h1> Forgotten username?</h1></div>
+	<h1>Forgotten username?</h1>
 	[%if [@error@]%]<div class="alert alert-danger alert-dismissible fade show" role="alert">[@error@]
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	</div>
 	[%/if%]
-	<p class="help-block"> Please enter your e-mail address below and we will send you your username by e-mail.</p>
+	<p class="text-muted"> Please enter your e-mail address below and we will send you your username by e-mail.</p>
 	<form method="POST" action="[%url page:'account' type:'forgotusr' /%]">
 		<input type="hidden" name="fn" value="proc">
 		<div class="row">
 			<div class="form-group col-md-6">
-				<label>Email Address</label>
-				<input class="form-control" name="email" size="30" value="">
+				<label for="email">Email Address</label>
+				<input class="form-control" name="email" id="email" size="30" value="">
 			</div>
 		</div>
 		<div class="row">

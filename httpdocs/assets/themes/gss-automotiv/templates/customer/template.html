@@ -9,19 +9,17 @@
 			</li>
 		</ol>
 	</nav>
-	<div class="page-header">
-		<h1>Account Summary</h1>
-		<p>
-			<strong>Welcome [@bill_first_name@] [@bill_last_name@] [%if [@bill_company@]%]- [@bill_company@][%/if%]</strong>
-			(<a href="[%url page:'account' type:'logout'/%]">log out</a>)
-		</p>
-		[%if [@user:credit_limit@] > 0%]
-			<p>Credit Limit: <strong>[%format type:"currency"%][@credit_limit@][%/format%]</strong></p>
-		[%/if%]
-		[%if [@user:credit@]%]
-			<p>Available Credit: <strong>[%format type:'currency'%][@credit@][%/format%]</strong></p>
-		[%/if%]
-	</div>
+	<h1>Account Summary</h1>
+	<p>
+		<strong>Welcome [@bill_first_name@] [@bill_last_name@] [%if [@bill_company@]%]- [@bill_company@][%/if%]</strong>
+		(<a href="[%url page:'account' type:'logout'/%]">log out</a>)
+	</p>
+	[%if [@user:credit_limit@] > 0%]
+		<p>Credit Limit: <strong>[%format type:"currency"%][@credit_limit@][%/format%]</strong></p>
+	[%/if%]
+	[%if [@user:credit@]%]
+		<p>Available Credit: <strong>[%format type:'currency'%][@credit@][%/format%]</strong></p>
+	[%/if%]
 </div>
 <section class="col-12" aria-label="Account Options">
 	<h2 class="sr-only">Account Options</h2>
@@ -29,7 +27,7 @@
 		[%if ![@user:email@]%]
 			<div class="col-12">
 				<div class="alert alert-danger" role="alert">
-					<a class="close" data-dismiss="alert">×</a> You are required to enter your email address to order from our website and receive email notifications. <br />
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> You are required to enter your email address to order from our website and receive email notifications. <br />
 					<a href="[%url page:'account' type:'edit_account'/%]">Enter your email address.</a>
 				</div>
 			</div>
@@ -37,7 +35,7 @@
 		[%if [@unresolve_dispute@]%]
 			<div class="col-12">
 				<div class="alert alert-warning" role="alert">
-					<a class="close" data-dismiss="alert">×</a> You have [@unresolve_dispute@] unresolved dispute(s) your resolution centre.<br />
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> You have [@unresolve_dispute@] unresolved dispute(s) your resolution centre.<br />
 					<a href="[%url page:'account' type:'warranty'/%]">View  or close your unresolved disputes.</a>
 				</div>
 			</div>
@@ -116,7 +114,7 @@
 		[%/if%]
 		<div class="col-12 col-md-6 col-lg-4 mb-1" role="article" aria-label="Resolution Centre">
 			<a class="btn btn-outline-secondary btn-lg btn-block" href="[%url page:'account' type:'warranty'/%]">
-				<h3><i class="fa fa-info-circle" aria-hidden="true"></i> Resolution Centre</strong></h3>
+				<h3><i class="fa fa-info-circle" aria-hidden="true"></i> Resolution Centre</h3>
 				<p class="small mb-0 text-truncate" title="Problems with a product or order?">Problems with a product or order?</p>
 			</a>
 		</div>
@@ -145,7 +143,7 @@
 	[%/param%]
 	[%param *body%]
 				<tr>
-					<td width="90%">
+					<td>
 						<strong>[@vprogram_title@]</strong><br />
 						[%if [@vprogram_subtitle@]%][@vprogram_subtitle@]<br />[%/if%]
 						([@voucher_code@])
@@ -202,7 +200,7 @@
 							[%if [@order_status@] ne 'Cancelled'%]
 								<p>Date Due <strong>[%format type:'date' default:'[@date_due_text@]' format:'DATE'%][@date_due@][%/format%]</strong></p>
 								[%if [@amount_owed@] <= 0%]
-									<p><span class="label label-success">Paid in Full</span></p>
+									<p><span class="badge badge-success">Paid in Full</span></p>
 								[%else%]
 									<p>Amount Owed <strong>[%format type:"currency"%][@amount_owed@][%/format%]</strong></p>
 								[%/if%]
@@ -213,13 +211,13 @@
 						<div class="row btn-stack">
 							<div class="col-12 col-md-4">
 								<button type="button" title="Track Order Number [@order_id@]" class="btn btn-block btn-info" onclick="window.location='[%url page:'account' type:'track_order' id:'[@order_id@]'/%]'">
-									<i class="fa fa-road icon-white" aria-hidden="true"></i> Track
+									<i class="fa fa-road" aria-hidden="true"></i> Track
 								</button>
 							</div>
 							[%if [@amount_owed@] > 0 and [@order_status@] ne 'Cancelled'%]
 								<div class="col-12 col-md-4">
 									<button type="button" title="Pay Order Number [@order_id@]" class="btn btn-block btn-success" onclick="location.href='[%url page:'account' type:'pay_order' qs:'action=paynow' id:'[@order_id@]'/%]'">
-										<i class="fa fa-check icon-white" aria-hidden="true"></i> Pay
+										<i class="fa fa-check" aria-hidden="true"></i> Pay
 									</button>
 								</div>
 							[%/if%]
@@ -294,10 +292,9 @@
 						<td>[@sales_first_name@]&nbsp;[@sales_last_name@]</td>
 						<td>[%format type:"currency"%][@grand_total@][%/format%]</td>
 						[%if [@config:allow_quote_approval@]%]
-							<td><a href="[%url page:'account' type:'approve_quote'/%]" class="btn btn-success"><i class="fa fa-check icon-white" aria-hidden="true"></i> Approve Quote</a></td>
+							<td><a href="[%url page:'account' type:'approve_quote'/%]" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Approve Quote</a></td>
 						[%/if%]
-						<td><button type="button" class="btn btn-outline-secondary" onclick="window.location='[%url page:'account' type:'print'/%]/invoice/[@order_id@]'"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
-							</a></td>
+						<td><button type="button" class="btn btn-outline-secondary" onclick="window.location='[%url page:'account' type:'print'/%]/invoice/[@order_id@]'"><i class="fa fa-print" aria-hidden="true"></i> Print</button></td>
 					</tr>
 		[%/param%]
 		[%param *footer%]
@@ -360,12 +357,12 @@
 						<td><a href="[%url page:'account' type:'wishlist' fn:'view' id:'[@wishlist_id@]'/%]">[%escape%][@wishlist_name@][%/escape%]</a></td>
 						<td class="d-none">
 							[%DATA id:'wishlist_active' if:'eq' value:'y'%]
-								[%param if_true%]<span class="badge-success">Active</span>[%/param%]
-								[%param if_false%]<span class="badge-important">Inactive</span>[%/param%]
+								[%param if_true%]<span class="badge badge-success">Active</span>[%/param%]
+								[%param if_false%]<span class="badge badge-danger">Inactive</span>[%/param%]
 							[%/DATA%]
 							[%DATA id:'wishlist_private' if:'eq' value:'y'%]
 								[%param if_true%]<span class="badge">Private</span>[%/param%]
-								[%param if_false%]<span class="badge-success">Public</span>[%/param%]
+								[%param if_false%]<span class="badge badge-success">Public</span>[%/param%]
 							[%/DATA%]
 						</td>
 						<td class="d-none">
@@ -382,7 +379,7 @@
 							<form method="post" action="[%URL page:'account' type:'wishlist'%][%/URL%]" onsubmit="return confirm('Are you sure you want to delete wishlist \'[%escape%][@wishlist_name@][%/escape%]\'?')">
 								<input type="hidden" name="id" value="[@wishlist_id@]">
 								<input type="hidden" name="proc" value="deletelist">
-								<button type="submit" class="btn btn-block btn-danger"><i class="far fa-trash-alt"></i> Delete</a></button>
+								<button type="submit" class="btn btn-block btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
 							</form>
 						</td>
 						<td>

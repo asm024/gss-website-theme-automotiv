@@ -2,19 +2,17 @@
 	<nav aria-label="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="[@config:home_url@]">Home</a></li>
-			<li class="breadcrumb-item"><a href="[%URL page:'account'%][%/ URL%]">My account</a></li>
+			<li class="breadcrumb-item"><a href="[%URL page:'account'%][%/URL%]">My account</a></li>
 			<li class="breadcrumb-item"><a href="#">Edit my account</a></li>
 		</ol>
 	</nav>
-	<form enctype="multipart/form-data" method="POST" name="UPDATEINFO" action="[%URL page:'account' type:'edit_account'%][%/ URL%]">
-		<div class="page-header">
-			<h1>Edit Your [@config:company_name@] Account Details</h1>
-			<!-- This block will give them a description on what fields are missing -->
-			[%DATA id:'updated' if:'=' value:'0'%]
-				<p>Please complete all the required fields below before continuing.</p>
-			[%/ DATA%]
-		</div>
-		[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger" role="alert">[@error@]</div>[%/ DATA%]
+	<form enctype="multipart/form-data" method="POST" name="UPDATEINFO" action="[%URL page:'account' type:'edit_account'%][%/URL%]">
+		<h1>Edit Your [@config:company_name@] Account Details</h1>
+		<!-- This block will give them a description on what fields are missing -->
+		[%DATA id:'updated' if:'=' value:'0'%]
+			<p>Please complete all the required fields below before continuing.</p>
+		[%/DATA%]
+		[%DATA id:'error' if:'ne' value:''%]<div class="alert alert-danger" role="alert">[@error@]</div>[%/DATA%]
 		<div class="row">
 			<div class="col-12 col-md-6">
 				<h2 name="billing" id="billing">Billing Information</h2>
@@ -35,9 +33,9 @@
 					<select class="form-control" id="bill_country" name="bill_country">
 						[%countries sortby:'sortorder,name' %]
 						[%PARAM *body%]
-						<option value="[@country_code@]" [%DATA id:'country_code' if:'eq' value:'[@bill_country@]'%]selected[%/ DATA%]>[@country_name@]</option>
-						[%/ PARAM%]
-						[%/ countries%]
+						<option value="[@country_code@]" [%DATA id:'country_code' if:'eq' value:'[@bill_country@]'%]selected[%/DATA%]>[@country_name@]</option>
+						[%/PARAM%]
+						[%/countries%]
 					</select>
 				</div>
 				<div class="form-group">
@@ -76,14 +74,14 @@
 						<option value="">Select Payment Type</option>
 						[%payment_methods sortby:'sortorder,name' ignore_balance:'1' %]
 						[%PARAM *body%]
-						<option value="[@id@]" [%DATA id:'id' if:'==' value:'[@card_type@]'%]selected[%/ DATA%]>[@name@]</option>
-						[%/ PARAM%]
-						[%/ payment_methods%]
+						<option value="[@id@]" [%DATA id:'id' if:'==' value:'[@card_type@]'%]selected[%/DATA%]>[@name@]</option>
+						[%/PARAM%]
+						[%/payment_methods%]
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="order_comment">Default Order Instructions</label>
-					<textarea class="form-control" cols="40" rows="4" name="order_comment" id="order_comment">[%NOHTML%][@order_comment@][%/ NOHTML%]</textarea>
+					<textarea class="form-control" cols="40" rows="4" name="order_comment" id="order_comment">[%NOHTML%][@order_comment@][%/NOHTML%]</textarea>
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
@@ -123,18 +121,18 @@
 					<!-- Dropshipping Information -->
 					<h2>Dropshipping Information</h2>
 					<p>Customise the documentation we send out with your drop shipped orders.<br/>Ignore this section if you do not drop ship orders.</p>
-					<label><b>Dropshipping documentation footer</b></label>
+					<label for="usercustom7"><b>Dropshipping documentation footer</b></label>
 					<p>Enter the text you would like to see on the footer of any documentation we send out to your customers. Appears in footer of packing slips, labels etc.</p>
-					<textarea class="form-control"  name="usercustom7" cols="50">[@usercustom7@]</textarea>
+					<textarea class="form-control" name="usercustom7" id="usercustom7" cols="50">[@usercustom7@]</textarea>
 					<br/>
-					<label><b>Dropshipping company logo</b></label>
+					<label for="logo"><b>Dropshipping company logo</b></label>
 					<p>Click browse to select and upload your company logo. Your logo should be in .JPG or .GIF format. Your logo will be displayed on header of packing slips, labels etc.</p>
-					<img src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/pixel.gif'%][%/ asset_url%]?[@config:current_timestamp@]">
-					<input type="file" name="logo">
+					<img src="[%asset_url type:'user' id:'[@username@]' default:'[@config:ASSETS_URL@]/pixel.gif'%][%/asset_url%]?[@config:current_timestamp@]">
+					<input type="file" name="logo" id="logo">
 					<br/><br/>
-					<label>Delete logo?</label>
-					<input type="checkbox" name="dellogo" value="1">
-				[%/ CONFIG%]
+					<label for="dellogo">Delete logo?</label>
+					<input type="checkbox" name="dellogo" id="dellogo" value="1">
+				[%/CONFIG%]
 			</div>
 		</div>
 		<div class="row">
@@ -316,4 +314,4 @@
 	$('#bill_zip').on('change keyup', editAccount.getLocation);
 	$('#suburb_sl').on('change', editAccount.selectSuburb);
 </script>
-[%/ SITE_VALUE%]
+[%/SITE_VALUE%]

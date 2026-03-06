@@ -6,10 +6,10 @@
 		<li class="breadcrumb-item"><a href="#">Change My Password</a></li>
 		</ol>
 	</nav>
-	<div class="page-header"><h1>Change Account Password</h1></div>
+	<h1>Change Account Password</h1>
 	[%DATA id:'error' if:'ne' value:''%]
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">[@error@] <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-	[%/ DATA%]
+	[%/DATA%]
 	<p>Please enter your current and new password below in order to change your password.</p>
 	<form method="POST" action="[%URL page:'account' type:'edit_pwd'%][%END URL%]">
 		<input type="hidden" name="fn" value="proc">
@@ -30,7 +30,6 @@
 				<div class="form-group">
 					<label for="confirm_new_pass">Confirm New Password:</label>
 					<input class="form-control"  name="confirm_new_pass" id="confirm_new_pass" type="password" value="">
-				</label>
 				</div>
 			</div>
 		</div>
