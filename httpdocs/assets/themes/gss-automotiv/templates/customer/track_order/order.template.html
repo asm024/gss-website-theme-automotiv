@@ -7,10 +7,10 @@
 	</nav>
 	[%show_order id:'[@order_id@]'%]
 	[%param *header%]
-		<div class="page-header"><h1>Track Order #[@order_id@]</h1></div>
+		<h1>Track Order #[@order_id@]</h1>
 		<div class="row">
 		<div class="col-md-4">
-			<strong>Status:</strong> <span class="label label-success">[@order_status@]</span>
+			<strong>Status:</strong> <span class="badge badge-success">[@order_status@]</span>
 			<h4>Order #[@order_id@]</h4>
 			[%if [@customer_po@]%]<h4>PO #[@customer_po@]</h4>[%/if%]
 			<h5>Date Placed: [%format type:"date" format:"DATE"%][@date_placed@][%/format%]</h5>
@@ -27,7 +27,7 @@
 			[@ship_city@], [@ship_state_name@] [@ship_zip@]<br/>
 			[@ship_country_name@]<br/>
 			Tel:[@ship_phone@]
-			<p>
+			</p>
 		</div>
 		</div>
 		<div class="row">
@@ -45,7 +45,7 @@
 	[%/param%]
 	[%param *body%]
 				<tr>
-				<td><img border="0" src="[%asset_url type:'product' id:'[@SKU@]' thumb:'thumbL' /%]" alt="[@model@]" width="50px" height="50px"></td>
+				<td><img src="[%asset_url type:'product' id:'[@SKU@]' thumb:'thumbL' /%]" alt="[@model@]" width="50" height="50"></td>
 				<td>[@qty@]</td>
 				<td>[@model@]<i>[@extra@]</i>
 					[%if [@aff_id@] eq [@config:aff_ebay_id@]%] <span class="text-muted">EBay ID: <strong>[@aff_ref@]</strong></span>[%/if%]

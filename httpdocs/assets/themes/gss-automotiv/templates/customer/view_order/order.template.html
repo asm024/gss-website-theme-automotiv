@@ -5,7 +5,7 @@
 		<li class="breadcrumb-item"><a href="[%url page:'account'/%]">My Account</a></li>
 		</ol>
 	</nav>
-	<div class="page-header"><h1>View Order / Invoice</h1></div>
+	<h1>View Order / Invoice</h1>
 	<script>
 		function print_invoice() {
 			var win = window.open('[%url page:'account' type:'print' fn:'invoice' id:'[@order_id@]'/%]', 'print_invoice', 'width=740,height=400,scrollbars=yes,resizeable=yes');
@@ -17,7 +17,7 @@
 			[%show_order id:'[@order_id@]'%]
 				[%param *header%]
 					[%if [@amount_owed@] > 0%]
-						<button class="btn btn-success float-right" onclick="location.href='[%url page:'account' type:'pay_order' qs:'action=paynow' id:'[@order_id@]'/%]'"><i class="fa fa-check icon-white"></i> Pay Now</button>
+						<button class="btn btn-success float-right" onclick="location.href='[%url page:'account' type:'pay_order' qs:'action=paynow' id:'[@order_id@]'/%]'"><i class="fa fa-check"></i> Pay Now</button>
 					[%/if%]
 					[%print_order id:'[@order_id@]'/%]
 				[%/param%]
