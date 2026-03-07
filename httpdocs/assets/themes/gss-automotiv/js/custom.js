@@ -189,7 +189,35 @@ $('.multi-add').on('click', function(){
     }
 });
 
-// Mobile menu 
+// Click & Collect — intercept checkout links in the mini-cart dropdown and anywhere else
+var gssCncModalHtml = '<div class="modal fade" id="gssCncModal" tabindex="-1" role="dialog" aria-modal="true">' +
+	'<div class="modal-dialog" role="document"><div class="modal-content">' +
+	'<div class="modal-header"><h4 class="modal-title"><i class="fas fa-warehouse mr-2"></i>Click &amp; Collect &#8212; Important Notice</h4>' +
+	'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>' +
+	'<div class="modal-body">' +
+	'<p>Your cart contains item(s) that are <strong>available for Click &amp; Collect only &#8212; these cannot be shipped.</strong></p>' +
+	'<p>Pick up is available from <strong>Mount Druitt, NSW only</strong>, Mon&#8211;Fri 9am&#8211;4:30pm. Please allow a minimum of 3&#8211;4 hours preparation time. You will be notified when your order is ready for collection.</p>' +
+	'</div><div class="modal-footer">' +
+	'<button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>' +
+	'<button type="button" class="btn btn-primary" id="gssCncConfirm">I Understand, Continue to Checkout</button>' +
+	'</div></div></div></div>';
+var gssCncTarget = '';
+$(document).on('click', '#gssCncConfirm', function() {
+	sessionStorage.removeItem('gss_pickup_only');
+	window.location = gssCncTarget;
+});
+$(document).on('click', '#neto-dropdown a', function(e) {
+	if (sessionStorage.getItem('gss_pickup_only') === '1') {
+		var href = $(this).attr('href') || '';
+		if (href.indexOf('checkout') !== -1) {
+			e.preventDefault();
+			gssCncTarget = href;
+			if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
+			$('#gssCncModal').modal('show');
+		}
+	}
+});
+// Mobile menu
 $('.navbar-collapse .burger-menu > div > .nav > li > a.dropdown-toggle').click(function(){
 	if($(this).parent('li').hasClass('dah_active')){
 	    $(this).parent('li').toggleClass('dah_active');

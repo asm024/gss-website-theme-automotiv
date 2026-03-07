@@ -312,6 +312,12 @@
 	</div>
 </div>
 <script>
+	// Sync sessionStorage so mini-cart interceptor on other pages stays accurate
+	if (window.gssHasPickupItem) {
+		sessionStorage.setItem('gss_pickup_only', '1');
+	} else {
+		sessionStorage.removeItem('gss_pickup_only');
+	}
 	function gssGoCheckout() {
 		if (window.gssHasPickupItem) {
 			$('#gssPickupModal').modal('show');
