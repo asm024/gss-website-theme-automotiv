@@ -383,13 +383,15 @@
 	function apiFetch(url, cb, attempt) {
 		if (_cache[url]) { cb(_cache[url]); return; }
 		attempt = attempt || 1;
-		fetch(url)
-			.then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+		var ctrl = new AbortController();
+		var timer = setTimeout(function() { ctrl.abort(); }, 12000); // 12s timeout per attempt
+		fetch(url, { signal: ctrl.signal })
+			.then(function(r) { clearTimeout(timer); if (!r.ok) throw new Error(r.status); return r.json(); })
 			.then(function(d) { _cache[url] = d.results || []; cb(_cache[url]); })
 			.catch(function() {
-				// Retry up to 3 times — handles Azure SQL + Function cold start (can take 60-90s)
-				if (attempt < 3) {
-					setTimeout(function() { apiFetch(url, cb, attempt + 1); }, 5000);
+				clearTimeout(timer);
+				if (attempt < 4) {
+					setTimeout(function() { apiFetch(url, cb, attempt + 1); }, 3000);
 				} else {
 					cb([]);
 				}
