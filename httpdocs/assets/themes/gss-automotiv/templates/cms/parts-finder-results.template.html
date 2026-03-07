@@ -1,0 +1,99 @@
+[%SET [@page_type@]='category'/%]
+<style>
+    .gss-pfr-banner {
+        background: #1a1a1a;
+        border: 1px solid #fcf005;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 0.95rem;
+    }
+    .gss-pfr-btn-change {
+        background: transparent;
+        color: #fcf005;
+        border: 1px solid #fcf005;
+        font-size: 0.8rem;
+        cursor: pointer;
+        padding: 0.25rem 0.75rem;
+        border-radius: 3px;
+    }
+    .gss-pfr-btn-change:hover { background: #fcf005; color: #000; }
+    .gss-pfr-loading { color: #555; }
+    #gss-pfr-results { min-height: 200px; }
+</style>
+
+<div class="col-12">
+
+    <!-- Vehicle banner -->
+    <div id="gss-pfr-banner" style="display:none;" class="gss-pfr-banner mb-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+        <span><strong>Parts for:</strong> <span id="gss-pfr-label"></span></span>
+        <button type="button" id="gss-pfr-change" class="gss-pfr-btn-change mt-2 mt-sm-0">Change vehicle</button>
+    </div>
+
+    <!-- No session — user landed here without selecting a vehicle -->
+    <div id="gss-pfr-nosession" style="display:none;" class="mb-3">
+        <p>No vehicle selected. <a href="/">Return to home</a> and select your vehicle first.</p>
+    </div>
+
+    <!-- Loading spinner shown while ajax template loads -->
+    <div id="gss-pfr-loading" class="gss-pfr-loading text-center py-5">
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <p class="mt-2">Loading parts for your vehicle&hellip;</p>
+    </div>
+
+    <!-- Results heading, shown after load -->
+    <h1 id="gss-pfr-heading" style="display:none;" class="display-4 mb-3">Parts for Your Vehicle</h1>
+
+    <!-- Neto ajax template target — $.load_ajax_template injects rendered product grid here -->
+    [%load_ajax_template id:'_gsspf' type:'content' template:'parts-finder-fit' preload:'0' /%]
+    <div id="gss-pfr-results"></div>
+
+</div>
+
+<script>
+(function() {
+    var skus, label;
+    try {
+        skus  = JSON.parse(sessionStorage.getItem('gss_pf_skus') || 'null');
+        label = sessionStorage.getItem('gss_pf_label') || '';
+    } catch(e) { skus = null; label = ''; }
+
+    if (!skus || !skus.length) {
+        document.getElementById('gss-pfr-loading').style.display = 'none';
+        document.getElementById('gss-pfr-nosession').style.display = 'block';
+        return;
+    }
+
+    // Show vehicle banner
+    document.getElementById('gss-pfr-label').textContent = label;
+    document.getElementById('gss-pfr-banner').style.display = '';
+
+    document.getElementById('gss-pfr-change').addEventListener('click', function() {
+        sessionStorage.removeItem('gss_pf_skus');
+        sessionStorage.removeItem('gss_pf_label');
+        window.location.href = '/';
+    });
+
+    // Update page heading
+    var heading = document.getElementById('gss-pfr-heading');
+    if (label) heading.textContent = 'Parts for ' + label;
+
+    // Wait for jQuery + Neto JS to be ready, then load the product grid
+    $(function() {
+        $.load_ajax_template('_gsspf', {
+            fitsku:   skus.join(','),
+            pfresult: 'y'
+        }, {
+            onLoad: function() {
+                document.getElementById('gss-pfr-loading').style.display = 'none';
+                heading.style.display = '';
+                // Move the rendered content into our results div
+                var target = document.getElementById('gss-pfr-results');
+                var tmpl   = document.getElementById('_gsspf');
+                if (tmpl && tmpl.nextSibling) {
+                    target.appendChild(tmpl.nextSibling);
+                }
+            }
+        });
+    });
+})();
+</script>

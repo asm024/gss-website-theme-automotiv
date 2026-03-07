@@ -513,7 +513,14 @@
 		var skuUrl = API + '/skus?make=' + encodeURIComponent(s.make) + '&model=' + encodeURIComponent(s.model) + '&year=' + encodeURIComponent(s.year) + '&series=' + encodeURIComponent(s.series) + '&body=' + encodeURIComponent(s.body);
 		apiFetch(skuUrl, function(skus) {
 			if (!skus.length) { alert('No parts found for this vehicle.'); btn.textContent = 'Go'; btn.disabled = false; return; }
-			window.location.href = '/?rf=kw&kw=' + encodeURIComponent(skus.join(' '));
+			// Store full SKU list and vehicle label for the results page
+			try {
+				sessionStorage.setItem('gss_pf_skus', JSON.stringify(skus));
+				sessionStorage.setItem('gss_pf_label', s.make + ' ' + s.model + ' ' + s.year + ' ' + s.series + ' ' + s.body);
+			} catch(e) {}
+			// Load results page with custom template — SKUs are in sessionStorage,
+			// parts-finder-results.template.html picks them up via $.load_ajax_template + filter_sku
+			window.location.href = '/?templatebody=parts-finder-results';
 		});
 	};
 })();

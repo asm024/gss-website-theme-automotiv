@@ -1,0 +1,57 @@
+[%SET [@page_type@]='category'/%]
+[%if [@pfresult@] eq 'y'%]
+[%thumb_list type:'products' limit:'[@config:THUMB_LIMIT@]' filter_sku:'[@fitsku@]'%]
+    [%param template%][%VIEWBY type:'products' default:'[@templatethumb@]'%][%/VIEWBY%][%/param%]
+    [%param *header%]
+        <div class="row sort_container align-items-center mb-2">
+            <div class="col-6">
+                <div class="btn-text"><strong>[@total_results@]</strong> Products Found</div>
+            </div>
+            <div class="col-6">
+                <form method="get" class="form-horizontal" action="[@config:CURRENT_URL@]">
+                    <div class="form-row align-items-center justify-content-end">
+                        <label class="col-auto col-form-label" for="pf-sortby">Sort</label>
+                        <div class="col-auto">
+                            <select id="pf-sortby" name="sortby" onChange="return this.form.submit();" class="form-control form-control-sm" aria-label="Sort products by">
+                                <option value="popular"       [%SORTBY type:'products' if:'eq' value:'popular'%]selected[%/SORTBY%]>Most Popular</option>
+                                <option value="name"          [%SORTBY type:'products' if:'eq' value:'name'%]selected[%/SORTBY%]>Name</option>
+                                <option value="SKU"           [%SORTBY type:'products' if:'eq' value:'SKU'%]selected[%/SORTBY%]>SKU</option>
+                                <option value="lowest_price"  [%SORTBY type:'products' if:'eq' value:'lowest_price'%]selected[%/SORTBY%]>Lowest Price</option>
+                                <option value="highest_price" [%SORTBY type:'products' if:'eq' value:'highest_price'%]selected[%/SORTBY%]>Highest Price</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr aria-hidden="true"/>
+        <div class="[%VIEWBY type:'products' if:'eq' value:'list' if_true:'thumb_list' if_false:'thumb'%][%/VIEWBY%]">
+            <div class="row products-row">
+    [%/param%]
+    [%param *footer%]
+            </div>
+        </div>
+        [%IF [@total_results@] > [@config:thumb_limit@]%]
+        <hr aria-hidden="true"/>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                [%paging limit:'3'%]
+                    [%param *previous_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go back one page"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>[%/param%]
+                    [%param *goback_pages%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
+                    [%param *current_page%]<li class="page-item active"><a class="page-link" href="[@url@]" aria-label="Current page">[@page@]</a></li>[%/param%]
+                    [%param *gonext_pages%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
+                    [%param *next_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go forward one page"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>[%/param%]
+                [%/paging%]
+            </ul>
+        </nav>
+        [%/IF%]
+    [%/param%]
+    [%param *ifempty%]
+        <div class="row">
+            <div class="col-12">
+                <p>No parts found for this vehicle combination. <a href="/">Try a different vehicle</a>.</p>
+            </div>
+        </div>
+    [%/param%]
+[%/thumb_list%]
+[%/if%]
