@@ -463,27 +463,38 @@
 		});
 	};
 
+	// Stores the last complete selection so Go doesn't rely on reading DOM values
+	var _gssSelection = {};
+
 	window.gssPfOnBody = function(body) {
-		document.getElementById('gss-pf-go').disabled = !body;
+		var btn = document.getElementById('gss-pf-go');
+		if (!body) { btn.disabled = true; return; }
+		_gssSelection = {
+			make:   val('gss-pf-make'),
+			model:  val('gss-pf-model'),
+			year:   val('gss-pf-year'),
+			series: val('gss-pf-series'),
+			body:   body
+		};
+		// Pre-fetch SKUs immediately so Go is instant
+		var skuUrl = API + '/skus?make=' + encodeURIComponent(_gssSelection.make) + '&model=' + encodeURIComponent(_gssSelection.model) + '&year=' + encodeURIComponent(_gssSelection.year) + '&series=' + encodeURIComponent(_gssSelection.series) + '&body=' + encodeURIComponent(_gssSelection.body);
+		prefetch(skuUrl);
+		btn.disabled = false;
 	};
 
 	window.gssPfGo = function() {
-		var make   = val('gss-pf-make');
-		var model  = val('gss-pf-model');
-		var year   = val('gss-pf-year');
-		var series = val('gss-pf-series');
-		var body   = val('gss-pf-body');
-		if (!make || !model || !year || !series || !body) return;
+		var s = _gssSelection;
+		if (!s.make || !s.model || !s.year || !s.series || !s.body) {
+			console.error('GSS Part Finder: incomplete selection', s);
+			return;
+		}
 		var btn = document.getElementById('gss-pf-go');
 		btn.textContent = '...'; btn.disabled = true;
-		fetch(API + '/skus?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(year) + '&series=' + encodeURIComponent(series) + '&body=' + encodeURIComponent(body))
-			.then(function(r) { return r.json(); })
-			.then(function(d) {
-				var skus = d.results || [];
-				if (!skus.length) { alert('No parts found for this vehicle.'); btn.textContent = 'Go'; btn.disabled = false; return; }
-				window.location.href = '/?rf=kw&kw=' + encodeURIComponent(skus.join(' '));
-			})
-			.catch(function() { alert('Could not find parts. Please try again.'); btn.textContent = 'Go'; btn.disabled = false; });
+		var skuUrl = API + '/skus?make=' + encodeURIComponent(s.make) + '&model=' + encodeURIComponent(s.model) + '&year=' + encodeURIComponent(s.year) + '&series=' + encodeURIComponent(s.series) + '&body=' + encodeURIComponent(s.body);
+		apiFetch(skuUrl, function(skus) {
+			if (!skus.length) { alert('No parts found for this vehicle.'); btn.textContent = 'Go'; btn.disabled = false; return; }
+			window.location.href = '/?rf=kw&kw=' + encodeURIComponent(skus.join(' '));
+		});
 	};
 })();
 </script>
