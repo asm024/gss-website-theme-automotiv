@@ -410,8 +410,13 @@
 
 	function val(id) { return document.getElementById(id).value; }
 
-	// Load makes immediately
-	apiFetch(API + '/makes', function(makes) { fillSelect('gss-pf-make', makes); });
+	function prefetch(url) { apiFetch(url, function() {}); }
+
+	// Load makes immediately, pre-fetch models for first make in background
+	apiFetch(API + '/makes', function(makes) {
+		fillSelect('gss-pf-make', makes);
+		if (makes.length) prefetch(API + '/models?make=' + encodeURIComponent(makes[0]));
+	});
 
 	window.gssPfOnMake = function(make) {
 		resetFrom(['gss-pf-model', 'gss-pf-year', 'gss-pf-series', 'gss-pf-body']);
@@ -419,31 +424,40 @@
 		apiFetch(API + '/models?make=' + encodeURIComponent(make), function(items) {
 			fillSelect('gss-pf-model', items);
 			document.getElementById('gss-pf-model').disabled = false;
+			// Pre-fetch years for the first model
+			if (items.length) prefetch(API + '/years?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(items[0]));
 		});
 	};
 
 	window.gssPfOnModel = function(model) {
 		resetFrom(['gss-pf-year', 'gss-pf-series', 'gss-pf-body']);
 		if (!model) return;
-		apiFetch(API + '/years?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(model), function(items) {
+		var make = val('gss-pf-make');
+		apiFetch(API + '/years?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model), function(items) {
 			fillSelect('gss-pf-year', items);
 			document.getElementById('gss-pf-year').disabled = false;
+			// Pre-fetch series for the first year
+			if (items.length) prefetch(API + '/series?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(items[0]));
 		});
 	};
 
 	window.gssPfOnYear = function(year) {
 		resetFrom(['gss-pf-series', 'gss-pf-body']);
 		if (!year) return;
-		apiFetch(API + '/series?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(val('gss-pf-model')) + '&year=' + encodeURIComponent(year), function(items) {
+		var make = val('gss-pf-make'), model = val('gss-pf-model');
+		apiFetch(API + '/series?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(year), function(items) {
 			fillSelect('gss-pf-series', items);
 			document.getElementById('gss-pf-series').disabled = false;
+			// Pre-fetch bodies for the first series
+			if (items.length) prefetch(API + '/bodies?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(year) + '&series=' + encodeURIComponent(items[0]));
 		});
 	};
 
 	window.gssPfOnSeries = function(series) {
 		resetFrom(['gss-pf-body']);
 		if (!series) return;
-		apiFetch(API + '/bodies?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(val('gss-pf-model')) + '&year=' + encodeURIComponent(val('gss-pf-year')) + '&series=' + encodeURIComponent(series), function(items) {
+		var make = val('gss-pf-make'), model = val('gss-pf-model'), year = val('gss-pf-year');
+		apiFetch(API + '/bodies?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(year) + '&series=' + encodeURIComponent(series), function(items) {
 			fillSelect('gss-pf-body', items);
 			document.getElementById('gss-pf-body').disabled = false;
 		});
