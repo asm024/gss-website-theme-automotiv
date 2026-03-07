@@ -313,8 +313,8 @@ background-color: rgba(0, 0, 0, 0.8) /*{category-box-caption-background-colour}*
 .dah_homecategories .thumbnail:hover .caption {
 background-color: rgba(252, 240, 5, 0.65) /*{category-box-caption-hover-background-colour}*/;
 }
-/* Hide mini-cart "Checkout Now" button — force customers through the cart page where the C&C popup works */
-button.npopup-checkout {
+/* Hide "Checkout Now" button everywhere — force customers through the cart page where the C&C popup works */
+.npopup-checkout {
 display: none !important;
 }
 
