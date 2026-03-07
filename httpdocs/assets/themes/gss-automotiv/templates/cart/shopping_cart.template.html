@@ -20,6 +20,7 @@
 	</div>
 	[%cart_items%]
 	[%param header%]
+		<script>window.gssHasPickupItem = false;</script>
 		<div class="row" role="contentinfo" aria-label="Products in shopping cart">
 			<div class="col-12">
 				<form method="post" name="checkout" action="[%url page:'checkout'/%]">
@@ -36,6 +37,7 @@
 						<tbody>
 						[%/param%]
 						[%param *body%]
+						[%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%]<script>window.gssHasPickupItem = true;</script>[%/if%]
 						<tr>
 							<td class="cartTable--column cartTable--column-image"><a href="[@url@]"><img class="img-fluid" src="[@thumb@]" alt="[@model@]"/></a></td>
 							<td>
@@ -304,14 +306,14 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Back to Cart</button>
-				<a href="[%url page:'checkout' fn:'payment'/%]" class="btn btn-primary" onclick="sessionStorage.removeItem('gss_pickup_only');">I Understand, Continue to Checkout</a>
+				<a href="[%url page:'checkout' fn:'payment'/%]" class="btn btn-primary">I Understand, Continue to Checkout</a>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
 	function gssGoCheckout() {
-		if (sessionStorage.getItem('gss_pickup_only') === '1') {
+		if (window.gssHasPickupItem) {
 			$('#gssPickupModal').modal('show');
 		} else {
 			window.location = '[%url page:'checkout' fn:'payment'/%]';
