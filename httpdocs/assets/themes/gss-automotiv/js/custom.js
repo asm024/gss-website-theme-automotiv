@@ -189,54 +189,6 @@ $('.multi-add').on('click', function(){
     }
 });
 
-// Click & Collect — intercept checkout links in the mini-cart dropdown and anywhere else
-var gssCncModalHtml = '<div class="modal fade" id="gssCncModal" tabindex="-1" role="dialog" aria-modal="true">' +
-	'<div class="modal-dialog" role="document"><div class="modal-content">' +
-	'<div class="modal-header"><h4 class="modal-title"><i class="fas fa-warehouse mr-2"></i>Click &amp; Collect &#8212; Important Notice</h4>' +
-	'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>' +
-	'<div class="modal-body">' +
-	'<p>Your cart contains item(s) that are <strong>available for Click &amp; Collect only &#8212; these cannot be shipped.</strong></p>' +
-	'<p>Pick up is available from <strong>Mount Druitt, NSW only</strong>, Mon&#8211;Fri 9am&#8211;4:30pm. Please allow a minimum of 3&#8211;4 hours preparation time. You will be notified when your order is ready for collection.</p>' +
-	'</div><div class="modal-footer">' +
-	'<button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>' +
-	'<button type="button" class="btn btn-primary" id="gssCncConfirm">I Understand, Continue to Checkout</button>' +
-	'</div></div></div></div>';
-var gssCncTarget = '';
-$(document).on('click', '#gssCncConfirm', function() {
-	sessionStorage.removeItem('gss_pickup_only');
-	window.location = gssCncTarget;
-});
-// Watch for Neto's mini-cart checkout button being added to the DOM,
-// then replace its inline onclick with our own handler before user can click it
-function gssCncHijackBtn(btn) {
-	var onclickVal = btn.getAttribute('onclick') || '';
-	var match = onclickVal.match(/window\.location='([^']+)'/);
-	var url = match ? match[1] : '';
-	btn.removeAttribute('onclick');
-	btn.addEventListener('click', function(e) {
-		if (sessionStorage.getItem('gss_pickup_only') === '1') {
-			e.preventDefault();
-			e.stopPropagation();
-			gssCncTarget = url;
-			if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
-			$('#gssCncModal').modal('show');
-		} else {
-			window.location = url;
-		}
-	});
-}
-var gssCncObserver = new MutationObserver(function(mutations) {
-	mutations.forEach(function(mutation) {
-		mutation.addedNodes.forEach(function(node) {
-			if (node.nodeType !== 1) return;
-			var btns = node.classList && node.classList.contains('npopup-checkout')
-				? [node]
-				: Array.prototype.slice.call(node.querySelectorAll('button.npopup-checkout'));
-			btns.forEach(gssCncHijackBtn);
-		});
-	});
-});
-gssCncObserver.observe(document.body, { childList: true, subtree: true });
 // Mobile menu
 $('.navbar-collapse .burger-menu > div > .nav > li > a.dropdown-toggle').click(function(){
 	if($(this).parent('li').hasClass('dah_active')){
