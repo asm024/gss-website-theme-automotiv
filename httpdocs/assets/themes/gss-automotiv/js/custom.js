@@ -206,18 +206,37 @@ $(document).on('click', '#gssCncConfirm', function() {
 	sessionStorage.removeItem('gss_pickup_only');
 	window.location = gssCncTarget;
 });
-// Use capture phase so we run before the button's inline onclick fires
-document.addEventListener('click', function(e) {
-	var btn = e.target && e.target.closest ? e.target.closest('button.npopup-checkout') : null;
-	if (!btn || sessionStorage.getItem('gss_pickup_only') !== '1') return;
-	e.stopImmediatePropagation();
-	e.preventDefault();
+// Watch for Neto's mini-cart checkout button being added to the DOM,
+// then replace its inline onclick with our own handler before user can click it
+function gssCncHijackBtn(btn) {
 	var onclickVal = btn.getAttribute('onclick') || '';
 	var match = onclickVal.match(/window\.location='([^']+)'/);
-	gssCncTarget = match ? match[1] : '';
-	if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
-	$('#gssCncModal').modal('show');
-}, true);
+	var url = match ? match[1] : '';
+	btn.removeAttribute('onclick');
+	btn.addEventListener('click', function(e) {
+		if (sessionStorage.getItem('gss_pickup_only') === '1') {
+			e.preventDefault();
+			e.stopPropagation();
+			gssCncTarget = url;
+			if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
+			$('#gssCncModal').modal('show');
+		} else {
+			window.location = url;
+		}
+	});
+}
+var gssCncObserver = new MutationObserver(function(mutations) {
+	mutations.forEach(function(mutation) {
+		mutation.addedNodes.forEach(function(node) {
+			if (node.nodeType !== 1) return;
+			var btns = node.classList && node.classList.contains('npopup-checkout')
+				? [node]
+				: Array.prototype.slice.call(node.querySelectorAll('button.npopup-checkout'));
+			btns.forEach(gssCncHijackBtn);
+		});
+	});
+});
+gssCncObserver.observe(document.body, { childList: true, subtree: true });
 // Mobile menu
 $('.navbar-collapse .burger-menu > div > .nav > li > a.dropdown-toggle').click(function(){
 	if($(this).parent('li').hasClass('dah_active')){
