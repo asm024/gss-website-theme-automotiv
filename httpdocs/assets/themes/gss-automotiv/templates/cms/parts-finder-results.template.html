@@ -1,6 +1,8 @@
 [%SET [@page_type@]='category'/%]
 [%SET [@gss_fitsku@]%][@form:fitsku@][%/SET%]
 [%SET [@gss_pflabel@]%][@form:pflabel@][%/SET%]
+<div class="container mt-4">
+<div class="row">
 [%load_template file:'cms/includes/sidebar.template.html'/%]
 
 [%if [@gss_fitsku@]%]
@@ -103,7 +105,9 @@
 
 [%/if%]
 
-</div>
+</div><!-- col-md-9 -->
+</div><!-- row -->
+</div><!-- container -->
 
 <script>
 // Guardrail: keep fitsku + pflabel on all sidebar filter links and pagination
