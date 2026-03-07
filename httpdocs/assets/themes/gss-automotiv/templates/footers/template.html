@@ -176,6 +176,18 @@
 .dropdown-menu .text-muted {
 	color: rgba(255, 255, 255, 0.6) !important;
 }
+/* btn-primary: black bg, yellow text — overrides Bootstrap blue default which shows when style.css is CDN-cached */
+.btn-primary {
+	color: rgba(252, 240, 5, 1) !important;
+	background-color: rgba(0, 0, 0, 1) !important;
+	border-color: rgba(252, 240, 5, 1) !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+	color: rgba(0, 0, 0, 1) !important;
+	background-color: rgba(252, 240, 5, 1) !important;
+	border-color: rgba(0, 0, 0, 1) !important;
+}
 </style>
 <script>
 // Hide all "Checkout Now" shortcuts — force customers through cart page where C&C popup works
