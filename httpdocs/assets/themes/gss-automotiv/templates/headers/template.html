@@ -342,155 +342,7 @@
 		</nav>
 	</div>
 </div>
-[%set [@dah_partfinder_active@] %]n[%/set%]
-[%thumb_list type:'content' content_type:'parts_finder' show_level:'1' filter_content:'0' filter_category:'0' limit:'1'%]
-[%param *body%]
-	[%set [@^dah_partfinder_active@] %]y[%/set%]
-[%/param%]
-[%/thumb_list%]
-[%if [@dah_partfinder_active@] eq 'y'%]
 <div class="dah_newpartfinder parts_finder">
-	[%set [@dah_partcategories@] %]
-	[%cache id:'dah_partcategories' type:'cmenu'%]
-	[%content_menu content_type:'parts_finder' sortby:'name' show_empty:'1'%]
-		[%param *level_1%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_2%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_3%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_4%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-		[%param *level_5%]
-			{id:[@id@],name:"[%escape%][@name@][%/escape%]",url:"[@url@]",subcategories:[%if [@next_level@]%][[@next_level@]][%else%]0[%/if%]},
-		[%/param%]
-	[%/content_menu%]
-	[%/cache%]
-	[%/set%]
-	[%site_value id:'footer_javascript'%]
-		<script>
-			const partfindercat = [[%format type:'text' trim:'e1'%][@dah_partcategories@][%/format%]];
-			//console.log(partfindercat);
-			var lvl_1 ="";
-			var lvl_2 ="";
-			var lvl_3 ="";
-			var lvl_1_id ="";
-			var lvl_2_id ="";
-			partfindercat.forEach(function(e) {
-				lvl_1 += "<option value='"+e.id+"'>"+e.name+"</option>";
-			});
-			$("#dah_partfinder_opt_1").html($("#dah_partfinder_opt_1").html() + lvl_1);
-
-			function lvl_1_option_change(id){
-				if(id){
-					partfindercat.forEach(function(e) {
-						if(e.id == parseInt(id)){
-							reset_lvl_2();
-							reset_lvl_3();
-							if(Array.isArray(e.subcategories)){
-								lvl_1_id = e.id;
-								e.subcategories.forEach(function(subcat) {
-									lvl_2 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
-								});
-								$("#dah_partfinder_opt_2").html("<option value=''>Please Select...</option>" + lvl_2);
-								$("#dah_partfinder_opt_2").removeAttr("disabled");
-							}else{
-								$("#dah_partfinder_opt_2").attr("disabled","disabled");
-								$("#dah_partfinder_opt_3").attr("disabled","disabled");
-							}
-							$(".dah_compat-btn").attr("data-url",e.url);
-							$(".dah_compat-btn").removeAttr("disabled");
-						}
-					});
-				}else{
-					reset_lvl_2();
-					reset_lvl_3();
-					$(".dah_compat-btn").attr("data-url","");
-					$(".dah_compat-btn").attr("disabled","disabled");
-				}
-			} 
-			function lvl_2_option_change(id){
-				if(id){
-					partfindercat.forEach(function(e) {
-						if(e.id == lvl_1_id){
-							e.subcategories.forEach(function(h){
-								if(h.id == parseInt(id)){
-									reset_lvl_3();
-									if(Array.isArray(h.subcategories)){
-										lvl_2_id = parseInt(id);
-										h.subcategories.forEach(function(subcat) {
-											lvl_3 += "<option value='"+subcat.id+"'>"+subcat.name+"</option>";
-										});
-										$("#dah_partfinder_opt_3").html("<option value=''>Please Select...</option>" + lvl_3);
-										$("#dah_partfinder_opt_3").removeAttr("disabled");
-									}else{
-										$("#dah_partfinder_opt_3").attr("disabled","disabled");
-									}
-									$(".dah_compat-btn").attr("data-url",h.url);
-									$(".dah_compat-btn").removeAttr("disabled");
-								}
-							});
-						}
-					});
-				}else{
-					reset_lvl_3();
-					partfindercat.forEach(function(e) {
-						if(e.id == lvl_1_id){
-							$(".dah_compat-btn").attr("data-url",e.url);
-						}
-					});
-				}
-			} 
-			function lvl_3_option_change(id){
-				if(id){
-					partfindercat.forEach(function(e) {
-						if(e.id == lvl_1_id){
-							e.subcategories.forEach(function(h){
-								if(h.id == lvl_2_id){
-									h.subcategories.forEach(function(i){
-										if(i.id == parseInt(id)){
-											if(Array.isArray(i.subcategories)){
-											}
-											$(".dah_compat-btn").attr("data-url",i.url);
-											$(".dah_compat-btn").removeAttr("disabled");
-										}
-									});
-								}
-							});
-						}
-					});
-				}else{
-					partfindercat.forEach(function(e) {
-						if(e.id == lvl_1_id){
-							e.subcategories.forEach(function(h) {
-								if(h.id == lvl_2_id){
-									$(".dah_compat-btn").attr("data-url",h.url);
-								}
-							});
-						}
-					});
-				}
-			} 
-			function reset_lvl_2(){
-				lvl_2 ="";
-				$("#dah_partfinder_opt_2").html("<option value=''>Model</option>");
-			}
-			function reset_lvl_3(){
-				lvl_3 ="";
-				//$("#dah_partfinder_opt_3").find('option').remove();
-				$("#dah_partfinder_opt_3").html("<option value=''>Submodel/Year</option>");
-			}
-			$(".dah_compat-btn").click(function(){
-				window.location.href = $(this).attr('data-url');
-			});
-
-
-		</script>
-	[%/site_value%]
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
 			<div class="col-12">
@@ -498,21 +350,24 @@
 					<button class="d-md-none btn btn-primary btn-block mb-2 font-weight-bold text-uppercase"
 						data-toggle="collapse" data-target=".parts_finder-content-new">Find your vehicle</button>
 					<div class="parts_finder-content-new py-1 collapse d-md-block">
-						<input type="hidden" id="clist_search" value="button">
-						<input type="hidden" id="clist_size" value="3">
-						<input type="hidden" id="clist_hidden" value="">
 						<div id="compat_list" class="d-flex flex-column flex-md-row justify-content-around align-items-center">
 							<p class="d-none d-md-flex mb-0 text-nowrap mr-md-3 font-weight-bold text-uppercase">Find your vehicle:</p>
-							<select name="clist_12_1" onchange="lvl_1_option_change(this.value);" id="dah_partfinder_opt_1" class="dah_partfinder_opt_1 dah_compatibility_list form-control" rel="Option Above">
+							<select id="gss-pf-make" class="form-control" onchange="gssPfOnMake(this.value)">
 								<option value="">Make</option>
 							</select>
-							<select name="clist_12_2" onchange="lvl_2_option_change(this.value);" id="dah_partfinder_opt_2" class="dah_partfinder_opt_2 dah_compatibility_list form-control" rel="Option Above">
+							<select id="gss-pf-model" class="form-control" disabled onchange="gssPfOnModel(this.value)">
 								<option value="">Model</option>
 							</select>
-							<select name="clist_12_3" onchange="lvl_3_option_change(this.value);" id="dah_partfinder_opt_3" class="dah_partfinder_opt_3 dah_compatibility_list form-control" rel="Option Above">
-								<option value="">Submodel/Year</option>
+							<select id="gss-pf-year" class="form-control" disabled onchange="gssPfOnYear(this.value)">
+								<option value="">Year</option>
 							</select>
-							<button type="submit" class="btn btn-primary text-uppercase font-weight-bold dah_compat-btn col-12 col-md-auto" data-url="" disabled>go</button>
+							<select id="gss-pf-series" class="form-control" disabled onchange="gssPfOnSeries(this.value)">
+								<option value="">Series/Engine</option>
+							</select>
+							<select id="gss-pf-body" class="form-control" disabled onchange="gssPfOnBody(this.value)">
+								<option value="">Body/Drive</option>
+							</select>
+							<button type="button" id="gss-pf-go" class="btn btn-primary text-uppercase font-weight-bold col-12 col-md-auto" disabled onclick="gssPfGo()">Go</button>
 						</div>
 					</div>
 				</div>
@@ -520,7 +375,104 @@
 		</div>
 	</div>
 </div>
-[%/if%]
+<script>
+(function() {
+	var API = 'https://gss-part-finder.azurewebsites.net/api';
+	var _cache = {};
+
+	function apiFetch(url, cb) {
+		if (_cache[url]) { cb(_cache[url]); return; }
+		fetch(url)
+			.then(function(r) { return r.json(); })
+			.then(function(d) { _cache[url] = d.results || []; cb(_cache[url]); })
+			.catch(function() { cb([]); });
+	}
+
+	function fillSelect(id, items) {
+		var sel = document.getElementById(id);
+		var placeholder = sel.options[0].text;
+		sel.innerHTML = '<option value="">' + placeholder + '</option>';
+		items.forEach(function(v) {
+			var o = document.createElement('option');
+			o.value = o.textContent = v;
+			sel.appendChild(o);
+		});
+	}
+
+	function resetFrom(ids) {
+		ids.forEach(function(id) {
+			var sel = document.getElementById(id);
+			sel.innerHTML = '<option value="">' + sel.options[0].text + '</option>';
+			sel.disabled = true;
+		});
+		document.getElementById('gss-pf-go').disabled = true;
+	}
+
+	function val(id) { return document.getElementById(id).value; }
+
+	// Load makes immediately
+	apiFetch(API + '/makes', function(makes) { fillSelect('gss-pf-make', makes); });
+
+	window.gssPfOnMake = function(make) {
+		resetFrom(['gss-pf-model', 'gss-pf-year', 'gss-pf-series', 'gss-pf-body']);
+		if (!make) return;
+		apiFetch(API + '/models?make=' + encodeURIComponent(make), function(items) {
+			fillSelect('gss-pf-model', items);
+			document.getElementById('gss-pf-model').disabled = false;
+		});
+	};
+
+	window.gssPfOnModel = function(model) {
+		resetFrom(['gss-pf-year', 'gss-pf-series', 'gss-pf-body']);
+		if (!model) return;
+		apiFetch(API + '/years?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(model), function(items) {
+			fillSelect('gss-pf-year', items);
+			document.getElementById('gss-pf-year').disabled = false;
+		});
+	};
+
+	window.gssPfOnYear = function(year) {
+		resetFrom(['gss-pf-series', 'gss-pf-body']);
+		if (!year) return;
+		apiFetch(API + '/series?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(val('gss-pf-model')) + '&year=' + encodeURIComponent(year), function(items) {
+			fillSelect('gss-pf-series', items);
+			document.getElementById('gss-pf-series').disabled = false;
+		});
+	};
+
+	window.gssPfOnSeries = function(series) {
+		resetFrom(['gss-pf-body']);
+		if (!series) return;
+		apiFetch(API + '/bodies?make=' + encodeURIComponent(val('gss-pf-make')) + '&model=' + encodeURIComponent(val('gss-pf-model')) + '&year=' + encodeURIComponent(val('gss-pf-year')) + '&series=' + encodeURIComponent(series), function(items) {
+			fillSelect('gss-pf-body', items);
+			document.getElementById('gss-pf-body').disabled = false;
+		});
+	};
+
+	window.gssPfOnBody = function(body) {
+		document.getElementById('gss-pf-go').disabled = !body;
+	};
+
+	window.gssPfGo = function() {
+		var make   = val('gss-pf-make');
+		var model  = val('gss-pf-model');
+		var year   = val('gss-pf-year');
+		var series = val('gss-pf-series');
+		var body   = val('gss-pf-body');
+		if (!make || !model || !year || !series || !body) return;
+		var btn = document.getElementById('gss-pf-go');
+		btn.textContent = '...'; btn.disabled = true;
+		fetch(API + '/skus?make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model) + '&year=' + encodeURIComponent(year) + '&series=' + encodeURIComponent(series) + '&body=' + encodeURIComponent(body))
+			.then(function(r) { return r.json(); })
+			.then(function(d) {
+				var skus = d.results || [];
+				if (!skus.length) { alert('No parts found for this vehicle.'); btn.textContent = 'Go'; btn.disabled = false; return; }
+				window.location.href = '/?rf=kw&kw=' + encodeURIComponent(skus.join(' '));
+			})
+			.catch(function() { alert('Could not find parts. Please try again.'); btn.textContent = 'Go'; btn.disabled = false; });
+	};
+})();
+</script>
 </header>
 [%if [@config:current_page_type@] ne 'home' and [@config:current_page_type@] ne 'customer_account'%]
 [%breadcrumb%]
