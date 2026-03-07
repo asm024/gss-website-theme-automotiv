@@ -206,17 +206,18 @@ $(document).on('click', '#gssCncConfirm', function() {
 	sessionStorage.removeItem('gss_pickup_only');
 	window.location = gssCncTarget;
 });
-$(document).on('click', '#neto-dropdown a', function(e) {
-	if (sessionStorage.getItem('gss_pickup_only') === '1') {
-		var href = $(this).attr('href') || '';
-		if (href.indexOf('checkout') !== -1) {
-			e.preventDefault();
-			gssCncTarget = href;
-			if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
-			$('#gssCncModal').modal('show');
-		}
-	}
-});
+// Use capture phase so we run before the button's inline onclick fires
+document.addEventListener('click', function(e) {
+	var btn = e.target && e.target.closest ? e.target.closest('button.npopup-checkout') : null;
+	if (!btn || sessionStorage.getItem('gss_pickup_only') !== '1') return;
+	e.stopImmediatePropagation();
+	e.preventDefault();
+	var onclickVal = btn.getAttribute('onclick') || '';
+	var match = onclickVal.match(/window\.location='([^']+)'/);
+	gssCncTarget = match ? match[1] : '';
+	if ($('#gssCncModal').length === 0) { $('body').append(gssCncModalHtml); }
+	$('#gssCncModal').modal('show');
+}, true);
 // Mobile menu
 $('.navbar-collapse .burger-menu > div > .nav > li > a.dropdown-toggle').click(function(){
 	if($(this).parent('li').hasClass('dah_active')){
