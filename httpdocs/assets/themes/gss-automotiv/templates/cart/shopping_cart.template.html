@@ -304,26 +304,19 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Back to Cart</button>
-				<button type="button" class="btn btn-primary" id="gssPickupConfirm">I Understand, Continue to Checkout</button>
+				<a href="[%url page:'checkout' fn:'payment'/%]" class="btn btn-primary" onclick="sessionStorage.removeItem('gss_pickup_only');">I Understand, Continue to Checkout</a>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-	var gssCheckoutUrl = "[%url page:'checkout' fn:'payment'/%]";
 	function gssGoCheckout() {
 		if (sessionStorage.getItem('gss_pickup_only') === '1') {
 			$('#gssPickupModal').modal('show');
 		} else {
-			window.location = gssCheckoutUrl;
+			window.location = '[%url page:'checkout' fn:'payment'/%]';
 		}
 	}
-	$(document).ready(function() {
-		$('#gssPickupConfirm').on('click', function() {
-			sessionStorage.removeItem('gss_pickup_only');
-			window.location = gssCheckoutUrl;
-		});
-	});
 </script>
 <!-- Do not edit below this line-->
 <script>
