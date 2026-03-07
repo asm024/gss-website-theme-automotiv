@@ -72,9 +72,6 @@
 	<tr>
 	<td>[@qty@]</td>
 	<td>[@model@] <i>[@extra@]</i>
-	[%if [@misc32@] eq 'N' OR [@misc32@] eq 'n'%]
-	<br><small style="color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:4px;padding:2px 6px;display:inline-block;margin-top:4px;"><i class="fas fa-warehouse"></i> <strong>Click &amp; Collect only</strong> — cannot be shipped. Pick up from Mount Druitt, NSW.</small>
-	[%/if%]
 	[%DATA id:'has_components' if:'==' value:'1'%]
 	[%CART_ITEM_COMPONENTS counter:'[@counter@]'%]
 		[%param header%]<ul>[%/param%]
