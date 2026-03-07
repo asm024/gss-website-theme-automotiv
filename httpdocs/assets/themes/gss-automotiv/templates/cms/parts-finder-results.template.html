@@ -1,6 +1,6 @@
 [%SET [@page_type@]='category'/%]
-[%SET [@gss_fitsku@]%][%url_info name:'fitsku'/%][%/SET%]
-[%SET [@gss_pflabel@]%][%url_info name:'pflabel'/%][%/SET%]
+[%SET [@gss_fitsku@]%][@form:fitsku@][%/SET%]
+[%SET [@gss_pflabel@]%][@form:pflabel@][%/SET%]
 <style>
     .gss-pfr-banner {
         background: #1a1a1a;
@@ -46,8 +46,8 @@
                     <div class="col-6">
                         <form method="get" class="form-horizontal" action="[@config:CURRENT_URL@]">
                             <input type="hidden" name="templatebody" value="parts-finder-results">
-                            <input type="hidden" name="fitsku" value="[@gss_fitsku@]">
-                            <input type="hidden" name="pflabel" value="[@gss_pflabel@]">
+                            <input type="hidden" name="fitsku" value="[%NOHTML%][@gss_fitsku@][%/NOHTML%]">
+                            <input type="hidden" name="pflabel" value="[%NOHTML%][@gss_pflabel@][%/NOHTML%]">
                             <div class="form-row align-items-center justify-content-end">
                                 <label class="col-auto col-form-label" for="pf-sortby">Sort</label>
                                 <div class="col-auto">
