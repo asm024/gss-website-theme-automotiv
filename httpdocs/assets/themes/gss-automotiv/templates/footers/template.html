@@ -162,6 +162,21 @@
 </div>
 <!-- Required Neto Scripts - DO NOT REMOVE -->
 [%load_template file:'footers/includes/scripts.template.html'/%]
+<style>
+/* Category mega-menu level 1 headings are plain <a> tags, not .dropdown-item,
+   so they inherit the black body link colour and disappear on the black dropdown bg */
+.dropdown-menu a {
+	color: #ffffff;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+	color: rgba(252, 240, 5, 1);
+}
+/* Level 3 subcategory items use .text-muted which is dark grey — unreadable on black */
+.dropdown-menu .text-muted {
+	color: rgba(255, 255, 255, 0.6) !important;
+}
+</style>
 <script>
 // Hide all "Checkout Now" shortcuts — force customers through cart page where C&C popup works
 function gssHideCheckoutBtns() {
