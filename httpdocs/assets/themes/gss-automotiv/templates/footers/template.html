@@ -162,5 +162,17 @@
 </div>
 <!-- Required Neto Scripts - DO NOT REMOVE -->
 [%load_template file:'footers/includes/scripts.template.html'/%]
+<script>
+// Hide all "Checkout Now" shortcuts — force customers through cart page where C&C popup works
+function gssHideCheckoutBtns() {
+	var els = document.querySelectorAll('.npopup-checkout, button.checkout');
+	for (var i = 0; i < els.length; i++) { els[i].style.display = 'none'; }
+}
+document.addEventListener('DOMContentLoaded', gssHideCheckoutBtns);
+var _npopupDesc = document.getElementById('npopupDesc');
+if (_npopupDesc) {
+	new MutationObserver(gssHideCheckoutBtns).observe(_npopupDesc, { childList: true, subtree: true });
+}
+</script>
 </body>
 </html>
