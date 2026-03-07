@@ -518,11 +518,52 @@
 				sessionStorage.setItem('gss_pf_skus', JSON.stringify(skus));
 				sessionStorage.setItem('gss_pf_label', s.make + ' ' + s.model + ' ' + s.year + ' ' + s.series + ' ' + s.body);
 			} catch(e) {}
-			// Pass SKUs + label in URL — results template reads them server-side via url_info + filter_sku
+			// Show full-page loading overlay before navigating
 			var label = s.make + ' ' + s.model + ' ' + s.year + ' ' + s.series + ' ' + s.body;
+			var overlay = document.createElement('div');
+			overlay.id = 'gss-loading-overlay';
+			overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;';
+			overlay.innerHTML = '<i class="fa fa-spinner fa-spin fa-3x" style="color:#fcf005;"></i>'
+				+ '<p style="color:#fff;font-size:1.1rem;font-weight:700;margin-top:1.25rem;text-transform:uppercase;letter-spacing:0.05em;">Looking for parts to suit your selected vehicle</p>'
+				+ '<p style="color:#fcf005;font-size:0.95rem;margin:0;">' + label + '</p>';
+			document.body.appendChild(overlay);
 			window.location.href = '/?templatebody=parts-finder-results&fitsku=' + encodeURIComponent(skus.join(',')) + '&pflabel=' + encodeURIComponent(label);
 		});
 	};
+})();
+
+// ── Site-wide guardrail: fit badges on product cards ─────────────────────────
+(function() {
+	var skus, label;
+	try {
+		skus  = JSON.parse(sessionStorage.getItem('gss_pf_skus') || 'null');
+		label = sessionStorage.getItem('gss_pf_label') || 'your vehicle';
+	} catch(e) { skus = null; }
+	if (!skus || !skus.length) return;
+
+	// Build a quick-lookup set (lowercase for case-insensitive match)
+	var skuSet = {};
+	skus.forEach(function(s) { skuSet[s.toLowerCase()] = true; });
+
+	var style = document.createElement('style');
+	style.textContent = [
+		'.gss-fit-badge{display:block;font-size:0.75rem;font-weight:700;padding:0.2rem 0.5rem;border-radius:3px;margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.04em;}',
+		'.gss-fits{background:#d4edda;color:#155724;}',
+		'.gss-no-fit{background:#f8d7da;color:#721c24;}'
+	].join('');
+	document.head.appendChild(style);
+
+	$(function() {
+		$('[data-sku]').each(function() {
+			var $card = $(this);
+			var sku = ($card.attr('data-sku') || '').toLowerCase();
+			if (!sku) return;
+			var badge = skuSet[sku]
+				? '<span class="gss-fit-badge gss-fits"><i class="fa fa-check"></i> Fits ' + label + '</span>'
+				: '<span class="gss-fit-badge gss-no-fit"><i class="fa fa-times"></i> Does not fit</span>';
+			$card.find('.title').before(badge);
+		});
+	});
 })();
 </script>
 </header>
