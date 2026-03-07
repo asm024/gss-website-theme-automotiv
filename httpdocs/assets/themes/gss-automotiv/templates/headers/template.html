@@ -518,9 +518,9 @@
 				sessionStorage.setItem('gss_pf_skus', JSON.stringify(skus));
 				sessionStorage.setItem('gss_pf_label', s.make + ' ' + s.model + ' ' + s.year + ' ' + s.series + ' ' + s.body);
 			} catch(e) {}
-			// Load results page with custom template — SKUs are in sessionStorage,
-			// parts-finder-results.template.html picks them up via $.load_ajax_template + filter_sku
-			window.location.href = '/?templatebody=parts-finder-results';
+			// Pass SKUs + label in URL — results template reads them server-side via url_info + filter_sku
+			var label = s.make + ' ' + s.model + ' ' + s.year + ' ' + s.series + ' ' + s.body;
+			window.location.href = '/?templatebody=parts-finder-results&fitsku=' + encodeURIComponent(skus.join(',')) + '&pflabel=' + encodeURIComponent(label);
 		});
 	};
 })();

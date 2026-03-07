@@ -1,4 +1,6 @@
 [%SET [@page_type@]='category'/%]
+[%SET [@gss_fitsku@]%][%url_info name:'fitsku'/%][%/SET%]
+[%SET [@gss_pflabel@]%][%url_info name:'pflabel'/%][%/SET%]
 <style>
     .gss-pfr-banner {
         background: #1a1a1a;
@@ -12,88 +14,90 @@
         color: #fcf005;
         border: 1px solid #fcf005;
         font-size: 0.8rem;
-        cursor: pointer;
         padding: 0.25rem 0.75rem;
         border-radius: 3px;
+        text-decoration: none;
     }
     .gss-pfr-btn-change:hover { background: #fcf005; color: #000; }
-    .gss-pfr-loading { color: #555; }
-    #gss-pfr-results { min-height: 200px; }
 </style>
 
 <div class="col-12">
 
-    <!-- Vehicle banner -->
-    <div id="gss-pfr-banner" style="display:none;" class="gss-pfr-banner mb-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
-        <span><strong>Parts for:</strong> <span id="gss-pfr-label"></span></span>
-        <button type="button" id="gss-pfr-change" class="gss-pfr-btn-change mt-2 mt-sm-0">Change vehicle</button>
-    </div>
+    [%if [@gss_fitsku@]%]
 
-    <!-- No session — user landed here without selecting a vehicle -->
-    <div id="gss-pfr-nosession" style="display:none;" class="mb-3">
+        [%if [@gss_pflabel@]%]
+        <div class="gss-pfr-banner mb-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+            <span><strong>Parts for:</strong> [@gss_pflabel@]</span>
+            <a href="/" class="gss-pfr-btn-change mt-2 mt-sm-0">Change vehicle</a>
+        </div>
+        [%/if%]
+
+        <h1 class="display-4 mb-3">
+            [%if [@gss_pflabel@]%]Parts for [@gss_pflabel@][%else%]Parts for Your Vehicle[%/if%]
+        </h1>
+
+        [%thumb_list type:'products' limit:'[@config:THUMB_LIMIT@]' filter_sku:'[@gss_fitsku@]'%]
+            [%param template%][%VIEWBY type:'products' default:'[@templatethumb@]'%][%/VIEWBY%][%/param%]
+            [%param *header%]
+                <div class="row sort_container align-items-center mb-2">
+                    <div class="col-6">
+                        <div class="btn-text"><strong>[@total_results@]</strong> Products Found</div>
+                    </div>
+                    <div class="col-6">
+                        <form method="get" class="form-horizontal" action="[@config:CURRENT_URL@]">
+                            <input type="hidden" name="templatebody" value="parts-finder-results">
+                            <input type="hidden" name="fitsku" value="[@gss_fitsku@]">
+                            <input type="hidden" name="pflabel" value="[@gss_pflabel@]">
+                            <div class="form-row align-items-center justify-content-end">
+                                <label class="col-auto col-form-label" for="pf-sortby">Sort</label>
+                                <div class="col-auto">
+                                    <select id="pf-sortby" name="sortby" onChange="return this.form.submit();" class="form-control form-control-sm" aria-label="Sort products by">
+                                        <option value="popular"       [%SORTBY type:'products' if:'eq' value:'popular'%]selected[%/SORTBY%]>Most Popular</option>
+                                        <option value="name"          [%SORTBY type:'products' if:'eq' value:'name'%]selected[%/SORTBY%]>Name</option>
+                                        <option value="SKU"           [%SORTBY type:'products' if:'eq' value:'SKU'%]selected[%/SORTBY%]>SKU</option>
+                                        <option value="lowest_price"  [%SORTBY type:'products' if:'eq' value:'lowest_price'%]selected[%/SORTBY%]>Lowest Price</option>
+                                        <option value="highest_price" [%SORTBY type:'products' if:'eq' value:'highest_price'%]selected[%/SORTBY%]>Highest Price</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr aria-hidden="true"/>
+                <div class="[%VIEWBY type:'products' if:'eq' value:'list' if_true:'thumb_list' if_false:'thumb'%][%/VIEWBY%]">
+                    <div class="row products-row">
+            [%/param%]
+            [%param *footer%]
+                    </div>
+                </div>
+                [%IF [@total_results@] > [@config:thumb_limit@]%]
+                <hr aria-hidden="true"/>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        [%paging limit:'3'%]
+                            [%param *previous_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go back one page"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>[%/param%]
+                            [%param *goback_pages%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
+                            [%param *current_page%]<li class="page-item active"><a class="page-link" href="[@url@]" aria-label="Current page">[@page@]</a></li>[%/param%]
+                            [%param *gonext_pages%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go to page [@page@]">[@page@]</a></li>[%/param%]
+                            [%param *next_page%]<li class="page-item"><a class="page-link" href="[@url@]" aria-label="Go forward one page"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>[%/param%]
+                        [%/paging%]
+                    </ul>
+                </nav>
+                [%/IF%]
+            [%/param%]
+            [%param *ifempty%]
+                <div class="row">
+                    <div class="col-12">
+                        <p>No parts found for this vehicle combination. <a href="/">Try a different vehicle</a>.</p>
+                    </div>
+                </div>
+            [%/param%]
+        [%/thumb_list%]
+
+    [%else%]
+
         <p>No vehicle selected. <a href="/">Return to home</a> and select your vehicle first.</p>
-    </div>
 
-    <!-- Loading spinner shown while ajax template loads -->
-    <div id="gss-pfr-loading" class="gss-pfr-loading text-center py-5">
-        <i class="fa fa-spinner fa-spin fa-2x"></i>
-        <p class="mt-2">Loading parts for your vehicle&hellip;</p>
-    </div>
-
-    <!-- Results heading, shown after load -->
-    <h1 id="gss-pfr-heading" style="display:none;" class="display-4 mb-3">Parts for Your Vehicle</h1>
-
-    <!-- Neto ajax template target — $.load_ajax_template injects rendered product grid here -->
-    [%load_ajax_template id:'_gsspf' type:'content' template:'parts-finder-fit' preload:'0' /%]
-    <div id="gss-pfr-results"></div>
+    [%/if%]
 
 </div>
-
-<script>
-(function() {
-    var skus, label;
-    try {
-        skus  = JSON.parse(sessionStorage.getItem('gss_pf_skus') || 'null');
-        label = sessionStorage.getItem('gss_pf_label') || '';
-    } catch(e) { skus = null; label = ''; }
-
-    if (!skus || !skus.length) {
-        document.getElementById('gss-pfr-loading').style.display = 'none';
-        document.getElementById('gss-pfr-nosession').style.display = 'block';
-        return;
-    }
-
-    // Show vehicle banner
-    document.getElementById('gss-pfr-label').textContent = label;
-    document.getElementById('gss-pfr-banner').style.display = '';
-
-    document.getElementById('gss-pfr-change').addEventListener('click', function() {
-        sessionStorage.removeItem('gss_pf_skus');
-        sessionStorage.removeItem('gss_pf_label');
-        window.location.href = '/';
-    });
-
-    // Update page heading
-    var heading = document.getElementById('gss-pfr-heading');
-    if (label) heading.textContent = 'Parts for ' + label;
-
-    // Wait for jQuery + Neto JS to be ready, then load the product grid
-    $(function() {
-        $.load_ajax_template('_gsspf', {
-            fitsku:   skus.join(','),
-            pfresult: 'y'
-        }, {
-            onLoad: function() {
-                document.getElementById('gss-pfr-loading').style.display = 'none';
-                heading.style.display = '';
-                // Move the rendered content into our results div
-                var target = document.getElementById('gss-pfr-results');
-                var tmpl   = document.getElementById('_gsspf');
-                if (tmpl && tmpl.nextSibling) {
-                    target.appendChild(tmpl.nextSibling);
-                }
-            }
-        });
-    });
-})();
-</script>
