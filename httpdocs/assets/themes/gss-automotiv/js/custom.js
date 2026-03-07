@@ -205,6 +205,18 @@ $('.navbar-collapse .burger-menu > div > .nav > li > a.dropdown-toggle').click(f
         $(this).children("span").children("i").toggleClass('fa-plus').toggleClass('fa-minus');
 	}
 });
+// Hide all "Checkout Now" shortcuts — force customers through the cart page where the C&C popup works
+function gssHideCheckoutButtons() {
+	$('.npopup-checkout, button.checkout').hide();
+}
+$(document).ready(function() {
+	gssHideCheckoutButtons();
+	var npopupDesc = document.getElementById('npopupDesc');
+	if (npopupDesc) {
+		new MutationObserver(gssHideCheckoutButtons).observe(npopupDesc, { childList: true, subtree: true });
+	}
+});
+
 $('.navbar-collapse > .burger-menu .nav .nav > li a.dah_subcat').click(function(){
     if($(this).parent('li').hasClass('dah_active')){
 	    $(this).parent('li').toggleClass('dah_active');
